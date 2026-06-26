@@ -1,0 +1,466 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2 effective-5.10 (swiftlang-6.2.0.19.9 clang-1700.3.19.1)
+// swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name HP2AppleSDK
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2
+import CoreData
+import CryptoKit
+import Foundation
+@_exported import HP2AppleSDK
+import HttpClient
+import PassKit
+import Swift
+import UIKit
+import WatchConnectivity
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc(HP2) public class HP2 : ObjectiveC.NSObject {
+  public static var groupID: Swift.String
+  public static let TAG: Swift.String
+  public static let SDK_BUNDLE_ID: Swift.String
+  @objc public init(institutionCode: Swift.String)
+  @objc public init(institutionCode: Swift.String, groupID: Swift.String)
+  @objc public func updateDataBase(cardDataList: [HP2AppleSDK.CardDataModel]) -> Swift.Int
+  @objc public func isAvailable() -> Swift.Bool
+  @objc public func getVersion() -> Swift.String
+  @objc public func isAvailableForCard(panRefId: Swift.String) -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getCards() -> [HP2AppleSDK.Card]?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getCardDataModel(cardID: Swift.String) -> HP2AppleSDK.CardDataModel?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func executeProvisioning(parentViewController: UIKit.UIViewController, cardholderName: Swift.String, panLastFour: Swift.String, cardDescr: Swift.String, panId: Swift.String, pnp: Swift.String, pushRecId: Swift.String, events: (any HP2AppleSDK.CommProtocolInterface)?) throws
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func executeProvisioning(parentViewController: UIKit.UIViewController, institutionCode: Swift.String, cardholderName: Swift.String, panLastFour: Swift.String, cardDescr: Swift.String, panId: Swift.String, pnp: Swift.String, pushRecId: Swift.String, events: (any HP2AppleSDK.CommProtocolInterface)?) throws
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func executeProvisioningOfEncryptedCard(parentViewController: UIKit.UIViewController, cardholderName: Swift.String, panLastFour: Swift.String, cardDescr: Swift.String, panId: Swift.String, pnp: Swift.String, encCard: Swift.String, events: (any HP2AppleSDK.CommProtocolInterface)?) throws
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func executeProvisioningOfEncryptedCard(parentViewController: UIKit.UIViewController, institutionCode: Swift.String, cardholderName: Swift.String, panLastFour: Swift.String, cardDescr: Swift.String, panId: Swift.String, pnp: Swift.String, encCard: Swift.String, events: (any HP2AppleSDK.CommProtocolInterface)?) throws
+  #endif
+  @objc deinit
+}
+extension HP2AppleSDK.HP2 {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func sendToIssuerServer(pushReceiptID: Swift.String?, encCard: Swift.String?, certificates: [Foundation.Data], nonce: Foundation.Data, nonceSignature: Foundation.Data, completionHandler handler: @escaping (PassKit.PKAddPaymentPassRequest) -> Swift.Void)
+  #endif
+}
+extension HP2AppleSDK.HP2 : PassKit.PKAddPaymentPassViewControllerDelegate {
+  @objc dynamic public func addPaymentPassViewController(_ controller: PassKit.PKAddPaymentPassViewController, generateRequestWithCertificateChain certificates: [Foundation.Data], nonce: Foundation.Data, nonceSignature: Foundation.Data, completionHandler handler: @escaping (PassKit.PKAddPaymentPassRequest) -> Swift.Void)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc dynamic public func addPaymentPassViewController(_ controller: PassKit.PKAddPaymentPassViewController, didFinishAdding pass: PassKit.PKPaymentPass?, error: (any Swift.Error)?)
+  #endif
+}
+extension HP2AppleSDK.HP2 : WatchConnectivity.WCSessionDelegate {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @available(iOS 9.3, *)
+  @objc dynamic public func session(_ session: WatchConnectivity.WCSession, activationDidCompleteWith activationState: WatchConnectivity.WCSessionActivationState, error: (any Swift.Error)?)
+  #endif
+  @objc dynamic public func sessionDidBecomeInactive(_ session: WatchConnectivity.WCSession)
+  @objc dynamic public func sessionDidDeactivate(_ session: WatchConnectivity.WCSession)
+}
+@objc public enum CardDataModelType : Swift.Int, Swift.RawRepresentable {
+  case CREDIT
+  case DEBIT
+  public static func getStringValue(value: HP2AppleSDK.CardDataModelType) -> Swift.String
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.Int)
+  #endif
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class HP2Utils {
+  public static func stringToPaymentNetwork(pnpName: Swift.String) throws -> PassKit.PKPaymentNetwork
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class BuildConfig {
+  public static let VERSION_NAME: Swift.String
+  public static let CONFIG_ENVIRONMENT_ID: Swift.String
+  public static let ISSUER_END_POINT: Swift.String
+  public static let p098ucasc: [Swift.UInt8]
+  public static func t72askjdb8921ncaksbcc() -> Swift.String
+  @objc deinit
+}
+extension Foundation.URL {
+  public static func storeURL(for appGroup: Swift.String, databaseName: Swift.String) -> Foundation.URL
+}
+@objc extension HP2AppleSDK.HP2 {
+  @objc dynamic public func getCardsFromCoreData() -> [HP2AppleSDK.CardDataModel]
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc dynamic public func getCardsFromCoreDataByCardID(cardID: Swift.String) -> HP2AppleSDK.CardDataModel?
+  #endif
+  @objc dynamic public func convertImageToBase64String(image: UIKit.UIImage) -> Swift.String
+}
+public class HP2Exception : Swift.Error {
+  @objc public init(_ error: Swift.Int)
+  @objc public init(_ error: Swift.Int, _ message: Swift.String)
+  @objc public func getError() -> Swift.Int
+  @objc public func getMessage() -> Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class Utils {
+  public static func byteArrayToHexString(data: Foundation.Data) -> Swift.String
+  public static func byteArrayToHexString(nsdata: Foundation.NSData) -> Swift.String
+  public static func byteArrayToHexString(bytes: [Swift.UInt8]) -> Swift.String
+  public static func currentTimeMillis() -> Swift.Int64
+  public static func msleep(millisec: Swift.Int64)
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func readFileAssets(file: Swift.String, ext: Swift.String) -> Foundation.NSData?
+  #endif
+  public static func convertBase64StringToImage(imageBase64String: Swift.String) -> UIKit.UIImage
+  @objc deinit
+}
+@available(iOS 14.0, *)
+@objc extension HP2AppleSDK.HP2 {
+  @objc dynamic public func enablePanIdFilter(enable: Swift.Bool)
+  @objc dynamic public func getProvisioningExtensionStatus() -> PassKit.PKIssuerProvisioningExtensionStatus
+  @objc dynamic public func getPassEntriesAvailable() -> [PassKit.PKIssuerProvisioningExtensionPassEntry]
+  @objc dynamic public func getRemotePassEntriesAvailable() -> [PassKit.PKIssuerProvisioningExtensionPassEntry]
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc dynamic public func getAddPaymentPassRequest(certificateChain certificates: [Foundation.Data], nonceSignature: Foundation.Data, nonce: Foundation.Data, pushReceiptID: Swift.String?, issuerEncCard: Swift.String?, completionHandler completion: @escaping (PassKit.PKAddPaymentPassRequest?) -> Swift.Void)
+  #endif
+}
+@_inheritsConvenienceInitializers @objc(CommEvents) open class CommEvents : ObjectiveC.NSObject, HP2AppleSDK.CommProtocolInterface {
+  @objc override dynamic public init()
+  @objc open func onPreExecute()
+  @objc open func onPostExecute(result: HP2AppleSDK.CommEventResult)
+  @objc deinit
+}
+@objc(CardDataModel) public class CardDataModel : ObjectiveC.NSObject {
+  public var cardHolderName: Swift.String?
+  public var cardID: Swift.String?
+  public var cardImageBase64: Swift.String?
+  public var lastFourDigits: Swift.String?
+  public var localizedDescription: Swift.String?
+  public var paymentNetwork: Swift.String?
+  public var cardType: Swift.String?
+  public var encCard: Swift.String?
+  @objc public init(cardHolderName: Swift.String, cardID: Swift.String, cardImageBase64: Swift.String, lastFourDigits: Swift.String, localizedDescription: Swift.String, paymentNetwork: Swift.String)
+  @objc public init(cardHolderName: Swift.String, cardID: Swift.String, cardImageBase64: Swift.String, lastFourDigits: Swift.String, localizedDescription: Swift.String, paymentNetwork: Swift.String, cardType: Swift.String)
+  @objc public init(cardHolderName: Swift.String, cardID: Swift.String, cardImageBase64: Swift.String, lastFourDigits: Swift.String, localizedDescription: Swift.String, paymentNetwork: Swift.String, encCard: Swift.String)
+  @objc public init(cardHolderName: Swift.String, cardID: Swift.String, cardImageBase64: Swift.String, lastFourDigits: Swift.String, localizedDescription: Swift.String, paymentNetwork: Swift.String, cardType: Swift.String, encCard: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getCardHolderName() -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getCardID() -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getCardImageBase64() -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getLastFourDigits() -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getLocalizedDescription() -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getPaymentNetwork() -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getCardType() -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getEncCard() -> Swift.String?
+  #endif
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class HP2ServiceClient {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func executeGetApplePayload<D>(urlWebService: Swift.String, responseClass: D.Type, timeoutSecs: Swift.Int, apiKey: Swift.String?, jwtAuth: Swift.String, data: Swift.String) throws -> any Swift.Decodable where D : Swift.Decodable
+  #endif
+  public static func configureURLSession(timeoutInterval: Foundation.TimeInterval = 30) -> Foundation.URLSessionConfiguration
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class HP2ErrorDetails {
+  public static let SUCCESS: Swift.Int
+  public static let AUTH_ERROR: Swift.Int
+  public static let INVALID_DATA: Swift.Int
+  public static let UNSUPPORTED_VERSION: Swift.Int
+  public static let INVALID_SIGNATURE: Swift.Int
+  public static let NOT_ENTITLED: Swift.Int
+  public static let UNSUPPORTED: Swift.Int
+  public static let USER_CANCELLED: Swift.Int
+  public static let SYSTEM_CANCELLED: Swift.Int
+  public static let UNKNOWN: Swift.Int
+  @objc deinit
+}
+@objc(CommEventResult) public class CommEventResult : ObjectiveC.NSObject {
+  @objc public init(result: Swift.Int, detail: Swift.Int, message: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public init(result: Swift.Int, detail: Swift.Int, message: Swift.String, resultObj: Swift.AnyObject?)
+  #endif
+  @objc public func setResult(result: Swift.Int)
+  @objc public func getResult() -> Swift.Int
+  @objc public func setDetail(detail: Swift.Int)
+  @objc public func getDetail() -> Swift.Int
+  @objc public func setMessage(message: Swift.String)
+  @objc public func getMessage() -> Swift.String
+  @objc public func setResultObject(resultObj: Swift.AnyObject)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getResultObject() -> Swift.AnyObject?
+  #endif
+  @objc deinit
+}
+public struct AppleData : Swift.Encodable {
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct GetApplePushPayloadRequest : Swift.Encodable {
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct GetApplePushPayloadForEncCardRequest : Swift.Encodable {
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct GetApplePushPayloadResponse : Swift.Decodable {
+  public init(from decoder: any Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers public class Hp2AppleLog {
+  public static func w(_ source: Swift.String, _ msg: Swift.String)
+  public static func i(_ source: Swift.String, _ msg: Swift.String)
+  public static func d(_ source: Swift.String, _ msg: Swift.String)
+  public static func e(_ source: Swift.String, _ msg: Swift.String)
+  public static func e(_ source: Swift.String, _ msg: Swift.String, _ exp: Foundation.NSError)
+  public static func e(_ source: Swift.String, _ msg: Swift.String, hp2exp: HP2AppleSDK.HP2Exception)
+  public static func getStringDateTime() -> Swift.String
+  public static func moveExtensionLogToDocumentsFolder()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @available(iOS 13.0, *)
+public class Hp2AppleCrypto {
+  public static func checkEncryptionkey() -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func encrypt(data: Swift.String) -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func decrypt(ciphertext: Swift.String) -> Swift.String?
+  #endif
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(CardExtensionData) nonisolated public class CardExtensionData : CoreData.NSManagedObject {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc override nonisolated dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+  #endif
+  @objc deinit
+}
+@objc public enum CardStatusEnum : Swift.Int, Swift.RawRepresentable {
+  case ACTIVATED
+  case REQUIRES_ACTIVATION
+  case ACTIVATING
+  case SUSPENDED
+  case DEACTIVATED
+  public static func fromActState(_ activationState: PassKit.PKPaymentPassActivationState) -> HP2AppleSDK.CardStatusEnum
+  @available(iOS 13.4, *)
+  public static func fromActState(_ activationState: PassKit.PKSecureElementPass.PassActivationState) -> HP2AppleSDK.CardStatusEnum
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.Int)
+  #endif
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum DataBaseErrors : Swift.Int, Swift.RawRepresentable {
+  case SUCCESS
+  case FAILED_RETRIEVE_KEY_FROM_KEYCHAIN
+  case IOS_VERSION_NOT_SUPPORTED
+  case CONTEXT_MANAGER_NOT_FOUND
+  case EMPTY_MANDATORY_FIELDS
+  case INVALID_IMAGE
+  case ERROR_SAVING_DATABASE
+  public static func getStringValue(value: HP2AppleSDK.DataBaseErrors) -> Swift.String
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.Int)
+  #endif
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class HP2Errors : ObjectiveC.NSObject {
+  public static let SUCCESS: Swift.Int
+  public static let AUTH_ERROR: Swift.Int
+  public static let GENERIC_ERROR: Swift.Int
+  public static let INVALID_DATA: Swift.Int
+  public static let UNSUPPORTED_VERSION: Swift.Int
+  public static let INVALID_SIGNATURE: Swift.Int
+  public static let NOT_ENTITLED: Swift.Int
+  public static let UNSUPPORTED: Swift.Int
+  public static let USER_CANCELLED: Swift.Int
+  public static let SYSTEM_CANCELLED: Swift.Int
+  public func error(for er: any Swift.Error) -> Swift.Int
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct WebServiceException : Swift.Error {
+  public init()
+  public init(_ message: Swift.String)
+  public func getMessage() -> Swift.String
+}
+@objc(JwtAuthorization) public class JwtAuthorization : ObjectiveC.NSObject, Swift.Decodable {
+  required public init(from decoder: any Swift.Decoder) throws
+  public func authorizationExpired() -> Swift.Bool
+  public func refreshExpired() -> Swift.Bool
+  public func getAccessToken() -> Swift.String
+  public func getExpiresIn() -> Swift.Int64
+  public func getRefreshExpiresIn() -> Swift.Int64
+  public func getRefreshToken() -> Swift.String
+  public func getTokenType() -> Swift.String
+  public func getNotBeforePolicy() -> Swift.Int
+  public func getSessionState() -> Swift.String
+  public func getScope() -> Swift.String
+  public func toString() -> Swift.String
+  @objc deinit
+}
+extension HP2AppleSDK.CardExtensionData {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<HP2AppleSDK.CardExtensionData>
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc @NSManaged nonisolated dynamic public var cardHolderName: Swift.String? {
+    @objc get
+    @objc set
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc @NSManaged nonisolated dynamic public var cardID: Swift.String? {
+    @objc get
+    @objc set
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc @NSManaged nonisolated dynamic public var cardImageBase64: Swift.String? {
+    @objc get
+    @objc set
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc @NSManaged nonisolated dynamic public var lastFourDigits: Swift.String? {
+    @objc get
+    @objc set
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc @NSManaged nonisolated dynamic public var localizedDescription: Swift.String? {
+    @objc get
+    @objc set
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc @NSManaged nonisolated dynamic public var paymentNetwork: Swift.String? {
+    @objc get
+    @objc set
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc @NSManaged nonisolated dynamic public var cardType: Swift.String? {
+    @objc get
+    @objc set
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc @NSManaged nonisolated dynamic public var encCard: Swift.String? {
+    @objc get
+    @objc set
+  }
+  #endif
+}
+extension HP2AppleSDK.CardExtensionData : Swift.Identifiable {
+  public typealias ID = Swift.ObjectIdentifier
+}
+public enum HP2ServiceClientEndpoint {
+  case post(body: Swift.String)
+}
+extension HP2AppleSDK.HP2ServiceClientEndpoint : HttpClient.RequestBase {
+  public var path: Swift.String {
+    get
+  }
+  public var method: HttpClient.HTTPMethod {
+    get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  public var headers: HttpClient.RequestHeaders? {
+    get
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public var parameters: HttpClient.RequestParameters? {
+    get
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public var body: HttpClient.RequestBody? {
+    get
+  }
+  #endif
+  public var requestType: HttpClient.RequestType {
+    get
+  }
+  public var responseType: HttpClient.ResponseType {
+    get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  public var progressHandler: HttpClient.ProgressHandler? {
+    get
+    set
+  }
+  #endif
+}
+@objc(Card) public class Card : ObjectiveC.NSObject {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public init(cardId: Swift.String, cardType: HP2AppleSDK.CardType, serialNumber: Swift.String, isRemote: Swift.Bool = false, deviceName: Swift.String, icon: UIKit.UIImage, organizationName: Swift.String, relevantDate: Foundation.Date?, panId: Swift.String?, panLastFour: Swift.String?, tokenId: Swift.String?, tokenLastFour: Swift.String?, activationState: HP2AppleSDK.CardStatusEnum)
+  #endif
+  @objc public func getCardId() -> Swift.String
+  @objc public func getCardType() -> HP2AppleSDK.CardType
+  @objc public func getSerialNumber() -> Swift.String
+  @objc public func getIsRemote() -> Swift.Bool
+  @objc public func getDeviceName() -> Swift.String
+  @objc public func getIcon() -> UIKit.UIImage
+  @objc public func getOrganizationName() -> Swift.String
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getRelevantDate() -> Foundation.Date?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getPanId() -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getPanLastFour() -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getTokenId() -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func getTokenLastFour() -> Swift.String?
+  #endif
+  @objc public func getActivationState() -> HP2AppleSDK.CardStatusEnum
+  @objc deinit
+}
+@objc(CommProtocolInterface) public protocol CommProtocolInterface {
+  @objc func onPreExecute()
+  @objc func onPostExecute(result: HP2AppleSDK.CommEventResult)
+}
+@objc public enum CardType : Swift.Int, Swift.RawRepresentable {
+  case BARCODE
+  case PAYMENT_CARD
+  case SECURE_ELEMENT
+  case ANY
+  public static func fromPassType(_ passType: PassKit.PKPassType) -> HP2AppleSDK.CardType
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.Int)
+  #endif
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension HP2AppleSDK.CardDataModelType : Swift.Equatable {}
+extension HP2AppleSDK.CardDataModelType : Swift.Hashable {}
+extension HP2AppleSDK.CardStatusEnum : Swift.Equatable {}
+extension HP2AppleSDK.CardStatusEnum : Swift.Hashable {}
+extension HP2AppleSDK.DataBaseErrors : Swift.Equatable {}
+extension HP2AppleSDK.DataBaseErrors : Swift.Hashable {}
+extension HP2AppleSDK.CardType : Swift.Equatable {}
+extension HP2AppleSDK.CardType : Swift.Hashable {}

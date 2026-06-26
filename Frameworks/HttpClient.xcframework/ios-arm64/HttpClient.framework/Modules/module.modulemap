@@ -1,0 +1,11 @@
+framework module HttpClient {
+  umbrella header "HttpClient.h"
+  export *
+
+  module * { export * }
+}
+
+module HttpClient.Swift {
+  header "HttpClient-Swift.h"
+  requires objc
+}

@@ -1,0 +1,171 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2 effective-5.10 (swiftlang-6.2.0.19.9 clang-1700.3.19.1)
+// swift-module-flags: -target arm64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name HttpClient
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2
+import Foundation
+@_exported import HttpClient
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public protocol EnvironmentProtocol {
+  #if compiler(>=5.3) && $NonescapableTypes
+  var userAgentDetails: Swift.String? { get set }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  var headers: HttpClient.RequestHeaders? { get }
+  #endif
+  var baseURL: Swift.String { get }
+}
+public class APIEnvironment : HttpClient.EnvironmentProtocol {
+  public var userAgentDetails: Swift.String?
+  public var headers: HttpClient.RequestHeaders?
+  public var baseURL: Swift.String
+  public init(headers: HttpClient.RequestHeaders, baseURL: Swift.String)
+  @objc deinit
+}
+public typealias RequestHeaders = [Swift.String : Swift.String]
+public typealias RequestParameters = [Swift.String : Swift.String]
+public typealias RequestBody = Swift.String
+public typealias ProgressHandler = (Swift.Float) -> Swift.Void
+public protocol RequestBase {
+  var path: Swift.String { get }
+  var method: HttpClient.HTTPMethod { get }
+  #if compiler(>=5.3) && $NonescapableTypes
+  var headers: HttpClient.RequestHeaders? { get }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  var parameters: HttpClient.RequestParameters? { get }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  var body: HttpClient.RequestBody? { get }
+  #endif
+  var requestType: HttpClient.RequestType { get }
+  var responseType: HttpClient.ResponseType { get }
+  #if compiler(>=5.3) && $NonescapableTypes
+  var progressHandler: HttpClient.ProgressHandler? { get set }
+  #endif
+}
+extension HttpClient.RequestBase {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func urlRequest(with environment: any HttpClient.EnvironmentProtocol) -> Foundation.URLRequest?
+  #endif
+}
+@objc @_inheritsConvenienceInitializers open class APISessionDelegate : ObjectiveC.NSObject, Foundation.URLSessionDelegate {
+  open var sessionDidReceiveChallenge: ((Foundation.URLSession, Foundation.URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?))?
+  @objc override dynamic public init()
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func urlSession(_ session: Foundation.URLSession, didReceive challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  #endif
+  @objc deinit
+}
+public protocol APIDispatcherProtocol {
+  init(environment: any HttpClient.EnvironmentProtocol, networkSession: any HttpClient.APISessionProtocol)
+  #if compiler(>=5.3) && $NonescapableTypes
+  func execute(request: any HttpClient.RequestBase, completion: @escaping (HttpClient.APIOperationResult) -> Swift.Void) -> Foundation.URLSessionTask?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  func execute(request: any HttpClient.RequestBase) -> HttpClient.APIOperationResult?
+  #endif
+  func updateEnvironmentHeaders(_ newHeaders: [Swift.String : Swift.String])
+}
+public class APIDispatcher : HttpClient.APIDispatcherProtocol {
+  required public init(environment: any HttpClient.EnvironmentProtocol, networkSession: any HttpClient.APISessionProtocol)
+  public func updateEnvironmentHeaders(_ newHeaders: [Swift.String : Swift.String])
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func execute(request: any HttpClient.RequestBase, completion: @escaping (HttpClient.APIOperationResult) -> Swift.Void) -> Foundation.URLSessionTask?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func execute(request: any HttpClient.RequestBase) -> HttpClient.APIOperationResult?
+  #endif
+  @objc deinit
+}
+public protocol APIOperationProtocol {
+  var request: any HttpClient.RequestBase { get }
+  func execute(in requestDispatcher: any HttpClient.APIDispatcherProtocol, completion: @escaping (HttpClient.APIOperationResult) -> Swift.Void)
+  func cancel()
+}
+public enum APIOperationResult {
+  case result(isSuccessful: Swift.Bool, statusCode: Swift.Int, data: Foundation.Data?)
+  case error(_: any Swift.Error)
+}
+public class APIOperation : HttpClient.APIOperationProtocol {
+  public var request: any HttpClient.RequestBase
+  public init(_ request: any HttpClient.RequestBase)
+  public func cancel()
+  public func execute(in requestDispatcher: any HttpClient.APIDispatcherProtocol, completion: @escaping (HttpClient.APIOperationResult) -> Swift.Void)
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func execute(in requestDispatcher: any HttpClient.APIDispatcherProtocol) -> HttpClient.APIOperationResult?
+  #endif
+  @objc deinit
+}
+public protocol APISessionProtocol {
+  #if compiler(>=5.3) && $NonescapableTypes
+  func dataTask(with request: Foundation.URLRequest, completionHandler: @escaping (Foundation.Data?, Foundation.URLResponse?, (any Swift.Error)?) -> Swift.Void) -> Foundation.URLSessionDataTask?
+  #endif
+}
+@objc @_inheritsConvenienceInitializers public class APISession : ObjectiveC.NSObject {
+  public var delegate: HttpClient.APISessionDelegate!
+  @objc override convenience dynamic public init()
+  public init(configuration: Foundation.URLSessionConfiguration, delegateQueue: Foundation.OperationQueue)
+  public init(configuration: Foundation.URLSessionConfiguration)
+  public init(configuration: Foundation.URLSessionConfiguration, delegate: HttpClient.APISessionDelegate)
+  @objc deinit
+}
+extension HttpClient.APISession : HttpClient.APISessionProtocol {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func dataTask(with request: Foundation.URLRequest, completionHandler: @escaping (Foundation.Data?, Foundation.URLResponse?, (any Swift.Error)?) -> Swift.Void) -> Foundation.URLSessionDataTask?
+  #endif
+}
+extension HttpClient.APISession : Foundation.URLSessionDelegate {
+}
+public enum HttpClientError : Swift.Error {
+  case responseCastError
+  case missingUrlRequest
+  public static func == (a: HttpClient.HttpClientError, b: HttpClient.HttpClientError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum HTTPMethod : Swift.String {
+  case GET
+  case POST
+  case PUT
+  case DELETE
+  public func name() -> Swift.String
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.String)
+  #endif
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum RequestType {
+  case form
+  case json
+  public static func == (a: HttpClient.RequestType, b: HttpClient.RequestType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum ResponseType {
+  case data
+  case json
+  public static func == (a: HttpClient.ResponseType, b: HttpClient.ResponseType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension HttpClient.HttpClientError : Swift.Equatable {}
+extension HttpClient.HttpClientError : Swift.Hashable {}
+extension HttpClient.HTTPMethod : Swift.Equatable {}
+extension HttpClient.HTTPMethod : Swift.Hashable {}
+extension HttpClient.HTTPMethod : Swift.RawRepresentable {}
+extension HttpClient.RequestType : Swift.Equatable {}
+extension HttpClient.RequestType : Swift.Hashable {}
+extension HttpClient.ResponseType : Swift.Equatable {}
+extension HttpClient.ResponseType : Swift.Hashable {}

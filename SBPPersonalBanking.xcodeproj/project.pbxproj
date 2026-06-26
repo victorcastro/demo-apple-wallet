@@ -52,6 +52,10 @@
 		CBA727E307E634EE9F9AC654 /* WalletDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D408E974150D388CB988 /* WalletDataModel.xcdatamodeld */; };
 		CCDA75022FEE7F53004D8154 /* CoreRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDA75012FEE7F52004D8154 /* CoreRequestError.swift */; };
 		CCDA75E82FEEB2D2004D8154 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDA75E72FEEB2D2004D8154 /* LoginRequest.swift */; };
+		CCF8F77E2FEF052400142503 /* HttpClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7782FEF04F400142503 /* HttpClient.xcframework */; };
+		CCF8F77F2FEF052400142503 /* HttpClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7782FEF04F400142503 /* HttpClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CCF8F7802FEF052400142503 /* HP2AppleSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */; };
+		CCF8F7812FEF052400142503 /* HP2AppleSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D904F1129E7532EB88E715BE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F2F746226840C2C645A60 /* CoreDataStack.swift */; };
 		D9C95C1101B2190F9436583E /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC2218A33AE4E46B9D5829E /* AuthorizationViewController.swift */; };
 		DB77B4F65D13ACDEA5C225F4 /* WalletDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D408E974150D388CB988 /* WalletDataModel.xcdatamodeld */; };
@@ -101,6 +105,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		CCF8F7822FEF052400142503 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CCF8F7812FEF052400142503 /* HP2AppleSDK.xcframework in Embed Frameworks */,
+				CCF8F77F2FEF052400142503 /* HttpClient.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FB1DB4D2C92F2641B23C4420 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -143,6 +159,8 @@
 		CC75EE552FEDAE52000791E3 /* SBPPersonalBanking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SBPPersonalBanking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCDA75012FEE7F52004D8154 /* CoreRequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreRequestError.swift; sourceTree = "<group>"; };
 		CCDA75E72FEEB2D2004D8154 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:535X9NBFHG:HST Card Technology - Desenvolvimento de Sistemas Ltda"; lastKnownFileType = wrapper.xcframework; name = HP2AppleSDK.xcframework; path = Frameworks/HP2AppleSDK.xcframework; sourceTree = "<group>"; };
+		CCF8F7782FEF04F400142503 /* HttpClient.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:535X9NBFHG:HST Card Technology - Desenvolvimento de Sistemas Ltda"; lastKnownFileType = wrapper.xcframework; name = HttpClient.xcframework; path = Frameworks/HttpClient.xcframework; sourceTree = "<group>"; };
 		CE423811575D57AE528C73A2 /* CardArtRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CardArtRenderer.swift; sourceTree = "<group>"; };
 		D46BF96C6430A66C751651F9 /* ProvisioningHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProvisioningHandler.swift; path = SBPProvisioningExtension/ProvisioningHandler.swift; sourceTree = "<group>"; };
 		D96E61643CDEB22CC0A5530F /* WalletCardsRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WalletCardsRequest.swift; sourceTree = "<group>"; };
@@ -207,7 +225,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCF8F77E2FEF052400142503 /* HttpClient.xcframework in Frameworks */,
 				A76A028F8E3A8FF541FC71B2 /* SBPCorePersonalBanking.framework in Frameworks */,
+				CCF8F7802FEF052400142503 /* HP2AppleSDK.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +319,8 @@
 		B939A833EFAB2798A26E302B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */,
+				CCF8F7782FEF04F400142503 /* HttpClient.xcframework */,
 				3E5DABFD784A17A84EC95A4D /* iOS */,
 			);
 			name = Frameworks;
@@ -433,6 +455,7 @@
 				CC75EE522FEDAE52000791E3 /* Frameworks */,
 				CC75EE532FEDAE52000791E3 /* Resources */,
 				FB1DB4D2C92F2641B23C4420 /* Embed Foundation Extensions */,
+				CCF8F7822FEF052400142503 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

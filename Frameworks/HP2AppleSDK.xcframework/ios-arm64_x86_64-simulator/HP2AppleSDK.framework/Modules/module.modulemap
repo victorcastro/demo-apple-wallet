@@ -1,0 +1,11 @@
+framework module HP2AppleSDK {
+  umbrella header "HP2AppleSDK.h"
+  export *
+
+  module * { export * }
+}
+
+module HP2AppleSDK.Swift {
+  header "HP2AppleSDK-Swift.h"
+  requires objc
+}
