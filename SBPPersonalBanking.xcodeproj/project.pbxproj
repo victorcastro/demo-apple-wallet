@@ -1,0 +1,1137 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		037D89F722BF1DA6CC3641F7 /* SBPProvisioningUIExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AAC92803B043A4BB692CC648 /* SBPProvisioningUIExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0B08DD674B0CE309123AFB51 /* WalletDataCardEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA272540328572C58A54BB7 /* WalletDataCardEntity.swift */; };
+		0F26EB1A9B2EFFD72E6D6E25 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78983A626C09D8E4D377B3F /* AppGroup.swift */; };
+		105A240E89EE106E5A5CA5AD /* ProvisioningService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5042012B6EDE5F29D9B6AC67 /* ProvisioningService.swift */; };
+		12C032069D049270F20F7286 /* BankCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F10CCF674499AC078E94ADC /* BankCard.swift */; };
+		180FE755C57141C59DBD42AE /* AuthorizationViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77998E8C15654F77A88F4FCE /* AuthorizationViewController+View.swift */; };
+		19BB6D183975B12C760D86EF /* CardArtRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE423811575D57AE528C73A2 /* CardArtRenderer.swift */; };
+		23EC0F9417DD67B0E361455A /* CardArtRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE423811575D57AE528C73A2 /* CardArtRenderer.swift */; };
+		2DC3EAD5F84AF0DB53A298AB /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFE2B394E563C2ED2D9B169 /* CardRepository.swift */; };
+		34CFE4ED9D1C4B3009F639C2 /* CoreRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7F5721646E7E4B0628BC04 /* CoreRequestManager.swift */; };
+		37F1288438E668C14D3A9B31 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F2F746226840C2C645A60 /* CoreDataStack.swift */; };
+		44D5F5858C4B665F41966B17 /* ProvisioningHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9591EA4D1BED244836EA36 /* ProvisioningHandler.swift */; };
+		45A91574BC02FEB3CD922E0C /* WalletDataCardEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA272540328572C58A54BB7 /* WalletDataCardEntity.swift */; };
+		4DD69F351FC766583A6BAD1D /* ProvisioningService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5042012B6EDE5F29D9B6AC67 /* ProvisioningService.swift */; };
+		4FD4B81A0FCA1E674C6EC664 /* ProvisioningHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BF96C6430A66C751651F9 /* ProvisioningHandler.swift */; };
+		6522F990AA2A749255B1BE17 /* WalletDataCardEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA272540328572C58A54BB7 /* WalletDataCardEntity.swift */; };
+		6557E6BEAC93F8689FD72CA0 /* ProvisioningService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5042012B6EDE5F29D9B6AC67 /* ProvisioningService.swift */; };
+		65E7C32D9F1444A3A2E81077 /* AuthorizationViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77998E8C15654F77A88F4FCE /* AuthorizationViewController+View.swift */; };
+		66135208675345344AFF16C7 /* SBPCorePersonalBanking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */; };
+		66C6CCA0ABAED4539970C18A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F2F746226840C2C645A60 /* CoreDataStack.swift */; };
+		69C217B97112FE13E0A5BA58 /* BankCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F10CCF674499AC078E94ADC /* BankCard.swift */; };
+		6B1832ED59C023B12C498292 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78983A626C09D8E4D377B3F /* AppGroup.swift */; };
+		701B987C43390C93A8052CAD /* BankCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F10CCF674499AC078E94ADC /* BankCard.swift */; };
+		72C41FF723FEF9EDE2E17DB7 /* CardRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0A709F8A5946356C78F4D5 /* CardRepositoryTests.swift */; };
+		748AA8A159D20BB4E54250B9 /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFE2B394E563C2ED2D9B169 /* CardRepository.swift */; };
+		7685E1AE2F74F41D3F04F82B /* SBPCorePersonalBanking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */; };
+		7B4643A82BDFC90104DB3720 /* CardArtRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE423811575D57AE528C73A2 /* CardArtRenderer.swift */; };
+		8061CF2553FDA159A9FE6E04 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F2F746226840C2C645A60 /* CoreDataStack.swift */; };
+		8CD11E0053394BFD862EAAB6 /* WalletDataCardEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA272540328572C58A54BB7 /* WalletDataCardEntity.swift */; };
+		8DFFD8E8D34047E6C129273D /* WalletDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D408E974150D388CB988 /* WalletDataModel.xcdatamodeld */; };
+		99694487C689FA58733D2B0C /* SBPProvisioningExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 429A931F6546B6E978A7A289 /* SBPProvisioningExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9A64B32B0CC0D8EFDA0249AE /* ProvisioningPayloadProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363888D284C4E7FD8455569 /* ProvisioningPayloadProvider.swift */; };
+		9B2D52CD462D50B45622748C /* ProvisioningService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5042012B6EDE5F29D9B6AC67 /* ProvisioningService.swift */; };
+		A4CCF9BD236E47F91D9C796D /* WalletProvisionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE47360089137CA1BDCFB775 /* WalletProvisionRequest.swift */; };
+		A63DC439486813653744573B /* WalletCardsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96E61643CDEB22CC0A5530F /* WalletCardsRequest.swift */; };
+		A76A028F8E3A8FF541FC71B2 /* SBPCorePersonalBanking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */; };
+		A9977F52AA298AC636BC47B2 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78983A626C09D8E4D377B3F /* AppGroup.swift */; };
+		ADD9A236B3D340BFD4D2D987 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277BF503B4A09A8A36B0D934 /* Foundation.framework */; };
+		AF92AADDF551F6909B7C665B /* CoreRequestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F06A24CEA81EE4A4D8352 /* CoreRequestManagerTests.swift */; };
+		B819348C767FC113D5D5AAE1 /* ProvisioningPayloadProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363888D284C4E7FD8455569 /* ProvisioningPayloadProvider.swift */; };
+		C5AD8D43E322C8E6F21B52AE /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFE2B394E563C2ED2D9B169 /* CardRepository.swift */; };
+		CB7668BE5509A1A01242F3A3 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C987734722626575BB0F08EF /* NetworkRequest.swift */; };
+		CBA727E307E634EE9F9AC654 /* WalletDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D408E974150D388CB988 /* WalletDataModel.xcdatamodeld */; };
+		CCDA75022FEE7F53004D8154 /* CoreRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDA75012FEE7F52004D8154 /* CoreRequestError.swift */; };
+		CCDA75E82FEEB2D2004D8154 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDA75E72FEEB2D2004D8154 /* LoginRequest.swift */; };
+		D904F1129E7532EB88E715BE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F2F746226840C2C645A60 /* CoreDataStack.swift */; };
+		D9C95C1101B2190F9436583E /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC2218A33AE4E46B9D5829E /* AuthorizationViewController.swift */; };
+		DB77B4F65D13ACDEA5C225F4 /* WalletDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D408E974150D388CB988 /* WalletDataModel.xcdatamodeld */; };
+		DE1F26BECFD5A57C6BE196AD /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFE2B394E563C2ED2D9B169 /* CardRepository.swift */; };
+		DEAB0A23990A8B8D61AAB375 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C5BB6D611D177587E45678 /* AuthorizationViewController.swift */; };
+		F080B8C0D1E6A8410EC0F382 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78983A626C09D8E4D377B3F /* AppGroup.swift */; };
+		F47774FCB6CC8834F1602671 /* BankCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F10CCF674499AC078E94ADC /* BankCard.swift */; };
+		FCF72F1D1C130756C3388B8F /* CardArtRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE423811575D57AE528C73A2 /* CardArtRenderer.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3B1B866731A505FA3BF84871 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC75EE4D2FEDAE52000791E3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BFC46ADA5B5948E5EA3C4D77;
+			remoteInfo = SBPProvisioningExtension;
+		};
+		8FAA0CC0FDB973EE1C45064B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC75EE4D2FEDAE52000791E3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 730D66072FB9046B0AECC1A4;
+			remoteInfo = SBPCorePersonalBanking;
+		};
+		E4226F9DED79B4C2DEF98999 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC75EE4D2FEDAE52000791E3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 730D66072FB9046B0AECC1A4;
+			remoteInfo = SBPCorePersonalBanking;
+		};
+		F09557AF0266ABCF33FE120B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC75EE4D2FEDAE52000791E3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 730D66072FB9046B0AECC1A4;
+			remoteInfo = SBPCorePersonalBanking;
+		};
+		F551BF9880597B6FF8459370 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC75EE4D2FEDAE52000791E3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 77B1D117D915BF8FDEF39029;
+			remoteInfo = SBPProvisioningUIExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FB1DB4D2C92F2641B23C4420 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				99694487C689FA58733D2B0C /* SBPProvisioningExtension.appex in Embed Foundation Extensions */,
+				037D89F722BF1DA6CC3641F7 /* SBPProvisioningUIExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		027F2F746226840C2C645A60 /* CoreDataStack.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		1A0A709F8A5946356C78F4D5 /* CardRepositoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CardRepositoryTests.swift; sourceTree = "<group>"; };
+		1AC2218A33AE4E46B9D5829E /* AuthorizationViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
+		1D9591EA4D1BED244836EA36 /* ProvisioningHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProvisioningHandler.swift; sourceTree = "<group>"; };
+		2363888D284C4E7FD8455569 /* ProvisioningPayloadProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProvisioningPayloadProvider.swift; sourceTree = "<group>"; };
+		277BF503B4A09A8A36B0D934 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		2BFE2B394E563C2ED2D9B169 /* CardRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CardRepository.swift; sourceTree = "<group>"; };
+		342F34E594B1890AB78FC8D6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SBPCorePersonalBanking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3805C5071C01BC09CBA89399 /* SBPProvisioningUIExtension.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = SBPProvisioningUIExtension.entitlements; sourceTree = "<group>"; };
+		3F10CCF674499AC078E94ADC /* BankCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BankCard.swift; sourceTree = "<group>"; };
+		429A931F6546B6E978A7A289 /* SBPProvisioningExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SBPProvisioningExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C3F06A24CEA81EE4A4D8352 /* CoreRequestManagerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoreRequestManagerTests.swift; sourceTree = "<group>"; };
+		5042012B6EDE5F29D9B6AC67 /* ProvisioningService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProvisioningService.swift; sourceTree = "<group>"; };
+		5BA272540328572C58A54BB7 /* WalletDataCardEntity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WalletDataCardEntity.swift; sourceTree = "<group>"; };
+		6BF13EE6FCD9420C96611227 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77998E8C15654F77A88F4FCE /* AuthorizationViewController+View.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AuthorizationViewController+View.swift"; sourceTree = "<group>"; };
+		993E29CC4F1A5A595B9F0AF6 /* WalletDataModel.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = WalletDataModel.xcdatamodel; sourceTree = "<group>"; };
+		A140F0C80D0E6EFF6789E346 /* SBPPersonalBankingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SBPPersonalBankingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAC92803B043A4BB692CC648 /* SBPProvisioningUIExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SBPProvisioningUIExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE47360089137CA1BDCFB775 /* WalletProvisionRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WalletProvisionRequest.swift; sourceTree = "<group>"; };
+		AED217FF014D166E93297884 /* SBPProvisioningExtension.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = SBPProvisioningExtension.entitlements; sourceTree = "<group>"; };
+		C3C5BB6D611D177587E45678 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AuthorizationViewController.swift; path = SBPProvisioningUIExtension/AuthorizationViewController.swift; sourceTree = "<group>"; };
+		C987734722626575BB0F08EF /* NetworkRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		CC75EE552FEDAE52000791E3 /* SBPPersonalBanking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SBPPersonalBanking.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCDA75012FEE7F52004D8154 /* CoreRequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreRequestError.swift; sourceTree = "<group>"; };
+		CCDA75E72FEEB2D2004D8154 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		CE423811575D57AE528C73A2 /* CardArtRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CardArtRenderer.swift; sourceTree = "<group>"; };
+		D46BF96C6430A66C751651F9 /* ProvisioningHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProvisioningHandler.swift; path = SBPProvisioningExtension/ProvisioningHandler.swift; sourceTree = "<group>"; };
+		D96E61643CDEB22CC0A5530F /* WalletCardsRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WalletCardsRequest.swift; sourceTree = "<group>"; };
+		E78983A626C09D8E4D377B3F /* AppGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
+		ED7F5721646E7E4B0628BC04 /* CoreRequestManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoreRequestManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CC75EE672FEDAE54000791E3 /* Exceptions for "SBPPersonalBanking" folder in "SBPPersonalBanking" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CC75EE542FEDAE52000791E3 /* SBPPersonalBanking */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		CC75EE572FEDAE52000791E3 /* SBPPersonalBanking */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CC75EE672FEDAE54000791E3 /* Exceptions for "SBPPersonalBanking" folder in "SBPPersonalBanking" target */,
+			);
+			path = SBPPersonalBanking;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6DE0EE5542295A209D65800A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66135208675345344AFF16C7 /* SBPCorePersonalBanking.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C3ABB08B520A7796BF7D5AB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7685E1AE2F74F41D3F04F82B /* SBPCorePersonalBanking.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9726DD96F3640183031D3B65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADD9A236B3D340BFD4D2D987 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD012D854232B725BABEE3A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC75EE522FEDAE52000791E3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A76A028F8E3A8FF541FC71B2 /* SBPCorePersonalBanking.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0ED0D32F755FE99667AFEBB3 /* SBPProvisioningUIExtension */ = {
+			isa = PBXGroup;
+			children = (
+				1AC2218A33AE4E46B9D5829E /* AuthorizationViewController.swift */,
+				77998E8C15654F77A88F4FCE /* AuthorizationViewController+View.swift */,
+				6BF13EE6FCD9420C96611227 /* Info.plist */,
+				3805C5071C01BC09CBA89399 /* SBPProvisioningUIExtension.entitlements */,
+			);
+			path = SBPProvisioningUIExtension;
+			sourceTree = "<group>";
+		};
+		2DB7712DF13E390C06F68E0A /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				CCDA75012FEE7F52004D8154 /* CoreRequestError.swift */,
+				C987734722626575BB0F08EF /* NetworkRequest.swift */,
+				ED7F5721646E7E4B0628BC04 /* CoreRequestManager.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		3E5DABFD784A17A84EC95A4D /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				277BF503B4A09A8A36B0D934 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		7F96EAB96D2D58E4470ADA5F /* SandboxBridge */ = {
+			isa = PBXGroup;
+			children = (
+				D46BF96C6430A66C751651F9 /* ProvisioningHandler.swift */,
+				C3C5BB6D611D177587E45678 /* AuthorizationViewController.swift */,
+			);
+			name = SandboxBridge;
+			sourceTree = "<group>";
+		};
+		8EB5974532592058F1E666AC /* SBPPersonalBankingTests */ = {
+			isa = PBXGroup;
+			children = (
+				1A0A709F8A5946356C78F4D5 /* CardRepositoryTests.swift */,
+				4C3F06A24CEA81EE4A4D8352 /* CoreRequestManagerTests.swift */,
+			);
+			path = SBPPersonalBankingTests;
+			sourceTree = "<group>";
+		};
+		9FA8FC1ABADA4B88863DB4A9 /* SBPCorePersonalBanking */ = {
+			isa = PBXGroup;
+			children = (
+				2DB7712DF13E390C06F68E0A /* Networking */,
+				B0BB44FB70DB9C25E58BB564 /* Services */,
+			);
+			path = SBPCorePersonalBanking;
+			sourceTree = "<group>";
+		};
+		A741C9FB73C8B28C2C50DA30 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E78983A626C09D8E4D377B3F /* AppGroup.swift */,
+				3F10CCF674499AC078E94ADC /* BankCard.swift */,
+				2BFE2B394E563C2ED2D9B169 /* CardRepository.swift */,
+				5042012B6EDE5F29D9B6AC67 /* ProvisioningService.swift */,
+				CE423811575D57AE528C73A2 /* CardArtRenderer.swift */,
+				5BA272540328572C58A54BB7 /* WalletDataCardEntity.swift */,
+				027F2F746226840C2C645A60 /* CoreDataStack.swift */,
+				8E76D408E974150D388CB988 /* WalletDataModel.xcdatamodeld */,
+				2363888D284C4E7FD8455569 /* ProvisioningPayloadProvider.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		B0BB44FB70DB9C25E58BB564 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D96E61643CDEB22CC0A5530F /* WalletCardsRequest.swift */,
+				AE47360089137CA1BDCFB775 /* WalletProvisionRequest.swift */,
+				CCDA75E72FEEB2D2004D8154 /* LoginRequest.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		B939A833EFAB2798A26E302B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3E5DABFD784A17A84EC95A4D /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC75EE4C2FEDAE52000791E3 = {
+			isa = PBXGroup;
+			children = (
+				CC75EE572FEDAE52000791E3 /* SBPPersonalBanking */,
+				9FA8FC1ABADA4B88863DB4A9 /* SBPCorePersonalBanking */,
+				A741C9FB73C8B28C2C50DA30 /* Shared */,
+				ECA4209D04539F94CAB2753C /* SBPProvisioningExtension */,
+				0ED0D32F755FE99667AFEBB3 /* SBPProvisioningUIExtension */,
+				8EB5974532592058F1E666AC /* SBPPersonalBankingTests */,
+				7F96EAB96D2D58E4470ADA5F /* SandboxBridge */,
+				CC75EE562FEDAE52000791E3 /* Products */,
+				B939A833EFAB2798A26E302B /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CC75EE562FEDAE52000791E3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC75EE552FEDAE52000791E3 /* SBPPersonalBanking.app */,
+				429A931F6546B6E978A7A289 /* SBPProvisioningExtension.appex */,
+				AAC92803B043A4BB692CC648 /* SBPProvisioningUIExtension.appex */,
+				A140F0C80D0E6EFF6789E346 /* SBPPersonalBankingTests.xctest */,
+				3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ECA4209D04539F94CAB2753C /* SBPProvisioningExtension */ = {
+			isa = PBXGroup;
+			children = (
+				1D9591EA4D1BED244836EA36 /* ProvisioningHandler.swift */,
+				342F34E594B1890AB78FC8D6 /* Info.plist */,
+				AED217FF014D166E93297884 /* SBPProvisioningExtension.entitlements */,
+			);
+			path = SBPProvisioningExtension;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1EF3E4D963C9079F9F78CDDF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		730D66072FB9046B0AECC1A4 /* SBPCorePersonalBanking */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 650C0B9136CD91EB43101BD1 /* Build configuration list for PBXNativeTarget "SBPCorePersonalBanking" */;
+			buildPhases = (
+				1EF3E4D963C9079F9F78CDDF /* Headers */,
+				4E7EB06C2CEDDD2247D3D243 /* Sources */,
+				9726DD96F3640183031D3B65 /* Frameworks */,
+				6A22BB0E14714593BDC640BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SBPCorePersonalBanking;
+			productName = SBPCorePersonalBanking;
+			productReference = 3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		77B1D117D915BF8FDEF39029 /* SBPProvisioningUIExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC2BA55DC1DD00C7F337C8F0 /* Build configuration list for PBXNativeTarget "SBPProvisioningUIExtension" */;
+			buildPhases = (
+				120B90ACCE55BC91B132F22F /* Sources */,
+				BD012D854232B725BABEE3A4 /* Frameworks */,
+				D45ED923E382633158868AB3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SBPProvisioningUIExtension;
+			productName = SBPProvisioningUIExtension;
+			productReference = AAC92803B043A4BB692CC648 /* SBPProvisioningUIExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		AEB668790F58BD402598998A /* SBPPersonalBankingTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F0DA393BDA7F3F30DF4DE2B /* Build configuration list for PBXNativeTarget "SBPPersonalBankingTests" */;
+			buildPhases = (
+				F221F3523B875C2F37D20DCD /* Sources */,
+				6DE0EE5542295A209D65800A /* Frameworks */,
+				0A1498784541D902298CBD35 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F538DA9C353B21641FCC043D /* PBXTargetDependency */,
+			);
+			name = SBPPersonalBankingTests;
+			productName = SBPPersonalBankingTests;
+			productReference = A140F0C80D0E6EFF6789E346 /* SBPPersonalBankingTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BFC46ADA5B5948E5EA3C4D77 /* SBPProvisioningExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F6669E7AD766E447DAE6EF1 /* Build configuration list for PBXNativeTarget "SBPProvisioningExtension" */;
+			buildPhases = (
+				A6EE7CC494033C574E88407D /* Sources */,
+				8C3ABB08B520A7796BF7D5AB /* Frameworks */,
+				35E3519E7721743450E0185D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				40784CBD4EB7DE477EC481C0 /* PBXTargetDependency */,
+			);
+			name = SBPProvisioningExtension;
+			productName = SBPProvisioningExtension;
+			productReference = 429A931F6546B6E978A7A289 /* SBPProvisioningExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		CC75EE542FEDAE52000791E3 /* SBPPersonalBanking */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC75EE682FEDAE54000791E3 /* Build configuration list for PBXNativeTarget "SBPPersonalBanking" */;
+			buildPhases = (
+				CC75EE512FEDAE52000791E3 /* Sources */,
+				CC75EE522FEDAE52000791E3 /* Frameworks */,
+				CC75EE532FEDAE52000791E3 /* Resources */,
+				FB1DB4D2C92F2641B23C4420 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2B082EAC292E79C499619461 /* PBXTargetDependency */,
+				91CD1B4B044D336084CAF0A2 /* PBXTargetDependency */,
+				B3CCE10B0BD65339E2ADB8CD /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CC75EE572FEDAE52000791E3 /* SBPPersonalBanking */,
+			);
+			name = SBPPersonalBanking;
+			productName = SBPPersonalBanking;
+			productReference = CC75EE552FEDAE52000791E3 /* SBPPersonalBanking.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CC75EE4D2FEDAE52000791E3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2650;
+				LastUpgradeCheck = 2650;
+				TargetAttributes = {
+					CC75EE542FEDAE52000791E3 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+				};
+			};
+			buildConfigurationList = CC75EE502FEDAE52000791E3 /* Build configuration list for PBXProject "SBPPersonalBanking" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CC75EE4C2FEDAE52000791E3;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = CC75EE562FEDAE52000791E3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CC75EE542FEDAE52000791E3 /* SBPPersonalBanking */,
+				730D66072FB9046B0AECC1A4 /* SBPCorePersonalBanking */,
+				BFC46ADA5B5948E5EA3C4D77 /* SBPProvisioningExtension */,
+				77B1D117D915BF8FDEF39029 /* SBPProvisioningUIExtension */,
+				AEB668790F58BD402598998A /* SBPPersonalBankingTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0A1498784541D902298CBD35 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35E3519E7721743450E0185D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A22BB0E14714593BDC640BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC75EE532FEDAE52000791E3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45ED923E382633158868AB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		120B90ACCE55BC91B132F22F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9C95C1101B2190F9436583E /* AuthorizationViewController.swift in Sources */,
+				180FE755C57141C59DBD42AE /* AuthorizationViewController+View.swift in Sources */,
+				A9977F52AA298AC636BC47B2 /* AppGroup.swift in Sources */,
+				69C217B97112FE13E0A5BA58 /* BankCard.swift in Sources */,
+				DE1F26BECFD5A57C6BE196AD /* CardRepository.swift in Sources */,
+				4DD69F351FC766583A6BAD1D /* ProvisioningService.swift in Sources */,
+				FCF72F1D1C130756C3388B8F /* CardArtRenderer.swift in Sources */,
+				45A91574BC02FEB3CD922E0C /* WalletDataCardEntity.swift in Sources */,
+				8061CF2553FDA159A9FE6E04 /* CoreDataStack.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E7EB06C2CEDDD2247D3D243 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCDA75022FEE7F53004D8154 /* CoreRequestError.swift in Sources */,
+				CB7668BE5509A1A01242F3A3 /* NetworkRequest.swift in Sources */,
+				34CFE4ED9D1C4B3009F639C2 /* CoreRequestManager.swift in Sources */,
+				CCDA75E82FEEB2D2004D8154 /* LoginRequest.swift in Sources */,
+				A63DC439486813653744573B /* WalletCardsRequest.swift in Sources */,
+				A4CCF9BD236E47F91D9C796D /* WalletProvisionRequest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6EE7CC494033C574E88407D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44D5F5858C4B665F41966B17 /* ProvisioningHandler.swift in Sources */,
+				6B1832ED59C023B12C498292 /* AppGroup.swift in Sources */,
+				12C032069D049270F20F7286 /* BankCard.swift in Sources */,
+				748AA8A159D20BB4E54250B9 /* CardRepository.swift in Sources */,
+				9B2D52CD462D50B45622748C /* ProvisioningService.swift in Sources */,
+				23EC0F9417DD67B0E361455A /* CardArtRenderer.swift in Sources */,
+				6522F990AA2A749255B1BE17 /* WalletDataCardEntity.swift in Sources */,
+				D904F1129E7532EB88E715BE /* CoreDataStack.swift in Sources */,
+				CBA727E307E634EE9F9AC654 /* WalletDataModel.xcdatamodeld in Sources */,
+				9A64B32B0CC0D8EFDA0249AE /* ProvisioningPayloadProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC75EE512FEDAE52000791E3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F26EB1A9B2EFFD72E6D6E25 /* AppGroup.swift in Sources */,
+				701B987C43390C93A8052CAD /* BankCard.swift in Sources */,
+				2DC3EAD5F84AF0DB53A298AB /* CardRepository.swift in Sources */,
+				105A240E89EE106E5A5CA5AD /* ProvisioningService.swift in Sources */,
+				19BB6D183975B12C760D86EF /* CardArtRenderer.swift in Sources */,
+				8CD11E0053394BFD862EAAB6 /* WalletDataCardEntity.swift in Sources */,
+				37F1288438E668C14D3A9B31 /* CoreDataStack.swift in Sources */,
+				DB77B4F65D13ACDEA5C225F4 /* WalletDataModel.xcdatamodeld in Sources */,
+				B819348C767FC113D5D5AAE1 /* ProvisioningPayloadProvider.swift in Sources */,
+				4FD4B81A0FCA1E674C6EC664 /* ProvisioningHandler.swift in Sources */,
+				DEAB0A23990A8B8D61AAB375 /* AuthorizationViewController.swift in Sources */,
+				65E7C32D9F1444A3A2E81077 /* AuthorizationViewController+View.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F221F3523B875C2F37D20DCD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				72C41FF723FEF9EDE2E17DB7 /* CardRepositoryTests.swift in Sources */,
+				F080B8C0D1E6A8410EC0F382 /* AppGroup.swift in Sources */,
+				F47774FCB6CC8834F1602671 /* BankCard.swift in Sources */,
+				C5AD8D43E322C8E6F21B52AE /* CardRepository.swift in Sources */,
+				6557E6BEAC93F8689FD72CA0 /* ProvisioningService.swift in Sources */,
+				7B4643A82BDFC90104DB3720 /* CardArtRenderer.swift in Sources */,
+				0B08DD674B0CE309123AFB51 /* WalletDataCardEntity.swift in Sources */,
+				66C6CCA0ABAED4539970C18A /* CoreDataStack.swift in Sources */,
+				8DFFD8E8D34047E6C129273D /* WalletDataModel.xcdatamodeld in Sources */,
+				AF92AADDF551F6909B7C665B /* CoreRequestManagerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2B082EAC292E79C499619461 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SBPProvisioningExtension;
+			target = BFC46ADA5B5948E5EA3C4D77 /* SBPProvisioningExtension */;
+			targetProxy = 3B1B866731A505FA3BF84871 /* PBXContainerItemProxy */;
+		};
+		40784CBD4EB7DE477EC481C0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SBPCorePersonalBanking;
+			target = 730D66072FB9046B0AECC1A4 /* SBPCorePersonalBanking */;
+			targetProxy = 8FAA0CC0FDB973EE1C45064B /* PBXContainerItemProxy */;
+		};
+		91CD1B4B044D336084CAF0A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SBPProvisioningUIExtension;
+			target = 77B1D117D915BF8FDEF39029 /* SBPProvisioningUIExtension */;
+			targetProxy = F551BF9880597B6FF8459370 /* PBXContainerItemProxy */;
+		};
+		B3CCE10B0BD65339E2ADB8CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SBPCorePersonalBanking;
+			target = 730D66072FB9046B0AECC1A4 /* SBPCorePersonalBanking */;
+			targetProxy = E4226F9DED79B4C2DEF98999 /* PBXContainerItemProxy */;
+		};
+		F538DA9C353B21641FCC043D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SBPCorePersonalBanking;
+			target = 730D66072FB9046B0AECC1A4 /* SBPCorePersonalBanking */;
+			targetProxy = F09557AF0266ABCF33FE120B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3888B32909E7EBA923E13F9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = SBPProvisioningUIExtension/SBPProvisioningUIExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SBPProvisioningUIExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SBP Authorize";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPPersonalBanking.ProvisioningUIExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		53951E679C1B181E918AB782 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = SBPProvisioningExtension/SBPProvisioningExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SBPProvisioningExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SBP Provisioning";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPPersonalBanking.ProvisioningExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		949A8C12CBD542F6B859B9B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPCorePersonalBanking;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		9DE17E1A3977632A68F8A794 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = SBPProvisioningExtension/SBPProvisioningExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SBPProvisioningExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SBP Provisioning";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPPersonalBanking.ProvisioningExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A1CAD18C0F942A05BD85F8D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPCorePersonalBanking;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A85651901B86051EA21F261C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = SBPProvisioningUIExtension/SBPProvisioningUIExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SBPProvisioningUIExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SBP Authorize";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPPersonalBanking.ProvisioningUIExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		B3E408F9920BA636B768C4AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPPersonalBanking.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BE609E7DFC1F383F0283DC99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPPersonalBanking.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CC75EE692FEDAE54000791E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SBPPersonalBanking/SBPPersonalBanking.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SBPPersonalBanking/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SBPDemo Wallet";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPPersonalBanking;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		CC75EE6A2FEDAE54000791E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SBPPersonalBanking/SBPPersonalBanking.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SBPPersonalBanking/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SBPDemo Wallet";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPPersonalBanking;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		CC75EE6B2FEDAE54000791E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CC75EE6C2FEDAE54000791E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		650C0B9136CD91EB43101BD1 /* Build configuration list for PBXNativeTarget "SBPCorePersonalBanking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				949A8C12CBD542F6B859B9B9 /* Release */,
+				A1CAD18C0F942A05BD85F8D3 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F0DA393BDA7F3F30DF4DE2B /* Build configuration list for PBXNativeTarget "SBPPersonalBankingTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE609E7DFC1F383F0283DC99 /* Release */,
+				B3E408F9920BA636B768C4AB /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F6669E7AD766E447DAE6EF1 /* Build configuration list for PBXNativeTarget "SBPProvisioningExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DE17E1A3977632A68F8A794 /* Release */,
+				53951E679C1B181E918AB782 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC75EE502FEDAE52000791E3 /* Build configuration list for PBXProject "SBPPersonalBanking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC75EE6B2FEDAE54000791E3 /* Debug */,
+				CC75EE6C2FEDAE54000791E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC75EE682FEDAE54000791E3 /* Build configuration list for PBXNativeTarget "SBPPersonalBanking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC75EE692FEDAE54000791E3 /* Debug */,
+				CC75EE6A2FEDAE54000791E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC2BA55DC1DD00C7F337C8F0 /* Build configuration list for PBXNativeTarget "SBPProvisioningUIExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3888B32909E7EBA923E13F9A /* Release */,
+				A85651901B86051EA21F261C /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8E76D408E974150D388CB988 /* WalletDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				993E29CC4F1A5A595B9F0AF6 /* WalletDataModel.xcdatamodel */,
+			);
+			currentVersion = 993E29CC4F1A5A595B9F0AF6 /* WalletDataModel.xcdatamodel */;
+			path = WalletDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = CC75EE4D2FEDAE52000791E3 /* Project object */;
+}

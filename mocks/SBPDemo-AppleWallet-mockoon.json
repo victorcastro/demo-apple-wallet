@@ -1,0 +1,410 @@
+{
+  "uuid": "5ad5aa90-f17d-4a17-a916-ec7f78e15089",
+  "lastMigration": 33,
+  "name": "HST Wallet Mock",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 5001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "22777928-cb8f-468b-8be7-74320ea6aaf3",
+      "type": "http",
+      "documentation": "Valida el login y devuelve cookieJoy cuando las credenciales son correctas",
+      "method": "post",
+      "endpoint": "login",
+      "responses": [
+        {
+          "uuid": "e6f9ecf0-c706-4e8e-85a3-b50fd2f8dd2f",
+          "body": "{\n  \"cookieJoy\": \"joy-cookie-12345678\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "dni=12345678 password=1234",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "dni",
+              "value": "12345678",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "1234",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "5d515f77-b075-4b96-8f06-6c1211a3ad31",
+          "body": "{\n  \"error\": \"Credenciales invalidas\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "default failure",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "76d640ff-0821-43dc-b1f8-09f8215b0535",
+      "type": "http",
+      "documentation": "Lista de tarjetas del usuario (estructura HST)",
+      "method": "get",
+      "endpoint": "cards-wallet",
+      "responses": [
+        {
+          "uuid": "6d6e8ef0-2715-4123-b0d0-630654b81f11",
+          "body": "[\n  {\n    \"cardHolderName\": \"Victor Castro\",\n    \"cardID\": \"card-visa-gold-001\",\n    \"cardImageBase64\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M8AAAMBAQDJ/IQ2AAAAAElFTkSuQmCC\",\n    \"cardType\": \"credit\",\n    \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRkbWx6WVMwd01ERT0iLCAiYWN0aXZhdGlvbkRhdGEiOiAiUVVOVUxXTmhjbVF0ZG1sellTMHdNREU9IiwgImVwaGVtZXJhbFB1YmxpY0tleSI6ICJSVkJMTFdOaGNtUXRkbWx6WVMwd01ERT0ifQ==\",\n    \"lastFourDigits\": \"4821\",\n    \"localizedDescription\": \"SBP Visa Gold\",\n    \"paymentNetwork\": \"Visa\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "count = 1",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "count",
+              "value": "1",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "cd3726d3-c9a1-442f-bd32-2db1f340ef95",
+          "body": "[\n  {\n    \"cardHolderName\": \"Victor Castro\",\n    \"cardID\": \"card-visa-gold-001\",\n    \"cardImageBase64\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M8AAAMBAQDJ/IQ2AAAAAElFTkSuQmCC\",\n    \"cardType\": \"credit\",\n    \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRkbWx6WVMwd01ERT0iLCAiYWN0aXZhdGlvbkRhdGEiOiAiUVVOVUxXTmhjbVF0ZG1sellTMHdNREU9IiwgImVwaGVtZXJhbFB1YmxpY0tleSI6ICJSVkJMTFdOaGNtUXRkbWx6WVMwd01ERT0ifQ==\",\n    \"lastFourDigits\": \"4821\",\n    \"localizedDescription\": \"SBP Visa Gold\",\n    \"paymentNetwork\": \"Visa\"\n  },\n  {\n    \"cardHolderName\": \"Victor Castro\",\n    \"cardID\": \"card-mc-platinum-002\",\n    \"cardImageBase64\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M8AAAMBAQDJ/IQ2AAAAAElFTkSuQmCC\",\n    \"cardType\": \"credit\",\n    \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRiV010TURBeSIsICJhY3RpdmF0aW9uRGF0YSI6ICJRVU5VTFdOaGNtUXRiV010TURBeSIsICJlcGhlbWVyYWxQdWJsaWNLZXkiOiAiUlZCTExXTmhjbVF0YldNdE1EQXkifQ==\",\n    \"lastFourDigits\": \"9034\",\n    \"localizedDescription\": \"SBP Mastercard Platinum\",\n    \"paymentNetwork\": \"MasterCard\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "count = 2",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "count",
+              "value": "2",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "aa2c154a-2aa6-4f47-a71c-79ded1b395d3",
+          "body": "[\n  {\n    \"cardHolderName\": \"Victor Castro\",\n    \"cardID\": \"card-visa-gold-001\",\n    \"cardImageBase64\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M8AAAMBAQDJ/IQ2AAAAAElFTkSuQmCC\",\n    \"cardType\": \"credit\",\n    \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRkbWx6WVMwd01ERT0iLCAiYWN0aXZhdGlvbkRhdGEiOiAiUVVOVUxXTmhjbVF0ZG1sellTMHdNREU9IiwgImVwaGVtZXJhbFB1YmxpY0tleSI6ICJSVkJMTFdOaGNtUXRkbWx6WVMwd01ERT0ifQ==\",\n    \"lastFourDigits\": \"4821\",\n    \"localizedDescription\": \"SBP Visa Gold\",\n    \"paymentNetwork\": \"Visa\"\n  },\n  {\n    \"cardHolderName\": \"Victor Castro\",\n    \"cardID\": \"card-mc-platinum-002\",\n    \"cardImageBase64\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M8AAAMBAQDJ/IQ2AAAAAElFTkSuQmCC\",\n    \"cardType\": \"credit\",\n    \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRiV010TURBeSIsICJhY3RpdmF0aW9uRGF0YSI6ICJRVU5VTFdOaGNtUXRiV010TURBeSIsICJlcGhlbWVyYWxQdWJsaWNLZXkiOiAiUlZCTExXTmhjbVF0YldNdE1EQXkifQ==\",\n    \"lastFourDigits\": \"9034\",\n    \"localizedDescription\": \"SBP Mastercard Platinum\",\n    \"paymentNetwork\": \"MasterCard\"\n  },\n  {\n    \"cardHolderName\": \"Victor Castro\",\n    \"cardID\": \"card-amex-gold-003\",\n    \"cardImageBase64\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M8AAAMBAQDJ/IQ2AAAAAElFTkSuQmCC\",\n    \"cardType\": \"credit\",\n    \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRZVzFsZUMwd01ETT0iLCAiYWN0aXZhdGlvbkRhdGEiOiAiUVVOVUxXTmhjbVF0WVcxbGVDMHdNRE09IiwgImVwaGVtZXJhbFB1YmxpY0tleSI6ICJSVkJMTFdOaGNtUXRZVzFsZUMwd01ETT0ifQ==\",\n    \"lastFourDigits\": \"1007\",\n    \"localizedDescription\": \"SBP Amex Gold\",\n    \"paymentNetwork\": \"Amex\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "count = 3 / default",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "count",
+              "value": "3",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "1a4bcc8f-9453-4c1c-95ea-ea3713372bdb",
+          "body": "[\n  {\n    \"cardHolderName\": \"Victor Castro\",\n    \"cardID\": \"card-visa-gold-001\",\n    \"cardImageBase64\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M8AAAMBAQDJ/IQ2AAAAAElFTkSuQmCC\",\n    \"cardType\": \"credit\",\n    \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRkbWx6WVMwd01ERT0iLCAiYWN0aXZhdGlvbkRhdGEiOiAiUVVOVUxXTmhjbVF0ZG1sellTMHdNREU9IiwgImVwaGVtZXJhbFB1YmxpY0tleSI6ICJSVkJMTFdOaGNtUXRkbWx6WVMwd01ERT0ifQ==\",\n    \"lastFourDigits\": \"4821\",\n    \"localizedDescription\": \"SBP Visa Gold\",\n    \"paymentNetwork\": \"Visa\"\n  },\n  {\n    \"cardHolderName\": \"Victor Castro\",\n    \"cardID\": \"card-mc-platinum-002\",\n    \"cardImageBase64\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M8AAAMBAQDJ/IQ2AAAAAElFTkSuQmCC\",\n    \"cardType\": \"credit\",\n    \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRiV010TURBeSIsICJhY3RpdmF0aW9uRGF0YSI6ICJRVU5VTFdOaGNtUXRiV010TURBeSIsICJlcGhlbWVyYWxQdWJsaWNLZXkiOiAiUlZCTExXTmhjbVF0YldNdE1EQXkifQ==\",\n    \"lastFourDigits\": \"9034\",\n    \"localizedDescription\": \"SBP Mastercard Platinum\",\n    \"paymentNetwork\": \"MasterCard\"\n  },\n  {\n    \"cardHolderName\": \"Victor Castro\",\n    \"cardID\": \"card-amex-gold-003\",\n    \"cardImageBase64\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M8AAAMBAQDJ/IQ2AAAAAElFTkSuQmCC\",\n    \"cardType\": \"credit\",\n    \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRZVzFsZUMwd01ETT0iLCAiYWN0aXZhdGlvbkRhdGEiOiAiUVVOVUxXTmhjbVF0WVcxbGVDMHdNRE09IiwgImVwaGVtZXJhbFB1YmxpY0tleSI6ICJSVkJMTFdOaGNtUXRZVzFsZUMwd01ETT0ifQ==\",\n    \"lastFourDigits\": \"1007\",\n    \"localizedDescription\": \"SBP Amex Gold\",\n    \"paymentNetwork\": \"Amex\"\n  },\n  {\n    \"cardHolderName\": \"Victor Castro\",\n    \"cardID\": \"card-visa-debit-004\",\n    \"cardImageBase64\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M8AAAMBAQDJ/IQ2AAAAAElFTkSuQmCC\",\n    \"cardType\": \"debit\",\n    \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRkbWx6WVMwd01EQT0iLCAiYWN0aXZhdGlvbkRhdGEiOiAiUVVOVUxXTmhjbVF0ZG1sellTMHdNRFE9IiwgImVwaGVtZXJhbFB1YmxpY0tleSI6ICJSVkJMTFdOaGNtUXRkbWx6WVMwd01EUT0ifQ==\",\n    \"lastFourDigits\": \"2210\",\n    \"localizedDescription\": \"SBP Visa Debito\",\n    \"paymentNetwork\": \"Visa\"\n  },\n  {\n    \"cardHolderName\": \"Victor Castro\",\n    \"cardID\": \"card-mc-business-005\",\n    \"cardImageBase64\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M8AAAMBAQDJ/IQ2AAAAAElFTkSuQmCC\",\n    \"cardType\": \"debit\",\n    \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRiV010TURBMU8iLCAiYWN0aXZhdGlvbkRhdGEiOiAiUVVOVUxXTmhjbVF0YldNdE1EQTFPIiwgImVwaGVtZXJhbFB1YmxpY0tleSI6ICJSVkJMTFdOaGNtUXRiV010TURBMU8ifQ==\",\n    \"lastFourDigits\": \"7755\",\n    \"localizedDescription\": \"SBP Mastercard Debito Negocios\",\n    \"paymentNetwork\": \"MasterCard\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "count = 5",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "count",
+              "value": "5",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "f3dc9d28-2ec6-4b18-a704-8136b5e1da38",
+      "type": "http",
+      "documentation": "Devuelve el encCard para un cardID dado",
+      "method": "post",
+      "endpoint": "provision",
+      "responses": [
+        {
+          "uuid": "81bf9b32-af37-4a62-bfbc-aec7481e87ad",
+          "body": "{\n  \"cardID\": \"card-visa-gold-001\",\n  \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRkbWx6WVMwd01ERT0iLCAiYWN0aXZhdGlvbkRhdGEiOiAiUVVOVUxXTmhjbVF0ZG1sellTMHdNREU9IiwgImVwaGVtZXJhbFB1YmxpY0tleSI6ICJSVkJMTFdOaGNtUXRkbWx6WVMwd01ERT0ifQ==\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "cardID = card-visa-gold-001",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "cardID",
+              "value": "card-visa-gold-001",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "2084fb6b-456d-4ef6-abf3-7413baad91e0",
+          "body": "{\n  \"cardID\": \"card-mc-platinum-002\",\n  \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRiV010TURBeSIsICJhY3RpdmF0aW9uRGF0YSI6ICJRVU5VTFdOaGNtUXRiV010TURBeSIsICJlcGhlbWVyYWxQdWJsaWNLZXkiOiAiUlZCTExXTmhjbVF0YldNdE1EQXkifQ==\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "cardID = card-mc-platinum-002",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "cardID",
+              "value": "card-mc-platinum-002",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "434a2dea-a4b1-4357-9bed-0ba554f48b53",
+          "body": "{\n  \"cardID\": \"card-amex-gold-003\",\n  \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRZVzFsZUMwd01ETT0iLCAiYWN0aXZhdGlvbkRhdGEiOiAiUVVOVUxXTmhjbVF0WVcxbGVDMHdNRE09IiwgImVwaGVtZXJhbFB1YmxpY0tleSI6ICJSVkJMTFdOaGNtUXRZVzFsZUMwd01ETT0ifQ==\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "cardID = card-amex-gold-003",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "cardID",
+              "value": "card-amex-gold-003",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "ab5c1d0f-7ce2-4942-9ed5-7fc0ddc6849f",
+          "body": "{\n  \"cardID\": \"card-visa-debit-004\",\n  \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRkbWx6WVMwd01EQT0iLCAiYWN0aXZhdGlvbkRhdGEiOiAiUVVOVUxXTmhjbVF0ZG1sellTMHdNRFE9IiwgImVwaGVtZXJhbFB1YmxpY0tleSI6ICJSVkJMTFdOaGNtUXRkbWx6WVMwd01EUT0ifQ==\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "cardID = card-visa-debit-004",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "cardID",
+              "value": "card-visa-debit-004",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c7c73a52-1fc7-422d-a5f8-6898d58b2343",
+          "body": "{\n  \"cardID\": \"card-mc-business-005\",\n  \"encCard\": \"eyJlbmNyeXB0ZWRQYXNzRGF0YSI6ICJSVTVETFdOaGNtUXRiV010TURBMU8iLCAiYWN0aXZhdGlvbkRhdGEiOiAiUVVOVUxXTmhjbVF0YldNdE1EQTFPIiwgImVwaGVtZXJhbFB1YmxpY0tleSI6ICJSVkJMTFdOaGNtUXRiV010TURBMU8ifQ==\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "cardID = card-mc-business-005",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "cardID",
+              "value": "card-mc-business-005",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "3e0362fc-ab76-4dea-bea1-3f648f4ce1fd",
+          "body": "{\"error\": \"card not found\"}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "default 404",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "22777928-cb8f-468b-8be7-74320ea6aaf3"
+    },
+    {
+      "type": "route",
+      "uuid": "76d640ff-0821-43dc-b1f8-09f8215b0535"
+    },
+    {
+      "type": "route",
+      "uuid": "f3dc9d28-2ec6-4b18-a704-8136b5e1da38"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.dev.victorcastro.SBPPersonalBanking</string>
+	</array>
+	<!-- Provisioning de emisor para Apple Wallet. Apple lo concede SOLO a
+	     emisores aprobados; la firma en dispositivo fallará hasta que esté
+	     habilitado para este App ID. Debe estar también en la extensión Non-UI. -->
+	<key>com.apple.developer.payment-pass-provisioning</key>
+	<true/>
+</dict>
+</plist>
