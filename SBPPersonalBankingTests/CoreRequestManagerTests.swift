@@ -24,6 +24,9 @@ final class CoreRequestManagerTests: XCTestCase {
         super.tearDown()
     }
 
+    /// encCard de prueba (en producción lo entrega HST; el SDK lo desempaca).
+    private static let encCardFixture = "enc-card-fixture-001"
+
     func testWalletCardsRequestParsesHSTStructure() async throws {
         StubURLProtocol.handler = { request in
             XCTAssertEqual(request.url?.path, "/cards-wallet")
@@ -37,22 +40,7 @@ final class CoreRequestManagerTests: XCTestCase {
         let dto = try XCTUnwrap(dtos.first)
         XCTAssertEqual(dto.cardID, "card-visa-001")
         XCTAssertEqual(dto.paymentNetwork, "Visa")
-        // El encCard debe poder desempacarse en los 3 datos de Apple.
-        XCTAssertNotNil(ProvisioningService.unpack(dto.encCard))
-    }
-
-    func testWalletProvisionRequestPostsCardID() async throws {
-        let encCard = ProvisioningService.placeholderEncCard(for: CardRepository.demoCards[0])
-        StubURLProtocol.handler = { request in
-            XCTAssertEqual(request.url?.path, "/provision")
-            XCTAssertEqual(request.httpMethod, "POST")
-            let body = "{\"cardID\":\"card-visa-001\",\"encCard\":\"\(encCard)\"}"
-            return (200, Data(body.utf8))
-        }
-
-        let response = try await makeManager().load(WalletProvisionRequest(cardID: "card-visa-001"))
-        XCTAssertEqual(response.cardID, "card-visa-001")
-        XCTAssertEqual(response.encCard, encCard)
+        XCTAssertEqual(dto.encCard, Self.encCardFixture)
     }
 
     func testHTTPErrorIsThrown() async {
@@ -74,7 +62,7 @@ final class CoreRequestManagerTests: XCTestCase {
         "cardID": "card-visa-001",
         "cardImageBase64": "iVBORw0KGgo=",
         "cardType": "credit",
-        "encCard": "\(ProvisioningService.placeholderEncCard(for: CardRepository.demoCards[0]))",
+        "encCard": "\(encCardFixture)",
         "lastFourDigits": "4821",
         "localizedDescription": "SBP Visa Signature",
         "paymentNetwork": "Visa"

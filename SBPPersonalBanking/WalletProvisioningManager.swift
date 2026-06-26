@@ -2,13 +2,16 @@
 //  WalletProvisioningManager.swift
 //  SBPPersonalBanking
 //
-//  Drives the *standard* in-app provisioning flow (PKAddPaymentPassViewController)
-//  from inside the app. This is the prerequisite that must work before the
-//  Wallet discovery extensions are useful.
+//  Conduce el flujo in-app de aprovisionamiento delegando en el SDK del emisor
+//  (HP2AppleSDK). El SDK presenta el sheet de Apple Pay
+//  (`PKAddPaymentPassViewController`), hace el round-trip al PNO y construye la
+//  solicitud; aquí solo le pasamos la tarjeta y recibimos el resultado por
+//  `CommEvents`.
 //
 
 import UIKit
 import PassKit
+import HP2AppleSDK
 
 final class WalletProvisioningManager: NSObject {
 
@@ -19,8 +22,13 @@ final class WalletProvisioningManager: NSObject {
         case unsupported
     }
 
-    private var card: BankCard?
-    private var completion: ((ProvisioningOutcome) -> Void)?
+    private let hp2: HP2
+    // Retenemos los eventos mientras dura el flujo (el SDK los referencia débil).
+    private var events: WalletCommEvents?
+
+    init(sdk: HP2 = WalletSDK.shared) {
+        self.hp2 = sdk
+    }
 
     /// Whether the current device/account can add payment passes. Returns
     /// `false` on Simulator and on devices not eligible for Apple Pay.
@@ -28,81 +36,66 @@ final class WalletProvisioningManager: NSObject {
         PKAddPaymentPassViewController.canAddPaymentPass()
     }
 
-    /// Presents the Apple Pay "Add Card" sheet for the given card.
+    /// Presenta el sheet de Apple Pay para la tarjeta dada, vía el SDK.
     func startProvisioning(for card: BankCard,
                            from presenter: UIViewController,
                            completion: @escaping (ProvisioningOutcome) -> Void) {
-        guard Self.canAddPayments,
-              let configuration = PKAddPaymentPassRequestConfiguration(encryptionScheme: .ECC_V2) else {
+        guard Self.canAddPayments else {
             completion(.unsupported)
             return
         }
 
-        configuration.cardholderName = card.cardHolderName
-        configuration.primaryAccountSuffix = card.lastFourDigits
-        configuration.localizedDescription = card.localizedDescription
-        configuration.primaryAccountIdentifier = card.cardID
-        configuration.paymentNetwork = card.pkPaymentNetwork
-        configuration.style = .payment
-
-        guard let controller = PKAddPaymentPassViewController(requestConfiguration: configuration,
-                                                              delegate: self) else {
-            completion(.unsupported)
-            return
+        let events = WalletCommEvents { [weak self] outcome in
+            // El SDK puede invocar el callback fuera del hilo principal; saltamos
+            // a main para liberar el retén y entregar el resultado a la UI.
+            DispatchQueue.main.async {
+                self?.events = nil
+                completion(outcome)
+            }
         }
+        self.events = events
 
-        self.card = card
-        self.completion = completion
-        presenter.present(controller, animated: true)
+        do {
+            try hp2.executeProvisioningOfEncryptedCard(
+                parentViewController: presenter,
+                cardholderName: card.cardHolderName,
+                panLastFour: card.lastFourDigits,
+                cardDescr: card.localizedDescription,
+                panId: card.cardID,
+                pnp: card.paymentNetwork,   // string; el SDK lo convierte vía HP2Utils
+                encCard: card.encCard,
+                events: events
+            )
+        } catch {
+            self.events = nil
+            completion(.failed(error))
+        }
     }
 }
 
-extension WalletProvisioningManager: PKAddPaymentPassViewControllerDelegate {
+// MARK: - Eventos del SDK
 
-    func addPaymentPassViewController(
-        _ controller: PKAddPaymentPassViewController,
-        generateRequestWithCertificateChain certificates: [Data],
-        nonce: Data,
-        nonceSignature: Data,
-        completionHandler handler: @escaping (PKAddPaymentPassRequest) -> Void
-    ) {
-        guard let card else {
-            handler(PKAddPaymentPassRequest())
-            return
-        }
+/// Recibe el resultado del aprovisionamiento del SDK y lo traduce a
+/// `ProvisioningOutcome`.
+nonisolated final class WalletCommEvents: CommEvents {
 
-        // Pedimos el encCard al backend (POST /provision) y, si falla, usamos el
-        // guardado en Core Data. Luego construimos la solicitud para Apple.
-        Task {
-            let request = PKAddPaymentPassRequest()
-            if let payload = await ProvisioningPayloadProvider.payload(forCardID: card.cardID) {
-                request.encryptedPassData = payload.encryptedPassData
-                request.activationData = payload.activationData
-                request.ephemeralPublicKey = payload.ephemeralPublicKey
-            }
-            handler(request)
-        }
+    private let onResult: (WalletProvisioningManager.ProvisioningOutcome) -> Void
+
+    init(onResult: @escaping (WalletProvisioningManager.ProvisioningOutcome) -> Void) {
+        self.onResult = onResult
+        super.init()
     }
 
-    func addPaymentPassViewController(
-        _ controller: PKAddPaymentPassViewController,
-        didFinishAdding pass: PKPaymentPass?,
-        error: Error?
-    ) {
-        let card = self.card
-        let completion = self.completion
-        self.card = nil
-        self.completion = nil
+    override func onPreExecute() {}
 
-        controller.dismiss(animated: true) {
-            if let error {
-                completion?(.failed(error))
-            } else if pass != nil {
-                if let card { CardRepository.shared.markProvisioned(id: card.id) }
-                completion?(.added)
-            } else {
-                completion?(.cancelled)
-            }
+    override func onPostExecute(result: CommEventResult) {
+        switch result.getResult() {
+        case HP2Errors.SUCCESS:
+            onResult(.added)
+        case HP2Errors.USER_CANCELLED, HP2Errors.SYSTEM_CANCELLED:
+            onResult(.cancelled)
+        default:
+            onResult(.failed(HP2Exception(result.getResult(), result.getMessage())))
         }
     }
 }

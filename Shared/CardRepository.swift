@@ -2,31 +2,31 @@
 //  CardRepository.swift
 //  SBPPersonalBanking
 //
-//  Única fuente de verdad de las tarjetas. Lee y escribe en Core Data, cuya
-//  base vive en el App Group, de modo que la app y las extensiones ven los
-//  mismos datos.
+//  Única fuente de verdad de las tarjetas para la UI. Es una fachada delgada
+//  sobre el SDK del emisor (HP2AppleSDK): el SDK es el dueño del almacén
+//  (Core Data `CardExtensionData` en el App Group), y aquí solo traducimos
+//  entre su `CardDataModel` y el `BankCard` que consume la app.
 //
 
 import Foundation
-import CoreData
+import HP2AppleSDK
 
 final class CardRepository {
 
     static let shared = CardRepository()
 
-    private let context: NSManagedObjectContext
+    private let hp2: HP2
 
-    init(stack: CoreDataStack = .shared) {
-        self.context = stack.container.viewContext
+    init(sdk: HP2 = WalletSDK.shared) {
+        self.hp2 = sdk
     }
 
     // MARK: - Lecturas
 
     func allCards() -> [BankCard] {
-        let request = WalletDataCardEntity.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "cardHolderName", ascending: true)]
-        let entities = (try? context.fetch(request)) ?? []
-        return entities.map(BankCard.init(entity:))
+        hp2.getCardsFromCoreData()
+            .map { BankCard(model: $0, isProvisioned: isProvisioned(cardID: $0.cardID ?? "")) }
+            .sorted { $0.cardHolderName < $1.cardHolderName }
     }
 
     /// Tarjetas que aún pueden ofrecerse a Wallet (no provisionadas).
@@ -35,104 +35,31 @@ final class CardRepository {
     }
 
     func card(withID id: String) -> BankCard? {
-        entity(withID: id).map(BankCard.init(entity:))
+        guard let model = hp2.getCardDataModel(cardID: id) else { return nil }
+        return BankCard(model: model, isProvisioned: isProvisioned(cardID: id))
     }
 
     // MARK: - Escrituras
 
-    /// Inserta o actualiza (upsert) las tarjetas por `cardID`.
-    func save(_ cards: [BankCard]) {
-        for card in cards {
-            let target = entity(withID: card.cardID) ?? WalletDataCardEntity(context: context)
-            card.apply(to: target)
-        }
-        saveContext()
+    /// Inserta o actualiza las tarjetas en el almacén del SDK.
+    @discardableResult
+    func save(_ cards: [BankCard]) -> Bool {
+        let result = hp2.updateDataBase(cardDataList: cards.map(\.asCardDataModel))
+        return result == DataBaseErrors.SUCCESS.rawValue
     }
 
-    func markProvisioned(id: String) {
-        guard let entity = entity(withID: id) else { return }
-        entity.isProvisioned = true
-        saveContext()
-    }
-
-    /// Borra todas las tarjetas persistidas en Core Data.
+    /// Best-effort: el SDK no expone un borrado explícito, así que reescribimos
+    /// el almacén con una lista vacía.
     func resetAllData() {
-        deleteAll()
+        _ = hp2.updateDataBase(cardDataList: [])
     }
 
-    // MARK: - Auxiliares de Core Data
+    // MARK: - Estado de provisioning
 
-    private func entity(withID id: String) -> WalletDataCardEntity? {
-        let request = WalletDataCardEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "cardID == %@", id)
-        request.fetchLimit = 1
-        return try? context.fetch(request).first ?? nil
-    }
-
-    private func count() -> Int {
-        (try? context.count(for: WalletDataCardEntity.fetchRequest())) ?? 0
-    }
-
-    private func deleteAll() {
-        let fetch: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CardEntity")
-        let delete = NSBatchDeleteRequest(fetchRequest: fetch)
-        _ = try? context.execute(delete)
-        context.reset()
-    }
-
-    private func saveContext() {
-        guard context.hasChanges else { return }
-        do {
-            try context.save()
-        } catch {
-            assertionFailure("Error al guardar Core Data: \(error)")
-        }
-    }
-
-    // MARK: - Datos demo
-
-    static var demoCards: [BankCard] {
-        [
-            makeDemoCard(cardID: "card-visa-001",
-                         holder: "Victor Castro",
-                         last4: "4821",
-                         network: "Visa",
-                         type: "credit",
-                         description: "SBP Visa Signature"),
-            makeDemoCard(cardID: "card-mc-002",
-                         holder: "Victor Castro",
-                         last4: "9034",
-                         network: "MasterCard",
-                         type: "debit",
-                         description: "SBP Mastercard World"),
-            makeDemoCard(cardID: "card-amex-003",
-                         holder: "Victor Castro",
-                         last4: "1007",
-                         network: "Amex",
-                         type: "credit",
-                         description: "SBP Amex Platinum")
-        ]
-    }
-
-    /// Construye una tarjeta demo: genera su imagen en Base64 y un `encCard`
-    /// de relleno (el `encCard` real lo entregará HST más adelante).
-    private static func makeDemoCard(cardID: String,
-                                     holder: String,
-                                     last4: String,
-                                     network: String,
-                                     type: String,
-                                     description: String) -> BankCard {
-        var card = BankCard(cardID: cardID,
-                            cardHolderName: holder,
-                            cardImageBase64: "",
-                            cardType: type,
-                            encCard: "",
-                            lastFourDigits: last4,
-                            localizedDescription: description,
-                            paymentNetwork: network,
-                            isProvisioned: false)
-        card.cardImageBase64 = CardArtRenderer.base64PNG(for: card)
-        card.encCard = ProvisioningService.placeholderEncCard(for: card)
-        return card
+    /// Una tarjeta está "provisionada" cuando ya NO está disponible para
+    /// agregarse (PassKit/SDK son la fuente de verdad, no un flag local).
+    private func isProvisioned(cardID: String) -> Bool {
+        guard !cardID.isEmpty else { return false }
+        return !hp2.isAvailableForCard(panRefId: cardID)
     }
 }

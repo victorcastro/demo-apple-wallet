@@ -25,13 +25,14 @@ final class CardsViewModel {
         cards = repository.allCards()
     }
 
-    /// Refresca desde Core Data (p. ej. al volver a la pantalla).
+    /// Refresca desde el almacén del SDK (p. ej. al volver a la pantalla).
     func reload() {
         cards = repository.allCards()
     }
 
-    /// Sincroniza con el backend: GET /cards-wallet vía CoreRequestManager, mapea y
-    /// persiste, conservando el estado local `isProvisioned`.
+    /// Sincroniza con el backend: GET /cards-wallet vía CoreRequestManager, mapea
+    /// y siembra el almacén del SDK (`HP2.updateDataBase`). El estado de
+    /// provisioning lo deriva el repositorio del propio SDK/PassKit.
     func sync() {
         isLoading = true
         errorMessage = nil
@@ -42,11 +43,7 @@ final class CardsViewModel {
                 self.isLoading = false
                 switch result {
                 case .success(let dtos):
-                    let provisioned = Set(
-                        self.repository.allCards().filter(\.isProvisioned).map(\.cardID)
-                    )
-                    let merged = dtos.map { $0.toBankCard(isProvisioned: provisioned.contains($0.cardID)) }
-                    self.repository.save(merged)
+                    self.repository.save(dtos.map { $0.toBankCard() })
                     self.cards = self.repository.allCards()
                 case .failure(let error):
                     self.errorMessage = error.localizedDescription

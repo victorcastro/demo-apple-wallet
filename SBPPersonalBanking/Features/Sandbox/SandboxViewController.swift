@@ -88,7 +88,7 @@ final class SandboxViewController: UIViewController {
         guard let config = PKAddPaymentPassRequestConfiguration(encryptionScheme: .ECC_V2) else { return }
         config.paymentNetwork = card.pkPaymentNetwork
 
-        log("generate… cardID=\(card.cardID) (pide /provision; si falla usa Core Data)")
+        log("generate… cardID=\(card.cardID) (el SDK pide el payload al issuer de HST)")
         handler.generateAddPaymentPassRequestForPassEntryWithIdentifier(
             card.cardID,
             configuration: config,

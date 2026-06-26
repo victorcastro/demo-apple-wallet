@@ -1,101 +1,77 @@
 # SBPPersonalBanking
 
-Demo de Apple Wallet para **issuer provisioning**. El foco del proyecto son las
-extensiones que Wallet invoca para descubrir tarjetas, pedir autorización y
-construir el request final de provisioning.
+Demo de Apple Wallet **issuer provisioning**: agregar tarjetas del emisor a Wallet,
+tanto desde la app (`PKAddPaymentPassViewController`) como desde Wallet mismo
+(extensiones). El trabajo pesado (cripto + red al issuer) lo hace el SDK del
+proveedor **HST/HP2**.
 
-Referencia de Apple:
-https://applepaydemo.apple.com/in-app-provisioning-extensions
+Referencia Apple: https://applepaydemo.apple.com/in-app-provisioning-extensions
 
-## Idea General
+## Conceptos nuevos (si vienes solo de apps normales)
 
-El proyecto gira alrededor de estas piezas:
+- **App Extension** (`.appex`): un binario aparte, embebido dentro de la app, con
+  su propio proceso y sandbox. No lo lanza el usuario: lo lanza el sistema (Wallet).
+  Aquí hay dos, cada una atada a un *extension point* de PassKit:
+  - `SBPProvisioningExtension` → `com.apple.PassKit.issuer-provisioning` (sin UI):
+    subclase de `PKIssuerProvisioningExtensionHandler`. Wallet le pregunta qué
+    tarjetas hay y le pide el request final.
+  - `SBPProvisioningUIExtension` → `...issuer-provisioning.authorization` (con UI):
+    implementa `PKIssuerProvisioningExtensionAuthorizationProviding`. Es la pantalla
+    de auth que Wallet presenta antes de provisionar.
+- **App Group** (`group.dev.victorcastro.SBPPersonalBanking`): contenedor compartido.
+  Como app y extensiones son procesos/sandboxes distintos, es la única forma de que
+  vean los mismos datos. El SDK guarda ahí su Core Data.
+- **SDK HST/HP2** (`Frameworks/HP2AppleSDK.xcframework` + `HttpClient.xcframework`):
+  dueño del almacén de tarjetas (entidad Core Data `CardExtensionData` en el App
+  Group) y de la comunicación con el backend del issuer. Punto de acceso único:
+  `WalletSDK.shared = HP2(institutionCode:groupID:)` (`Shared/WalletSDK.swift`).
 
-- `SBPPersonalBanking`: la app demo y el sandbox para probar el flujo.
-- `SBPProvisioningExtension`: la extensión sin UI que responde a Wallet.
-- `SBPProvisioningUIExtension`: la extensión con UI para autenticar al usuario.
-- `Shared/`: datos y lógica compartida entre la app y las extensiones.
+## Flujo de datos
 
-Si nunca viste Apple Wallet antes, piensa el flujo así:
+1. **Login app** → `POST /login` (Mockoon).
+2. **Sync catálogo** → `CardsViewModel.sync()` hace `GET /cards-wallet`, mapea a
+   `CardDataModel` y siembra el store del SDK con `hp2.updateDataBase(cardDataList:)`.
+   Cada tarjeta trae su `encCard` (paquete cifrado del issuer).
+3. **Listar UI** → `CardRepository` lee con `hp2.getCardsFromCoreData()`.
+   `isProvisioned` se deriva de `hp2.isAvailableForCard(panRefId:)`, no se guarda.
+4. **Agregar a Wallet (in-app)** → `WalletProvisioningManager` llama
+   `hp2.executeProvisioningOfEncryptedCard(...)`: el SDK presenta el sheet de Apple
+   Pay, hace el round-trip al issuer con el `encCard` y arma el `PKAddPaymentPassRequest`.
+5. **Descubrimiento desde Wallet (extensión)** → `ProvisioningHandler` delega:
+   `status/passEntries/remotePassEntries` → SDK; y `generateAddPaymentPassRequest`
+   → `hp2.getAddPaymentPassRequest(...)`.
 
-1. La app guarda tarjetas demo compartidas con las extensiones.
-2. Wallet pregunta a la extensión si hay tarjetas disponibles.
-3. Si hace falta validar al usuario, Wallet abre la extensión de UI.
-4. La extensión sin UI genera el request final que Wallet necesita para agregar la tarjeta.
+> El paso de provisioning (antes el mock `POST /provision`) ahora vive dentro del
+> SDK, que llama al issuer **real** de HST (endpoint en `BuildConfig`, según el
+> build PROD/HOMOLOG del xcframework). Mockoon ya solo sirve `/login` y `/cards-wallet`.
 
-## Qué Hace Cada Extensión
+## Wiring de Xcode (importante)
 
-### App principal
-
-La app principal contiene:
-
-- La lista de tarjetas.
-- La vista de login.
-- El sandbox para probar el flujo de Wallet sin usar Wallet real.
-- El flujo estándar de agregar tarjeta con `PKAddPaymentPassViewController`.
-
-### Extensión Non-UI
-
-`SBPProvisioningExtension` responde a Wallet con:
-
-- `status()`
-- `passEntries()`
-- `remotePassEntries()`
-- `generateAddPaymentPassRequest`
-
-Esta extensión decide qué tarjetas puede ver Wallet y prepara la solicitud final
-de provisioning.
-
-### Extensión UI
-
-`SBPProvisioningUIExtension` muestra la pantalla de autorización previa al
-provisioning. Acá vive el login con contraseña y biometría.
-
-## Flujo De Datos
-
-- La app sincroniza tarjetas demo y las persiste en el almacenamiento compartido.
-- La extensión Non-UI lee las tarjetas que todavía no están en Wallet.
-- La UI de autorización valida al usuario antes de continuar.
-- El backend devuelve `encCard` y la extensión arma el request final para Wallet.
-
-## Archivo Importante
-
-`setup_targets.rb` es un helper de verificación para el wiring del proyecto.
-Sirve para comprobar que el repo sigue teniendo los targets y carpetas esperadas.
+- El SDK está **linked + embedded** solo en el target app.
+- En ambas extensiones está **linked, Do Not Embed**: la app provee el binario y la
+  extensión lo resuelve en runtime vía `@executable_path/../../Frameworks`.
+- Los archivos de `Shared/` son miembros de app + extensiones, por eso compilan
+  contra el mismo `WalletSDK`/`CardRepository`.
 
 ## Sandbox
 
-En la app hay una pantalla `SandboxViewController` para simular Wallet desde el
-simulador o desde la app:
+`SBPPersonalBanking/Features/Sandbox/SandboxViewController` ejercita los métodos de
+la extensión (`status` / `passEntries` / auth / `generateAddPaymentPassRequest`) sin
+pasar por Wallet, útil en simulador.
 
-- `status()`
-- `passEntries()`
-- autorización
-- generación del request final
+## Pendiente para producción
 
-## Estructura
+- `institutionCode` real de HST (hoy placeholder `"INST-CODE"` en `WalletSDK.swift`).
+- Entitlement `com.apple.developer.payment-pass-provisioning` + relación con el PNO.
+- Probar en **dispositivo físico**: el provisioning real y el store del SDK
+  (necesita keychain) no funcionan en simulador.
 
-- `SBPPersonalBanking/Features/Sandbox/`: pantalla para simular el flujo de Wallet.
-- `SBPProvisioningExtension/`: lógica que Wallet consulta para descubrir tarjetas.
-- `SBPProvisioningUIExtension/`: UI de autenticación previa al provisioning.
-- `Shared/`: modelos y datos compartidos por app y extensiones.
-
-## Requisitos Para Producción
-
-Esto es demo. Para producción todavía faltan:
-
-- Entitlement de Apple para issuer provisioning.
-- Backend real de la red de pago.
-- Pruebas en dispositivo físico.
-
-## Cómo Ejecutar
+## Cómo ejecutar
 
 ```bash
-xcodebuild -scheme SBPPersonalBanking \
-  -destination 'platform=iOS Simulator,name=iPhone 17' build
-
-xcodebuild -scheme SBPPersonalBanking \
-  -destination 'platform=iOS Simulator,name=iPhone 17' test
+xcodebuild -scheme SBPPersonalBanking -destination 'platform=iOS Simulator,name=iPhone 17' build
+xcodebuild -scheme SBPPersonalBanking -destination 'platform=iOS Simulator,name=iPhone 17' test
 ```
 
-O abre `SBPPersonalBanking.xcodeproj` en Xcode y ejecuta la app.
+O abre `SBPPersonalBanking.xcodeproj` en Xcode. Para el catálogo: Mockoon con
+`mocks/SBPDemo-AppleWallet-mockoon.json` en `http://localhost:5001`.
