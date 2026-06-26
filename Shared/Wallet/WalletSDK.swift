@@ -17,8 +17,8 @@ import HP2AppleSDK
 
 enum WalletSDK {
 
-    /// Código de institución del emisor. TODO: reemplazar por el código real que
-    /// entregue HST; `"INST-CODE"` es el placeholder del ejemplo del vendor.
+    // TODO: reemplazar por el código real que entregue HST.
+    /// Código de institución del emisor.
     static let institutionCode = "INST-CODE"
 
     /// Instancia compartida del SDK, ligada al App Group de la demo.

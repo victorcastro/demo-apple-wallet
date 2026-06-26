@@ -19,8 +19,8 @@ final class WalletProvisioningManager: NSObject {
         super.init()
     }
 
-    /// Whether the current device/account can add payment passes. Returns
-    /// `false` on Simulator and on devices not eligible for Apple Pay.
+    /// Indica si el dispositivo/cuenta actual puede añadir pases de pago. Devuelve:
+    /// `false` en el simulador y en dispositivos no compatibles con Apple Pay.
     static var canAddPayments: Bool {
         PKAddPaymentPassViewController.canAddPaymentPass()
     }

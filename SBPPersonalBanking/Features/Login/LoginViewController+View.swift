@@ -144,14 +144,12 @@ extension LoginViewController {
 
             spinner.hidesWhenStopped = true
 
-            // Cabecera (ícono + título + mensaje) anclada arriba.
             let headerStack = UIStackView(arrangedSubviews: [iconView, titleLabel, messageLabel])
             headerStack.axis = .vertical
             headerStack.alignment = .center
             headerStack.spacing = 8
             headerStack.setCustomSpacing(16, after: iconView)
 
-            // Formulario (campos + botones) debajo de la cabecera.
             let formStack = UIStackView(arrangedSubviews: [
                 dniField, passwordField, loginButton, faceIDButton, demoHintLabel, spinner
             ])
@@ -180,7 +178,6 @@ extension LoginViewController {
             ])
         }
 
-        /// Versión de la app leída del bundle, p. ej. "Versión 1.0 (1)".
         private static var appVersionText: String {
             let info = Bundle.main.infoDictionary
             let short = info?["CFBundleShortVersionString"] as? String ?? "—"

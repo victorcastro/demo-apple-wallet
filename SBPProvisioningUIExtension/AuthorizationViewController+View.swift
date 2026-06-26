@@ -98,14 +98,12 @@ extension AuthorizationViewController {
             cancelButton.setTitle("Cancelar", for: .normal)
             cancelButton.addTarget(self, action: #selector(didTapCancel), for: .touchUpInside)
 
-            // Cabecera (ícono + título + subtítulo) anclada arriba.
             let headerStack = UIStackView(arrangedSubviews: [iconView, titleLabel, subtitleLabel])
             headerStack.axis = .vertical
             headerStack.alignment = .center
             headerStack.spacing = 8
             headerStack.setCustomSpacing(16, after: iconView)
 
-            // Formulario (campo + botones) debajo de la cabecera.
             let formStack = UIStackView(arrangedSubviews: [passwordField, continueButton, biometricButton])
             formStack.axis = .vertical
             formStack.spacing = 12
