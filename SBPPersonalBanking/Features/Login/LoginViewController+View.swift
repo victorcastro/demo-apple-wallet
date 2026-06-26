@@ -18,6 +18,7 @@ extension LoginViewController {
 
         let actions = PassthroughSubject<Action, Never>()
 
+        private let iconView = UIImageView()
         private let titleLabel = UILabel()
         private let messageLabel = UILabel()
         private let dniField = UITextField()
@@ -26,6 +27,7 @@ extension LoginViewController {
         private let faceIDButton = UIButton(type: .system)
         private let removeLocalUserButton = UIButton(type: .system)
         private let demoHintLabel = UILabel()
+        private let versionLabel = UILabel()
         private let spinner = UIActivityIndicatorView(style: .medium)
 
         override init(frame: CGRect) {
@@ -71,14 +73,23 @@ extension LoginViewController {
         private func configureUI() {
             backgroundColor = .systemBackground
 
-            titleLabel.text = "Login"
-            titleLabel.font = .systemFont(ofSize: 28, weight: .bold)
-            titleLabel.textAlignment = .center
+            iconView.image = UIImage(systemName: "building.columns.fill")
+            iconView.tintColor = .tintColor
+            iconView.contentMode = .scaleAspectFit
+            iconView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: 48, weight: .semibold)
+            iconView.setContentHuggingPriority(.required, for: .vertical)
 
-            messageLabel.font = .systemFont(ofSize: 14, weight: .regular)
+            titleLabel.text = "Bienvenido"
+            titleLabel.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 32, weight: .bold))
+            titleLabel.textAlignment = .center
+            titleLabel.numberOfLines = 0
+            titleLabel.adjustsFontForContentSizeCategory = true
+
+            messageLabel.font = .preferredFont(forTextStyle: .subheadline)
             messageLabel.textAlignment = .center
             messageLabel.textColor = .secondaryLabel
             messageLabel.numberOfLines = 0
+            messageLabel.adjustsFontForContentSizeCategory = true
             messageLabel.text = "Ingresa tu DNI y contraseña."
 
             dniField.placeholder = "DNI"
@@ -86,15 +97,18 @@ extension LoginViewController {
             dniField.textContentType = .username
             dniField.autocapitalizationType = .allCharacters
             dniField.autocorrectionType = .no
+            dniField.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
 
             passwordField.placeholder = "Password"
             passwordField.borderStyle = .roundedRect
             passwordField.isSecureTextEntry = true
             passwordField.textContentType = .password
+            passwordField.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
 
             var loginConfiguration = UIButton.Configuration.filled()
             loginConfiguration.title = "Iniciar sesión"
             loginConfiguration.cornerStyle = .large
+            loginConfiguration.buttonSize = .large
             loginButton.configuration = loginConfiguration
             loginButton.addTarget(self, action: #selector(didTapSubmit), for: .touchUpInside)
 
@@ -103,6 +117,7 @@ extension LoginViewController {
             faceIDConfiguration.image = UIImage(systemName: "faceid")
             faceIDConfiguration.imagePadding = 8
             faceIDConfiguration.cornerStyle = .large
+            faceIDConfiguration.buttonSize = .large
             faceIDButton.configuration = faceIDConfiguration
             faceIDButton.addTarget(self, action: #selector(didTapFaceID), for: .touchUpInside)
             faceIDButton.isHidden = true
@@ -113,39 +128,64 @@ extension LoginViewController {
             removeLocalUserButton.addTarget(self, action: #selector(didTapRemoveLocalUser), for: .touchUpInside)
             removeLocalUserButton.isHidden = true
 
-            demoHintLabel.font = .systemFont(ofSize: 15, weight: .semibold)
+            demoHintLabel.font = .preferredFont(forTextStyle: .footnote)
             demoHintLabel.textAlignment = .center
             demoHintLabel.textColor = .secondaryLabel
             demoHintLabel.numberOfLines = 0
+            demoHintLabel.adjustsFontForContentSizeCategory = true
             demoHintLabel.text = "DNI: 12345678 · Password: 1234"
+
+            versionLabel.font = .preferredFont(forTextStyle: .caption2)
+            versionLabel.textAlignment = .center
+            versionLabel.textColor = .tertiaryLabel
+            versionLabel.adjustsFontForContentSizeCategory = true
+            versionLabel.text = Self.appVersionText
+            versionLabel.translatesAutoresizingMaskIntoConstraints = false
 
             spinner.hidesWhenStopped = true
 
-            let stack = UIStackView(arrangedSubviews: [
-                titleLabel,
-                messageLabel,
-                dniField,
-                passwordField,
-                loginButton,
-                faceIDButton,
-                demoHintLabel,
-                spinner
+            // Cabecera (ícono + título + mensaje) anclada arriba.
+            let headerStack = UIStackView(arrangedSubviews: [iconView, titleLabel, messageLabel])
+            headerStack.axis = .vertical
+            headerStack.alignment = .center
+            headerStack.spacing = 8
+            headerStack.setCustomSpacing(16, after: iconView)
+
+            // Formulario (campos + botones) debajo de la cabecera.
+            let formStack = UIStackView(arrangedSubviews: [
+                dniField, passwordField, loginButton, faceIDButton, demoHintLabel, spinner
             ])
+            formStack.axis = .vertical
+            formStack.spacing = 16
+            formStack.setCustomSpacing(8, after: loginButton)
+
+            let stack = UIStackView(arrangedSubviews: [headerStack, formStack])
             stack.axis = .vertical
-            stack.spacing = 16
+            stack.spacing = 32
             stack.translatesAutoresizingMaskIntoConstraints = false
 
             addSubview(stack)
             addSubview(removeLocalUserButton)
+            addSubview(versionLabel)
             removeLocalUserButton.translatesAutoresizingMaskIntoConstraints = false
 
             NSLayoutConstraint.activate([
                 stack.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 24),
                 stack.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24),
-                stack.centerYAnchor.constraint(equalTo: centerYAnchor),
+                stack.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 48),
+                versionLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+                versionLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -12),
                 removeLocalUserButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-                removeLocalUserButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -24)
+                removeLocalUserButton.bottomAnchor.constraint(equalTo: versionLabel.topAnchor, constant: -8)
             ])
+        }
+
+        /// Versión de la app leída del bundle, p. ej. "Versión 1.0 (1)".
+        private static var appVersionText: String {
+            let info = Bundle.main.infoDictionary
+            let short = info?["CFBundleShortVersionString"] as? String ?? "—"
+            let build = info?["CFBundleVersion"] as? String ?? "—"
+            return "Versión \(short) (\(build))"
         }
 
         @objc private func didTapSubmit() {

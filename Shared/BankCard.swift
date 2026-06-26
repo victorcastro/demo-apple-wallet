@@ -10,7 +10,7 @@
 import Foundation
 import PassKit
 
-struct BankCard: Identifiable, Equatable {
+struct BankCard: Identifiable, Equatable, Codable {
 
     var cardID: String
     var cardHolderName: String

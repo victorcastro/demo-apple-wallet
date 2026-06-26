@@ -185,9 +185,9 @@ extension SandboxViewController {
 
         private func makeClearLogsButton(_ action: Selector) -> UIButton {
             var cfg = UIButton.Configuration.plain()
-            cfg.title = "clear logs"
+            cfg.title = "Clear"
             cfg.contentInsets = .zero
-            cfg.baseForegroundColor = .systemRed
+            cfg.baseForegroundColor = .systemBlue
             let button = UIButton(configuration: cfg)
             button.addTarget(self, action: action, for: .touchUpInside)
             button.translatesAutoresizingMaskIntoConstraints = false

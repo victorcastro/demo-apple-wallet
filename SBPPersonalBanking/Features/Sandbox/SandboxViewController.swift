@@ -2,10 +2,13 @@
 //  SandboxViewController.swift
 //  SBPPersonalBanking
 //
-//  "Wallet falso": dispara el mismo código que invocaría Wallet (la extensión
-//  Non-UI y la de autorización) para verlo funcionar en el simulador, sin
-//  necesitar Apple/HST. Cada botón ejecuta un paso y muestra el resultado en el
-//  log.
+//  "Wallet falso": dispara el mismo código que invocaría Wallet, llamando
+//  DIRECTO al SDK (igual que lo haría la extensión Non-UI), para verlo funcionar
+//  en el simulador sin necesitar Apple/HST. Cada botón ejecuta un paso y muestra
+//  el resultado en el log.
+//
+//  No instancia `ProvisioningHandler` (que es código de la extensión): habla con
+//  `WalletSDK.shared`, que es justo lo que el handler delega.
 //
 
 import UIKit
@@ -14,7 +17,7 @@ import Combine
 
 final class SandboxViewController: UIViewController {
 
-    private let handler = ProvisioningHandler()
+    private let engine = WalletEngineProvider.current
     private let contentView = MyView()
     private var cancellables = Set<AnyCancellable>()
 
@@ -24,7 +27,7 @@ final class SandboxViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "📦 Sandbox"
+        title = "Apple Wallet (Sandbox)"
         bindViewActions()
         log("Sandbox listo. Simula las llamadas que haría Wallet.")
     }
@@ -32,24 +35,18 @@ final class SandboxViewController: UIViewController {
     /// Consulta el estado general de la extensión para saber si hay tarjetas disponibles
     /// y si Wallet debería pedir autenticación antes de continuar.
     @objc private func runStatus() {
-        handler.status { [weak self] status in
-            DispatchQueue.main.async {
-                self?.log("status(): passEntriesAvailable=\(status.passEntriesAvailable), "
-                          + "remotePassEntriesAvailable=\(status.remotePassEntriesAvailable), "
-                          + "requiresAuthentication=\(status.requiresAuthentication)")
-            }
-        }
+        let status = engine.provisioningStatus()
+        log("status(): passEntriesAvailable=\(status.passEntriesAvailable), "
+            + "remotePassEntriesAvailable=\(status.remotePassEntriesAvailable), "
+            + "requiresAuthentication=\(status.requiresAuthentication)")
     }
 
     /// Recupera las tarjetas provisionables que la extensión expondría a Wallet
     /// para mostrarlas como opciones de agregado.
     @objc private func runPassEntries() {
-        handler.passEntries { [weak self] entries in
-            DispatchQueue.main.async {
-                let ids = CardRepository.shared.provisionableCards().map(\.cardID).joined(separator: ", ")
-                self?.log("passEntries(): \(entries.count) entradas para Wallet [\(ids)]")
-            }
-        }
+        let entries = engine.passEntries()
+        let ids = CardRepository.shared.provisionableCards().map(\.cardID).joined(separator: ", ")
+        log("passEntries(): \(entries.count) entradas para Wallet [\(ids)]")
     }
 
     /// Presenta la pantalla de autorización para simular el paso de login o biometría
@@ -85,14 +82,11 @@ final class SandboxViewController: UIViewController {
             log("no hay tarjetas provisionables")
             return
         }
-        guard let config = PKAddPaymentPassRequestConfiguration(encryptionScheme: .ECC_V2) else { return }
-        config.paymentNetwork = card.pkPaymentNetwork
 
-        log("generate… cardID=\(card.cardID) (el SDK pide el payload al issuer de HST)")
-        handler.generateAddPaymentPassRequestForPassEntryWithIdentifier(
-            card.cardID,
-            configuration: config,
-            certificateChain: [Data()],   // certs/nonce falsos: el mock no los usa
+        log("generate… cardID=\(card.cardID) (el engine arma el PKAddPaymentPassRequest)")
+        engine.addPaymentPassRequest(
+            cardID: card.cardID,
+            certificates: [Data()],   // certs/nonce falsos: el mock no los usa
             nonce: Data(),
             nonceSignature: Data()
         ) { [weak self] request in

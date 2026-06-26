@@ -24,6 +24,7 @@ final class CardsViewController: UIViewController {
         target: self,
         action: #selector(syncTapped)
     )
+    private lazy var emptyStateView = makeEmptyStateView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +45,16 @@ final class CardsViewController: UIViewController {
             .sink { [weak self] cards in
                 self?.cards = cards
                 self?.tableView.reloadData()
+                self?.updateEmptyState()
             }
             .store(in: &cancellables)
 
         viewModel.$isLoading
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] loading in self?.setSyncing(loading) }
+            .sink { [weak self] loading in
+                self?.setSyncing(loading)
+                self?.updateEmptyState()
+            }
             .store(in: &cancellables)
 
         viewModel.$errorMessage
@@ -77,7 +82,7 @@ final class CardsViewController: UIViewController {
         )
         #if DEBUG
         let sandboxItem = UIBarButtonItem(
-            image: UIImage(systemName: "ladybug.fill"),
+            image: UIImage(systemName: "wallet.bifold.fill"),
             style: .plain,
             target: self,
             action: #selector(sandboxTapped)
@@ -101,6 +106,50 @@ final class CardsViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+
+    // MARK: - Empty state
+
+    private func makeEmptyStateView() -> UIView {
+        let imageView = UIImageView(image: UIImage(systemName: "creditcard"))
+        imageView.tintColor = .tertiaryLabel
+        imageView.contentMode = .scaleAspectFit
+        imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: 56, weight: .regular)
+
+        let titleLabel = UILabel()
+        titleLabel.text = "Aún no tienes tarjetas"
+        titleLabel.font = .preferredFont(forTextStyle: .headline)
+        titleLabel.textColor = .label
+        titleLabel.textAlignment = .center
+
+        let subtitleLabel = UILabel()
+        subtitleLabel.text = "Sincroniza para traer tus tarjetas disponibles."
+        subtitleLabel.font = .preferredFont(forTextStyle: .subheadline)
+        subtitleLabel.textColor = .secondaryLabel
+        subtitleLabel.textAlignment = .center
+        subtitleLabel.numberOfLines = 0
+
+        let stack = UIStackView(arrangedSubviews: [imageView, titleLabel, subtitleLabel])
+        stack.axis = .vertical
+        stack.alignment = .center
+        stack.spacing = 8
+        stack.setCustomSpacing(16, after: imageView)
+        stack.translatesAutoresizingMaskIntoConstraints = false
+
+        let container = UIView()
+        container.addSubview(stack)
+        NSLayoutConstraint.activate([
+            stack.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+            stack.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            stack.leadingAnchor.constraint(greaterThanOrEqualTo: container.leadingAnchor, constant: 40),
+            stack.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor, constant: -40)
+        ])
+        return container
+    }
+
+    private func updateEmptyState() {
+        let showEmpty = cards.isEmpty && !viewModel.isLoading
+        tableView.backgroundView = showEmpty ? emptyStateView : nil
     }
 
     // MARK: - Actions
@@ -176,11 +225,11 @@ extension CardsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "Your cards"
+        nil
     }
 
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        "Cards not yet in Wallet are offered to Apple Wallet by the provisioning extension."
+        nil
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

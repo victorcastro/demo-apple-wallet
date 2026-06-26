@@ -19,6 +19,7 @@ extension AuthorizationViewController {
 
         let actions = PassthroughSubject<Action, Never>()
 
+        private let iconView = UIImageView()
         private let titleLabel = UILabel()
         private let subtitleLabel = UILabel()
         private let passwordField = UITextField()
@@ -52,24 +53,35 @@ extension AuthorizationViewController {
         private func configureUI() {
             backgroundColor = .systemBackground
 
-            titleLabel.text = "Authorize with SBP"
-            titleLabel.font = .systemFont(ofSize: 22, weight: .bold)
-            titleLabel.textAlignment = .center
+            iconView.image = UIImage(systemName: "creditcard.fill")
+            iconView.tintColor = .tintColor
+            iconView.contentMode = .scaleAspectFit
+            iconView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: 44, weight: .semibold)
+            iconView.setContentHuggingPriority(.required, for: .vertical)
 
-            subtitleLabel.text = "Inicia sesión para agregar tu tarjeta a Apple Wallet."
-            subtitleLabel.font = .systemFont(ofSize: 15)
+            titleLabel.text = "SBPPersonalBanking"
+            titleLabel.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: .systemFont(ofSize: 28, weight: .bold))
+            titleLabel.textAlignment = .center
+            titleLabel.numberOfLines = 0
+            titleLabel.adjustsFontForContentSizeCategory = true
+
+            subtitleLabel.text = "Inicia sesión para validar tu identidad y agregar tu tarjeta a Apple Wallet."
+            subtitleLabel.font = .preferredFont(forTextStyle: .subheadline)
             subtitleLabel.textColor = .secondaryLabel
             subtitleLabel.numberOfLines = 0
             subtitleLabel.textAlignment = .center
+            subtitleLabel.adjustsFontForContentSizeCategory = true
 
             passwordField.placeholder = "Contraseña"
             passwordField.borderStyle = .roundedRect
             passwordField.isSecureTextEntry = true
             passwordField.textContentType = .password
+            passwordField.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
 
             var continueConfig = UIButton.Configuration.filled()
             continueConfig.title = "Continuar"
             continueConfig.cornerStyle = .large
+            continueConfig.buttonSize = .large
             continueButton.configuration = continueConfig
             continueButton.addTarget(self, action: #selector(didTapContinue), for: .touchUpInside)
 
@@ -78,34 +90,47 @@ extension AuthorizationViewController {
             bioConfig.image = biometricButtonImage()
             bioConfig.imagePadding = 8
             bioConfig.cornerStyle = .large
+            bioConfig.buttonSize = .large
             biometricButton.configuration = bioConfig
             biometricButton.addTarget(self, action: #selector(didTapBiometric), for: .touchUpInside)
             biometricButton.isHidden = !isBiometricAvailable()
 
-            cancelButton.setTitle("Cancel", for: .normal)
+            cancelButton.setTitle("Cancelar", for: .normal)
             cancelButton.addTarget(self, action: #selector(didTapCancel), for: .touchUpInside)
 
-            let stack = UIStackView(arrangedSubviews: [
-                titleLabel, subtitleLabel, passwordField,
-                continueButton, biometricButton, cancelButton
-            ])
+            // Cabecera (ícono + título + subtítulo) anclada arriba.
+            let headerStack = UIStackView(arrangedSubviews: [iconView, titleLabel, subtitleLabel])
+            headerStack.axis = .vertical
+            headerStack.alignment = .center
+            headerStack.spacing = 8
+            headerStack.setCustomSpacing(16, after: iconView)
+
+            // Formulario (campo + botones) debajo de la cabecera.
+            let formStack = UIStackView(arrangedSubviews: [passwordField, continueButton, biometricButton])
+            formStack.axis = .vertical
+            formStack.spacing = 12
+            formStack.setCustomSpacing(20, after: passwordField)
+
+            let stack = UIStackView(arrangedSubviews: [headerStack, formStack])
             stack.axis = .vertical
-            stack.spacing = 12
-            stack.setCustomSpacing(24, after: subtitleLabel)
-            stack.setCustomSpacing(20, after: passwordField)
+            stack.spacing = 32
             stack.translatesAutoresizingMaskIntoConstraints = false
 
             spinner.hidesWhenStopped = true
             spinner.translatesAutoresizingMaskIntoConstraints = false
+            cancelButton.translatesAutoresizingMaskIntoConstraints = false
 
             addSubview(stack)
             addSubview(spinner)
+            addSubview(cancelButton)
             NSLayoutConstraint.activate([
-                stack.centerYAnchor.constraint(equalTo: centerYAnchor),
+                stack.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 40),
                 stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
                 stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
                 spinner.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 16),
-                spinner.centerXAnchor.constraint(equalTo: centerXAnchor)
+                spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
+                cancelButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+                cancelButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16)
             ])
         }
 

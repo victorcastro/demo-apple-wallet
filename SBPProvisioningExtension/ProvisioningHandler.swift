@@ -6,19 +6,18 @@
 //  Wallet DESCUBRA las tarjetas disponibles en SBPPersonalBanking ("+" →
 //  "Tarjeta de débito o crédito" → "Tarjetas de tus apps").
 //
-//  Delega todo en el SDK del emisor (HP2AppleSDK), que lee del mismo App Group
-//  y resuelve el round-trip al PNO internamente.
+//  Delega en el `WalletEngine` activo (SDK real en device; mock en simulador,
+//  aunque la extensión solo corre de verdad en device).
 //
 //  Punto de extensión: com.apple.PassKit.issuer-provisioning
 //
 
 import PassKit
-import HP2AppleSDK
 import os
 
 final class ProvisioningHandler: PKIssuerProvisioningExtensionHandler {
 
-    private let hp2 = WalletSDK.shared
+    private let engine = WalletEngineProvider.current
 
     private let log = Logger(subsystem: "dev.victorcastro.SBPPersonalBanking.ProvisioningExtension",
                              category: "provisioning")
@@ -26,7 +25,7 @@ final class ProvisioningHandler: PKIssuerProvisioningExtensionHandler {
     // MARK: - Disponibilidad
 
     override func status(completion: @escaping (PKIssuerProvisioningExtensionStatus) -> Void) {
-        let status = hp2.getProvisioningExtensionStatus()
+        let status = engine.provisioningStatus()
         log.info("status(): passEntriesAvailable=\(status.passEntriesAvailable, privacy: .public)")
         completion(status)
     }
@@ -34,13 +33,13 @@ final class ProvisioningHandler: PKIssuerProvisioningExtensionHandler {
     // MARK: - Lista de tarjetas (pass entries)
 
     override func passEntries(completion: @escaping ([PKIssuerProvisioningExtensionPassEntry]) -> Void) {
-        let entries = hp2.getPassEntriesAvailable()
+        let entries = engine.passEntries()
         log.info("passEntries(): \(entries.count, privacy: .public) tarjetas")
         completion(entries)
     }
 
     override func remotePassEntries(completion: @escaping ([PKIssuerProvisioningExtensionPassEntry]) -> Void) {
-        let entries = hp2.getRemotePassEntriesAvailable()
+        let entries = engine.remotePassEntries()
         log.info("remotePassEntries(): \(entries.count, privacy: .public) tarjetas (Watch)")
         completion(entries)
     }
@@ -56,12 +55,10 @@ final class ProvisioningHandler: PKIssuerProvisioningExtensionHandler {
         completionHandler completion: @escaping (PKAddPaymentPassRequest?) -> Void
     ) {
         log.info("generateAddPaymentPassRequest: cardID=\(identifier, privacy: .public)")
-        let encCard = hp2.getCardDataModel(cardID: identifier)?.getEncCard()
-        hp2.getAddPaymentPassRequest(certificateChain: certificates,
-                                     nonceSignature: nonceSignature,
+        engine.addPaymentPassRequest(cardID: identifier,
+                                     certificates: certificates,
                                      nonce: nonce,
-                                     pushReceiptID: nil,
-                                     issuerEncCard: encCard) { [weak self] request in
+                                     nonceSignature: nonceSignature) { [weak self] request in
             self?.log.info("Solicitud de alta para \(identifier, privacy: .public): \(request == nil ? "nil" : "ok", privacy: .public)")
             completion(request)
         }

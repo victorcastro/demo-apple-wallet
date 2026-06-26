@@ -45,6 +45,31 @@ Referencia Apple: https://applepaydemo.apple.com/in-app-provisioning-extensions
 > SDK, que llama al issuer **real** de HST (endpoint en `BuildConfig`, según el
 > build PROD/HOMOLOG del xcframework). Mockoon ya solo sirve `/login` y `/cards-wallet`.
 
+## Mock vs SDK real
+
+El SDK de HST no soporta mocks ni corre en simulador, así que todas sus operaciones
+están detrás del protocolo `WalletEngine` (`Shared/WalletEngine.swift`) con dos
+backends y un switch **en compilación**:
+
+```swift
+// Shared/WalletEngine.swift
+#if USE_MOCK_WALLET || targetEnvironment(simulator)
+    WalletEngineProvider.current = MockWalletEngine()   // simulador
+#else
+    WalletEngineProvider.current = HSTWalletEngine()     // device, SDK real
+#endif
+```
+
+- **Simulador** → `MockWalletEngine`: store en `UserDefaults` (App Group), arma
+  `PKAddPaymentPassRequest`/pass-entries de relleno y simula el alta con un alert.
+  Las tarjetas igual se siembran desde Mockoon (`/cards-wallet`).
+- **Device** → `HSTWalletEngine`: envuelve el SDK real. Para forzar mock en device,
+  añade `USE_MOCK_WALLET` en *Active Compilation Conditions*.
+
+Todos los consumidores (`CardRepository`, `WalletProvisioningManager`,
+`ProvisioningHandler`, `SandboxViewController`) pasan por `WalletEngineProvider.current`,
+nunca por el SDK directo.
+
 ## Wiring de Xcode (importante)
 
 - El SDK está **linked + embedded** solo en el target app.
