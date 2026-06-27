@@ -10,27 +10,41 @@ import SBPShared
 
 final class LoginViewModel {
 
+    private enum SessionStorage {
+        static let cookieJoyKey = "cookieJoy"
+        static let faceIDEnabledKey = "faceIDEnabled"
+    }
+
     @Published private(set) var isLoading = false
     @Published private(set) var errorMessage: String?
     @Published private(set) var loginSucceeded = false
     @Published private(set) var hasLocalUser = false
     @Published private(set) var isFaceIDAvailableForLogin = false
 
-    private let session: SessionStore
-    private let authService: AuthenticationServicing
+    private let sharedUserDefaults: UserDefaults
+    private let standardUserDefaults: UserDefaults
+
+    private var cookieJoy: String? {
+        sharedUserDefaults.string(forKey: SessionStorage.cookieJoyKey)
+            ?? standardUserDefaults.string(forKey: SessionStorage.cookieJoyKey)
+    }
+
+    private var isFaceIDEnabled: Bool {
+        hasActiveSession && sharedUserDefaults.bool(forKey: SessionStorage.faceIDEnabledKey)
+    }
 
     var hasActiveSession: Bool {
-        session.hasActiveSession
+        cookieJoy?.isEmpty == false
     }
 
     init(
-        session: SessionStore = SessionStore(),
-        authService: AuthenticationServicing = AuthenticationService()
+        sharedUserDefaults: UserDefaults = UserDefaults(suiteName: AppGroup.identifier) ?? .standard,
+        standardUserDefaults: UserDefaults = .standard
     ) {
-        self.session = session
-        self.authService = authService
-        hasLocalUser = session.hasActiveSession
-        isFaceIDAvailableForLogin = session.isFaceIDEnabled
+        self.sharedUserDefaults = sharedUserDefaults
+        self.standardUserDefaults = standardUserDefaults
+        hasLocalUser = hasActiveSession
+        isFaceIDAvailableForLogin = isFaceIDEnabled
     }
 
     func login(dni: String, password: String) {
@@ -41,12 +55,12 @@ final class LoginViewModel {
 
         let resolvedDNI: String
         if hasLocalUser {
-            guard let storedDNI = session.dni else {
+            guard let cookieJoy, !cookieJoy.isEmpty else {
                 syncLocalUserState()
                 errorMessage = "No se encontró el usuario local."
                 return
             }
-            resolvedDNI = storedDNI
+            resolvedDNI = extractDNI(from: cookieJoy)
         } else {
             let trimmedDNI = dni.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !trimmedDNI.isEmpty else {
@@ -59,44 +73,42 @@ final class LoginViewModel {
         isLoading = true
         errorMessage = nil
 
-        Task {
-            do {
-                let cookieJoy = try await authService.login(dni: resolvedDNI, password: password)
-                session.save(cookieJoy: cookieJoy)
-                await MainActor.run {
-                    self.isLoading = false
+        CoreRequestManager.shared.load(LoginRequest(dni: resolvedDNI, password: password)) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self else { return }
+                self.isLoading = false
+
+                switch result {
+                case .success(let response):
+                    guard let cookieJoy = response.cookieJoy, !cookieJoy.isEmpty else {
+                        self.errorMessage = LoginError.missingCookie.errorDescription
+                        return
+                    }
+                    self.saveCookieJoy(cookieJoy)
                     self.hasLocalUser = true
-                    self.isFaceIDAvailableForLogin = self.session.isFaceIDEnabled
+                    self.isFaceIDAvailableForLogin = self.isFaceIDEnabled
                     self.loginSucceeded = true
-                }
-            } catch let error as CoreRequestError {
-                await MainActor.run {
-                    self.isLoading = false
-                    switch error {
-                    case .httpStatus:
+
+                case .failure(let error):
+                    if let error = error as? CoreRequestError, case .httpStatus = error {
                         self.errorMessage = "DNI o contraseña incorrectos."
-                    default:
+                    } else {
                         self.errorMessage = error.localizedDescription
                     }
-                }
-            } catch {
-                await MainActor.run {
-                    self.isLoading = false
-                    self.errorMessage = error.localizedDescription
                 }
             }
         }
     }
 
     func removeLocalUser() {
-        session.clear()
+        clearSession()
         syncLocalUserState()
         errorMessage = nil
     }
 
     func syncLocalUserState() {
-        hasLocalUser = session.hasActiveSession
-        isFaceIDAvailableForLogin = session.isFaceIDEnabled
+        hasLocalUser = hasActiveSession
+        isFaceIDAvailableForLogin = isFaceIDEnabled
     }
 
     func loginWithFaceID() {
@@ -106,5 +118,38 @@ final class LoginViewModel {
         }
         errorMessage = nil
         loginSucceeded = true
+    }
+}
+
+private extension LoginViewModel {
+
+    enum LoginError: LocalizedError {
+        case missingCookie
+
+        var errorDescription: String? {
+            switch self {
+            case .missingCookie:
+                return "El login fue correcto, pero no llegó cookieJoy."
+            }
+        }
+    }
+
+    func extractDNI(from cookieJoy: String) -> String {
+        if let dni = cookieJoy.split(separator: "-").last, !dni.isEmpty {
+            return String(dni)
+        }
+        return cookieJoy
+    }
+
+    func saveCookieJoy(_ cookieJoy: String) {
+        sharedUserDefaults.set(cookieJoy, forKey: SessionStorage.cookieJoyKey)
+        standardUserDefaults.removeObject(forKey: SessionStorage.cookieJoyKey)
+    }
+
+    func clearSession() {
+        sharedUserDefaults.removeObject(forKey: SessionStorage.cookieJoyKey)
+        sharedUserDefaults.removeObject(forKey: SessionStorage.faceIDEnabledKey)
+        standardUserDefaults.removeObject(forKey: SessionStorage.cookieJoyKey)
+        standardUserDefaults.removeObject(forKey: SessionStorage.faceIDEnabledKey)
     }
 }
