@@ -1,15 +1,26 @@
-# SBPPersonalBanking
+# DemoAppleWallet
 
-Demo de Apple Wallet **issuer provisioning**: agregar tarjetas del emisor a Wallet,
-tanto desde la app (`PKAddPaymentPassViewController`) como desde Wallet mismo
-(extensiones). El trabajo pesado (cripto + red al issuer) lo hace el SDK del
-proveedor **HST/HP2**.
+Demostración de **issuer provisioning** con Apple Wallet: flujo completo para
+agregar tarjetas de un emisor a Wallet, tanto desde la propia app
+(`PKAddPaymentPassViewController`) como desde Wallet mediante dos extensiones de
+PassKit (non-UI + autorización).
 
-> **HST** es el proveedor; **HP2** es su SDK.
+La criptografía y la comunicación con el backend del issuer corren a cargo de
+**HP2** (`HP2AppleSDK.xcframework`), el framework iOS del proveedor de
+tokenización **HST**.
 
 Referencia Apple: https://applepaydemo.apple.com/in-app-provisioning-extensions
 
-## Conceptos nuevos (si vienes solo de apps normales)
+## Requisitos mínimos
+
+| Herramienta | Versión |
+|---|---|
+| iOS | 26.0+ |
+| Xcode | 26+ |
+| Swift | 5.0 |
+| Mockoon | cualquiera — importa `mocks/SBPDemo-AppleWallet-mockoon.json` |
+
+## Conceptos
 
 - **App Extension** (`.appex`): un binario aparte, embebido dentro de la app, con
   su propio proceso y sandbox. No lo lanza el usuario: lo lanza el sistema (Wallet).
@@ -45,9 +56,9 @@ Referencia Apple: https://applepaydemo.apple.com/in-app-provisioning-extensions
    `status/passEntries/remotePassEntries` → SDK; y `generateAddPaymentPassRequest`
    → `hp2.getAddPaymentPassRequest(...)`.
 
-> El paso de provisioning (antes el mock `POST /provision`) ahora vive dentro del
-> SDK, que llama al issuer **real** de HST (endpoint en `BuildConfig`, según el
-> build PROD/HOMOLOG del xcframework). Mockoon ya solo sirve `/login` y `/cards-wallet`.
+> El provisioning lo ejecuta el SDK directamente contra el issuer real de HST
+> (endpoint en `BuildConfig`, según el build PROD/HOMOLOG del xcframework).
+> Mockoon sirve únicamente `/login` y `/cards-wallet`.
 
 ## Mock vs SDK real
 
@@ -93,7 +104,7 @@ pasar por Wallet, útil en simulador.
 
 ## Pendiente para producción
 
-- `institutionCode` real de HST (hoy placeholder `"INST-CODE"` en
+- `institutionCode` real de HST (placeholder `"INST-CODE"` en
   `SBPShared/Wallet/HP2/WalletHP2SDK.swift`).
 - Entitlement `com.apple.developer.payment-pass-provisioning` + relación con el PNO.
 - Probar en **dispositivo físico**: el provisioning real y el store del SDK

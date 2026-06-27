@@ -123,6 +123,7 @@
 		AAC92803B043A4BB692CC648 /* SBPProvisioningUIExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SBPProvisioningUIExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		AED217FF014D166E93297884 /* SBPProvisioningExtension.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = SBPProvisioningExtension.entitlements; sourceTree = "<group>"; };
 		CC75EE552FEDAE52000791E3 /* SBPPersonalBanking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SBPPersonalBanking.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCF84A852FF01B60003314C0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:535X9NBFHG:HST Card Technology - Desenvolvimento de Sistemas Ltda"; lastKnownFileType = wrapper.xcframework; name = HP2AppleSDK.xcframework; path = Frameworks/HP2AppleSDK.xcframework; sourceTree = "<group>"; };
 		CCF8F7782FEF04F400142503 /* HttpClient.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:535X9NBFHG:HST Card Technology - Desenvolvimento de Sistemas Ltda"; lastKnownFileType = wrapper.xcframework; name = HttpClient.xcframework; path = Frameworks/HttpClient.xcframework; sourceTree = "<group>"; };
 		E78983A626C09D8E4D377B3F /* AppGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
@@ -252,6 +253,7 @@
 		CC75EE4C2FEDAE52000791E3 = {
 			isa = PBXGroup;
 			children = (
+				CCF84A852FF01B60003314C0 /* README.md */,
 				CC75EE572FEDAE52000791E3 /* SBPPersonalBanking */,
 				CCF84A7F2FF0053D003314C0 /* SBPCorePersonalBanking */,
 				A741C9FB73C8B28C2C50DA30 /* SBPShared */,
