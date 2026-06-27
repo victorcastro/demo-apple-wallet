@@ -6,7 +6,6 @@
 import Foundation
 import Combine
 import SBPCorePersonalBanking
-import SBPShared
 
 final class LoginViewModel {
 
@@ -21,28 +20,22 @@ final class LoginViewModel {
     @Published private(set) var hasLocalUser = false
     @Published private(set) var isFaceIDAvailableForLogin = false
 
-    private let sharedUserDefaults: UserDefaults
-    private let standardUserDefaults: UserDefaults
+    private let userDefaults: UserDefaults
 
     private var cookieJoy: String? {
-        sharedUserDefaults.string(forKey: SessionStorage.cookieJoyKey)
-            ?? standardUserDefaults.string(forKey: SessionStorage.cookieJoyKey)
+        userDefaults.string(forKey: SessionStorage.cookieJoyKey)
     }
 
     private var isFaceIDEnabled: Bool {
-        hasActiveSession && sharedUserDefaults.bool(forKey: SessionStorage.faceIDEnabledKey)
+        hasActiveSession && userDefaults.bool(forKey: SessionStorage.faceIDEnabledKey)
     }
 
     var hasActiveSession: Bool {
         cookieJoy?.isEmpty == false
     }
 
-    init(
-        sharedUserDefaults: UserDefaults = UserDefaults(suiteName: AppGroup.identifier) ?? .standard,
-        standardUserDefaults: UserDefaults = .standard
-    ) {
-        self.sharedUserDefaults = sharedUserDefaults
-        self.standardUserDefaults = standardUserDefaults
+    init(userDefaults: UserDefaults = .standard) {
+        self.userDefaults = userDefaults
         hasLocalUser = hasActiveSession
         isFaceIDAvailableForLogin = isFaceIDEnabled
     }
@@ -142,14 +135,11 @@ private extension LoginViewModel {
     }
 
     func saveCookieJoy(_ cookieJoy: String) {
-        sharedUserDefaults.set(cookieJoy, forKey: SessionStorage.cookieJoyKey)
-        standardUserDefaults.removeObject(forKey: SessionStorage.cookieJoyKey)
+        userDefaults.set(cookieJoy, forKey: SessionStorage.cookieJoyKey)
     }
 
     func clearSession() {
-        sharedUserDefaults.removeObject(forKey: SessionStorage.cookieJoyKey)
-        sharedUserDefaults.removeObject(forKey: SessionStorage.faceIDEnabledKey)
-        standardUserDefaults.removeObject(forKey: SessionStorage.cookieJoyKey)
-        standardUserDefaults.removeObject(forKey: SessionStorage.faceIDEnabledKey)
+        userDefaults.removeObject(forKey: SessionStorage.cookieJoyKey)
+        userDefaults.removeObject(forKey: SessionStorage.faceIDEnabledKey)
     }
 }
