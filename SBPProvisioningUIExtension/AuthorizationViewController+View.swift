@@ -45,6 +45,12 @@ extension AuthorizationViewController {
             passwordField.isEnabled = !loading
         }
 
+        /// El controller decide si ofrecer biometría según la preferencia del
+        /// usuario (`SessionStore.isFaceIDEnabled`), no solo la capacidad del device.
+        func setBiometricVisible(_ visible: Bool) {
+            biometricButton.isHidden = !(visible && isBiometricAvailable())
+        }
+
         func showMessage(_ message: String, isError: Bool) {
             subtitleLabel.text = message
             subtitleLabel.textColor = isError ? .systemRed : .secondaryLabel
@@ -93,7 +99,7 @@ extension AuthorizationViewController {
             bioConfig.buttonSize = .large
             biometricButton.configuration = bioConfig
             biometricButton.addTarget(self, action: #selector(didTapBiometric), for: .touchUpInside)
-            biometricButton.isHidden = !isBiometricAvailable()
+            biometricButton.isHidden = true   // el controller lo muestra vía setBiometricVisible(_:)
 
             cancelButton.setTitle("Cancelar", for: .normal)
             cancelButton.addTarget(self, action: #selector(didTapCancel), for: .touchUpInside)

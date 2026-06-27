@@ -13,8 +13,8 @@
 //
 
 import PassKit
-import os
 import SBPShared
+import os
 
 final class ProvisioningHandler: PKIssuerProvisioningExtensionHandler {
 

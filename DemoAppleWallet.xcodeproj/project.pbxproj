@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		037D89F722BF1DA6CC3641F7 /* SBPProvisioningUIExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AAC92803B043A4BB692CC648 /* SBPProvisioningUIExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		0F26EB1A9B2EFFD72E6D6E25 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78983A626C09D8E4D377B3F /* AppGroup.swift */; };
 		180FE755C57141C59DBD42AE /* AuthorizationViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77998E8C15654F77A88F4FCE /* AuthorizationViewController+View.swift */; };
 		44D5F5858C4B665F41966B17 /* ProvisioningHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9591EA4D1BED244836EA36 /* ProvisioningHandler.swift */; };
 		5EED00000000000000000040 /* HP2AppleSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */; };
@@ -16,12 +15,19 @@
 		5EED00000000000000000050 /* SBPShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EED00000000000000000002 /* SBPShared.framework */; };
 		5EED00000000000000000051 /* SBPShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EED00000000000000000002 /* SBPShared.framework */; };
 		5EED00000000000000000053 /* SBPShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5EED00000000000000000002 /* SBPShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5EED00000000000000000082 /* SBPShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EED00000000000000000002 /* SBPShared.framework */; };
+		5EED00000000000000000083 /* SBPCorePersonalBanking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */; };
+		5EED00000000000000000088 /* SBPCorePersonalBanking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5EED00000000000000000089 /* SBPCorePersonalBanking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */; };
 		66135208675345344AFF16C7 /* SBPCorePersonalBanking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */; };
 		7685E1AE2F74F41D3F04F82B /* SBPCorePersonalBanking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */; };
 		99694487C689FA58733D2B0C /* SBPProvisioningExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 429A931F6546B6E978A7A289 /* SBPProvisioningExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A76A028F8E3A8FF541FC71B2 /* SBPCorePersonalBanking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */; };
 		AF92AADDF551F6909B7C665B /* CoreRequestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F06A24CEA81EE4A4D8352 /* CoreRequestManagerTests.swift */; };
 		B92B05F9E870A0AB1D9C09DD /* AuthorizationViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77998E8C15654F77A88F4FCE /* AuthorizationViewController+View.swift */; };
+		CCF8500C2FF02C0C003314C0 /* Pulse in Frameworks */ = {isa = PBXBuildFile; productRef = CCF8500B2FF02C0C003314C0 /* Pulse */; };
+		CCF8500E2FF02C0C003314C0 /* PulseProxy in Frameworks */ = {isa = PBXBuildFile; productRef = CCF8500D2FF02C0C003314C0 /* PulseProxy */; };
+		CCF850102FF02C0C003314C0 /* PulseUI in Frameworks */ = {isa = PBXBuildFile; productRef = CCF8500F2FF02C0C003314C0 /* PulseUI */; };
 		CCF8F77F2FEF052400142503 /* HttpClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7782FEF04F400142503 /* HttpClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CCF8F7812FEF052400142503 /* HP2AppleSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9C95C1101B2190F9436583E /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC2218A33AE4E46B9D5829E /* AuthorizationViewController.swift */; };
@@ -49,6 +55,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5EED00000000000000000001;
 			remoteInfo = SBPShared;
+		};
+		5EED00000000000000000084 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC75EE4D2FEDAE52000791E3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5EED00000000000000000001;
+			remoteInfo = SBPShared;
+		};
+		5EED00000000000000000085 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC75EE4D2FEDAE52000791E3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 730D66072FB9046B0AECC1A4;
+			remoteInfo = SBPCorePersonalBanking;
+		};
+		5EED0000000000000000008A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC75EE4D2FEDAE52000791E3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 730D66072FB9046B0AECC1A4;
+			remoteInfo = SBPCorePersonalBanking;
 		};
 		8FAA0CC0FDB973EE1C45064B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -89,6 +116,7 @@
 			files = (
 				CCF8F7812FEF052400142503 /* HP2AppleSDK.xcframework in Embed Frameworks */,
 				5EED00000000000000000053 /* SBPShared.framework in Embed Frameworks */,
+				5EED00000000000000000088 /* SBPCorePersonalBanking.framework in Embed Frameworks */,
 				CCF8F77F2FEF052400142503 /* HttpClient.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -126,7 +154,6 @@
 		CCF84A852FF01B60003314C0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:535X9NBFHG:HST Card Technology - Desenvolvimento de Sistemas Ltda"; lastKnownFileType = wrapper.xcframework; name = HP2AppleSDK.xcframework; path = Frameworks/HP2AppleSDK.xcframework; sourceTree = "<group>"; };
 		CCF8F7782FEF04F400142503 /* HttpClient.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:535X9NBFHG:HST Card Technology - Desenvolvimento de Sistemas Ltda"; lastKnownFileType = wrapper.xcframework; name = HttpClient.xcframework; path = Frameworks/HttpClient.xcframework; sourceTree = "<group>"; };
-		E78983A626C09D8E4D377B3F /* AppGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -148,14 +175,14 @@
 			path = SBPPersonalBanking;
 			sourceTree = "<group>";
 		};
-		CCF84A202FF00095003314C0 /* AppleWallet */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = AppleWallet;
-			sourceTree = "<group>";
-		};
 		CCF84A7F2FF0053D003314C0 /* SBPCorePersonalBanking */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SBPCorePersonalBanking;
+			sourceTree = "<group>";
+		};
+		CCF84D952FF02529003314C0 /* SBPShared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SBPShared;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -165,6 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EED00000000000000000089 /* SBPCorePersonalBanking.framework in Frameworks */,
 				5EED00000000000000000040 /* HP2AppleSDK.xcframework in Frameworks */,
 				5EED00000000000000000041 /* HttpClient.xcframework in Frameworks */,
 			);
@@ -198,6 +226,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EED00000000000000000083 /* SBPCorePersonalBanking.framework in Frameworks */,
+				5EED00000000000000000082 /* SBPShared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +235,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCF8500C2FF02C0C003314C0 /* Pulse in Frameworks */,
+				CCF850102FF02C0C003314C0 /* PulseUI in Frameworks */,
+				CCF8500E2FF02C0C003314C0 /* PulseProxy in Frameworks */,
 				A76A028F8E3A8FF541FC71B2 /* SBPCorePersonalBanking.framework in Frameworks */,
 				5EED00000000000000000050 /* SBPShared.framework in Frameworks */,
 			);
@@ -232,15 +265,6 @@
 			path = SBPPersonalBankingTests;
 			sourceTree = "<group>";
 		};
-		A741C9FB73C8B28C2C50DA30 /* SBPShared */ = {
-			isa = PBXGroup;
-			children = (
-				E78983A626C09D8E4D377B3F /* AppGroup.swift */,
-				CCF84A202FF00095003314C0 /* AppleWallet */,
-			);
-			path = SBPShared;
-			sourceTree = "<group>";
-		};
 		B939A833EFAB2798A26E302B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,7 +280,7 @@
 				CCF84A852FF01B60003314C0 /* README.md */,
 				CC75EE572FEDAE52000791E3 /* SBPPersonalBanking */,
 				CCF84A7F2FF0053D003314C0 /* SBPCorePersonalBanking */,
-				A741C9FB73C8B28C2C50DA30 /* SBPShared */,
+				CCF84D952FF02529003314C0 /* SBPShared */,
 				ECA4209D04539F94CAB2753C /* SBPProvisioningExtension */,
 				0ED0D32F755FE99667AFEBB3 /* SBPProvisioningUIExtension */,
 				8EB5974532592058F1E666AC /* SBPPersonalBankingTests */,
@@ -320,9 +344,10 @@
 			buildRules = (
 			);
 			dependencies = (
+				5EED0000000000000000008B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				CCF84A202FF00095003314C0 /* AppleWallet */,
+				CCF84D952FF02529003314C0 /* SBPShared */,
 			);
 			name = SBPShared;
 			productName = SBPShared;
@@ -361,6 +386,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				5EED00000000000000000086 /* PBXTargetDependency */,
+				5EED00000000000000000087 /* PBXTargetDependency */,
 			);
 			name = SBPProvisioningUIExtension;
 			productName = SBPProvisioningUIExtension;
@@ -454,6 +481,9 @@
 			);
 			mainGroup = CC75EE4C2FEDAE52000791E3;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CCF8500A2FF02C0C003314C0 /* XCRemoteSwiftPackageReference "Pulse" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CC75EE562FEDAE52000791E3 /* Products */;
 			projectDirPath = "";
@@ -535,7 +565,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F26EB1A9B2EFFD72E6D6E25 /* AppGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,6 +619,24 @@
 			name = SBPShared;
 			target = 5EED00000000000000000001 /* SBPShared */;
 			targetProxy = 5EED00000000000000000061 /* PBXContainerItemProxy */;
+		};
+		5EED00000000000000000086 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SBPShared;
+			target = 5EED00000000000000000001 /* SBPShared */;
+			targetProxy = 5EED00000000000000000084 /* PBXContainerItemProxy */;
+		};
+		5EED00000000000000000087 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SBPCorePersonalBanking;
+			target = 730D66072FB9046B0AECC1A4 /* SBPCorePersonalBanking */;
+			targetProxy = 5EED00000000000000000085 /* PBXContainerItemProxy */;
+		};
+		5EED0000000000000000008B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SBPCorePersonalBanking;
+			target = 730D66072FB9046B0AECC1A4 /* SBPCorePersonalBanking */;
+			targetProxy = 5EED0000000000000000008A /* PBXContainerItemProxy */;
 		};
 		91CD1B4B044D336084CAF0A2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -765,7 +812,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPCorePersonalBanking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -830,7 +876,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPCorePersonalBanking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1176,6 +1221,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CCF8500A2FF02C0C003314C0 /* XCRemoteSwiftPackageReference "Pulse" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Pulse.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CCF8500B2FF02C0C003314C0 /* Pulse */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF8500A2FF02C0C003314C0 /* XCRemoteSwiftPackageReference "Pulse" */;
+			productName = Pulse;
+		};
+		CCF8500D2FF02C0C003314C0 /* PulseProxy */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF8500A2FF02C0C003314C0 /* XCRemoteSwiftPackageReference "Pulse" */;
+			productName = PulseProxy;
+		};
+		CCF8500F2FF02C0C003314C0 /* PulseUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF8500A2FF02C0C003314C0 /* XCRemoteSwiftPackageReference "Pulse" */;
+			productName = PulseUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CC75EE4D2FEDAE52000791E3 /* Project object */;
 }

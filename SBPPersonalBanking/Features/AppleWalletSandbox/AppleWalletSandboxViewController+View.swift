@@ -147,7 +147,7 @@ extension AppleWalletSandboxViewController {
 
             // Header: título a la izquierda, acciones (copy / clear) juntas a la derecha.
             let titleLabel = UILabel()
-            titleLabel.text = "Console"
+            titleLabel.text = "Console log"
             titleLabel.font = .systemFont(ofSize: 13, weight: .semibold)
             titleLabel.textColor = .secondaryLabel
             titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
