@@ -5,6 +5,8 @@ tanto desde la app (`PKAddPaymentPassViewController`) como desde Wallet mismo
 (extensiones). El trabajo pesado (cripto + red al issuer) lo hace el SDK del
 proveedor **HST/HP2**.
 
+> **HST** es el proveedor; **HP2** es su SDK.
+
 Referencia Apple: https://applepaydemo.apple.com/in-app-provisioning-extensions
 
 ## Conceptos nuevos (si vienes solo de apps normales)
@@ -24,7 +26,7 @@ Referencia Apple: https://applepaydemo.apple.com/in-app-provisioning-extensions
 - **SDK HST/HP2** (`Frameworks/HP2AppleSDK.xcframework` + `HttpClient.xcframework`):
   dueño del almacén de tarjetas (entidad Core Data `CardExtensionData` en el App
   Group) y de la comunicación con el backend del issuer. Punto de acceso único:
-  `WalletSDK.shared = HP2(institutionCode:groupID:)` (`Shared/WalletSDK.swift`).
+  `WalletHP2SDK.shared = HP2(institutionCode:groupID:)` (`SBPShared/Wallet/HP2/WalletHP2SDK.swift`).
 
 ## Flujo de datos
 
@@ -32,8 +34,10 @@ Referencia Apple: https://applepaydemo.apple.com/in-app-provisioning-extensions
 2. **Sync catálogo** → `CardsViewModel.sync()` hace `GET /cards-wallet`, mapea a
    `CardDataModel` y siembra el store del SDK con `hp2.updateDataBase(cardDataList:)`.
    Cada tarjeta trae su `encCard` (paquete cifrado del issuer).
-3. **Listar UI** → `CardRepository` lee con `hp2.getCardsFromCoreData()`.
-   `isProvisioned` se deriva de `hp2.isAvailableForCard(panRefId:)`, no se guarda.
+3. **Listar UI** → `WalletCardRepository` lee vía el `WalletEngine` activo
+   (`engine.cards()`), que en device envuelve `hp2.getCardsFromCoreData()` y mapea a
+   `WalletCard`. `isProvisioned` lo deriva el engine de `hp2.isAvailableForCard(panRefId:)`,
+   no se guarda.
 4. **Agregar a Wallet (in-app)** → `WalletProvisioningManager` llama
    `hp2.executeProvisioningOfEncryptedCard(...)`: el SDK presenta el sheet de Apple
    Pay, hace el round-trip al issuer con el `encCard` y arma el `PKAddPaymentPassRequest`.
@@ -48,16 +52,19 @@ Referencia Apple: https://applepaydemo.apple.com/in-app-provisioning-extensions
 ## Mock vs SDK real
 
 El SDK de HST no soporta mocks ni corre en simulador, así que todas sus operaciones
-están detrás del protocolo `WalletEngine` (`Shared/WalletEngine.swift`) con dos
-backends y un switch **en compilación**:
+están detrás del protocolo `WalletEngineProtocol`
+(`SBPShared/Wallet/WalletEngineProtocol.swift`) con dos backends —
+`MockWalletEngine` y `HSTWalletEngine`— y un switch **en compilación**:
 
 ```swift
-// Shared/WalletEngine.swift
-#if USE_MOCK_WALLET || targetEnvironment(simulator)
-    WalletEngineProvider.current = MockWalletEngine()   // simulador
-#else
-    WalletEngineProvider.current = HSTWalletEngine()     // device, SDK real
-#endif
+// SBPShared/Wallet/WalletEngineProtocol.swift
+public enum WalletEngineProvider {
+    #if USE_MOCK_WALLET || targetEnvironment(simulator)
+    public static let current = MockWalletEngine()   // simulador
+    #else
+    public static let current = HSTWalletEngine()    // device, SDK real
+    #endif
+}
 ```
 
 - **Simulador** → `MockWalletEngine`: store en `UserDefaults` (App Group), arma
@@ -66,27 +73,28 @@ backends y un switch **en compilación**:
 - **Device** → `HSTWalletEngine`: envuelve el SDK real. Para forzar mock en device,
   añade `USE_MOCK_WALLET` en *Active Compilation Conditions*.
 
-Todos los consumidores (`CardRepository`, `WalletProvisioningManager`,
-`ProvisioningHandler`, `SandboxViewController`) pasan por `WalletEngineProvider.current`,
-nunca por el SDK directo.
+Todos los consumidores (`WalletCardRepository`, `WalletProvisioningManager`,
+`ProvisioningHandler`, `AppleWalletSandboxViewController`) pasan por
+`WalletEngineProvider.current`, nunca por el SDK directo.
 
 ## Wiring de Xcode (importante)
 
 - El SDK está **linked + embedded** solo en el target app.
 - En ambas extensiones está **linked, Do Not Embed**: la app provee el binario y la
   extensión lo resuelve en runtime vía `@executable_path/../../Frameworks`.
-- Los archivos de `Shared/` son miembros de app + extensiones, por eso compilan
-  contra el mismo `WalletSDK`/`CardRepository`.
+- Los archivos de `SBPShared/` (`Wallet/` + `WalletCards/`) son miembros de app +
+  extensiones, por eso compilan contra el mismo `WalletHP2SDK`/`WalletCardRepository`.
 
 ## Sandbox
 
-`SBPPersonalBanking/Features/Sandbox/SandboxViewController` ejercita los métodos de
+`SBPPersonalBanking/Features/AppleWalletSandbox/AppleWalletSandboxViewController` ejercita los métodos de
 la extensión (`status` / `passEntries` / auth / `generateAddPaymentPassRequest`) sin
 pasar por Wallet, útil en simulador.
 
 ## Pendiente para producción
 
-- `institutionCode` real de HST (hoy placeholder `"INST-CODE"` en `WalletSDK.swift`).
+- `institutionCode` real de HST (hoy placeholder `"INST-CODE"` en
+  `SBPShared/Wallet/HP2/WalletHP2SDK.swift`).
 - Entitlement `com.apple.developer.payment-pass-provisioning` + relación con el PNO.
 - Probar en **dispositivo físico**: el provisioning real y el store del SDK
   (necesita keychain) no funcionan en simulador.
@@ -98,5 +106,5 @@ xcodebuild -scheme SBPPersonalBanking -destination 'platform=iOS Simulator,name=
 xcodebuild -scheme SBPPersonalBanking -destination 'platform=iOS Simulator,name=iPhone 17' test
 ```
 
-O abre `SBPPersonalBanking.xcodeproj` en Xcode. Para el catálogo: Mockoon con
+O abre `DemoAppleWallet.xcodeproj` en Xcode. Para el catálogo: Mockoon con
 `mocks/SBPDemo-AppleWallet-mockoon.json` en `http://localhost:5001`.

@@ -17,13 +17,13 @@
                BlueprintIdentifier = "CC75EE542FEDAE52000791E3"
                BuildableName = "SBPPersonalBanking.app"
                BlueprintName = "SBPPersonalBanking"
-               ReferencedContainer = "container:SBPPersonalBanking.xcodeproj">
+               ReferencedContainer = "container:DemoAppleWallet.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -33,7 +33,7 @@
             BlueprintIdentifier = "CC75EE542FEDAE52000791E3"
             BuildableName = "SBPPersonalBanking.app"
             BlueprintName = "SBPPersonalBanking"
-            ReferencedContainer = "container:SBPPersonalBanking.xcodeproj">
+            ReferencedContainer = "container:DemoAppleWallet.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -44,13 +44,13 @@
                BlueprintIdentifier = "AEB668790F58BD402598998A"
                BuildableName = "SBPPersonalBankingTests.xctest"
                BlueprintName = "SBPPersonalBankingTests"
-               ReferencedContainer = "container:SBPPersonalBanking.xcodeproj">
+               ReferencedContainer = "container:DemoAppleWallet.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -66,7 +66,7 @@
             BlueprintIdentifier = "CC75EE542FEDAE52000791E3"
             BuildableName = "SBPPersonalBanking.app"
             BlueprintName = "SBPPersonalBanking"
-            ReferencedContainer = "container:SBPPersonalBanking.xcodeproj">
+            ReferencedContainer = "container:DemoAppleWallet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -83,12 +83,12 @@
             BlueprintIdentifier = "CC75EE542FEDAE52000791E3"
             BuildableName = "SBPPersonalBanking.app"
             BlueprintName = "SBPPersonalBanking"
-            ReferencedContainer = "container:SBPPersonalBanking.xcodeproj">
+            ReferencedContainer = "container:DemoAppleWallet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug">
+      buildConfiguration = "Release">
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"

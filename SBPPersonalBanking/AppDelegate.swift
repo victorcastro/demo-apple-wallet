@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  SBPPersonalBanking
+//  DemoAppleWallet
 //
 //  Created by Victor Castro on 25/06/26.
 //

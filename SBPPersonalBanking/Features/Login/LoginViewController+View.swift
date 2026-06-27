@@ -1,6 +1,6 @@
 //
 //  LoginViewController+View.swift
-//  SBPPersonalBanking
+//  DemoAppleWallet
 //
 
 import UIKit

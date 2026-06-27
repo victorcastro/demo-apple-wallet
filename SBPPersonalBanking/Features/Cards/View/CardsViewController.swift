@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  SBPPersonalBanking
+//  DemoAppleWallet
 //
 //  Demo home screen: lists the customer's cards and lets them add each one to
 //  Apple Wallet using the standard in-app provisioning flow. The same cards are
@@ -10,6 +10,7 @@
 import UIKit
 import PassKit
 import Combine
+import SBPShared
 
 final class CardsViewController: UIViewController {
 
@@ -17,7 +18,8 @@ final class CardsViewController: UIViewController {
     private let walletManager = WalletProvisioningManager()
     private let viewModel = CardsViewModel()
     private var cancellables = Set<AnyCancellable>()
-    private var cards: [BankCard] = []
+    private var cards: [WalletCard] = []
+    private var expandedCardIDs: Set<String> = []
     private lazy var syncButton = UIBarButtonItem(
         image: UIImage(systemName: "arrow.down.circle"),
         style: .plain,
@@ -169,7 +171,7 @@ final class CardsViewController: UIViewController {
 
     #if DEBUG
     @objc private func sandboxTapped() {
-        navigationController?.pushViewController(SandboxViewController(), animated: true)
+        navigationController?.pushViewController(AppleWalletSandboxViewController(), animated: true)
     }
     #endif
 
@@ -188,7 +190,7 @@ final class CardsViewController: UIViewController {
         }
     }
 
-    private func addToWallet(_ card: BankCard) {
+    private func addToWallet(_ card: WalletCard) {
         walletManager.startProvisioning(for: card, from: self) { [weak self] outcome in
             guard let self else { return }
             switch outcome {
@@ -235,9 +237,22 @@ extension CardsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.reuseID, for: indexPath) as! CardCell
         let card = cards[indexPath.row]
-        cell.configure(with: card) { [weak self] in
-            self?.addToWallet(card)
-        }
+        cell.configure(
+            with: card,
+            isExpanded: expandedCardIDs.contains(card.cardID),
+            onAdd: { [weak self] in
+                self?.addToWallet(card)
+            },
+            onToggleDetails: { [weak self, weak tableView] in
+                guard let self else { return }
+                if self.expandedCardIDs.contains(card.cardID) {
+                    self.expandedCardIDs.remove(card.cardID)
+                } else {
+                    self.expandedCardIDs.insert(card.cardID)
+                }
+                tableView?.performBatchUpdates(nil)
+            }
+        )
         return cell
     }
 }

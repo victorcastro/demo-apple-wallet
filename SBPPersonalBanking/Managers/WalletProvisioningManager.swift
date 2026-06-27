@@ -1,6 +1,6 @@
 //
 //  WalletProvisioningManager.swift
-//  SBPPersonalBanking
+//  DemoAppleWallet
 //
 //  API in-app para agregar una tarjeta a Wallet. Delega en el `WalletEngine`
 //  activo: en device el SDK presenta el sheet real de Apple Pay; en simulador el
@@ -9,12 +9,13 @@
 
 import UIKit
 import PassKit
+import SBPShared
 
 final class WalletProvisioningManager: NSObject {
 
-    private let engine: WalletEngine
+    private let engine: WalletEngineProtocol
 
-    init(engine: WalletEngine = WalletEngineProvider.current) {
+    init(engine: WalletEngineProtocol = WalletEngineProvider.current) {
         self.engine = engine
         super.init()
     }
@@ -26,7 +27,7 @@ final class WalletProvisioningManager: NSObject {
     }
 
     /// Inicia el alta de la tarjeta (real o simulada según el backend).
-    func startProvisioning(for card: BankCard,
+    func startProvisioning(for card: WalletCard,
                            from presenter: UIViewController,
                            completion: @escaping (ProvisioningOutcome) -> Void) {
         engine.startInAppProvisioning(card: card, from: presenter, completion: completion)

@@ -58,20 +58,21 @@ final class AuthorizationViewController: UIViewController, PKIssuerProvisioningE
         }
     }
 
-    /// TODO: Implementar el login real de la extensión con `CoreRequestManager.shared.load(...)`.
     private func continueWithPassword(_ password: String) {
         guard !password.isEmpty else {
             showMessage("Ingresa tu contraseña.", isError: true)
             return
         }
 
+        // TODO: Implementar el login real
         authorize(using: .password)
     }
 
-    /// Face ID/Touch ID opcional (solo biometría, sin caer al passcode).
     private func continueWithBiometrics() {
         setLoading(true)
         showMessage("Validando biometría...", isError: false)
+        
+        // TODO: Implementar el login real
         evaluateNativeBiometrics()
     }
 

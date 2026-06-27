@@ -1,9 +1,10 @@
 //
 //  MenuViewModel.swift
-//  SBPPersonalBanking
+//  DemoAppleWallet
 //
 
 import Foundation
+import SBPShared
 
 final class MenuViewModel {
 

@@ -1,11 +1,12 @@
 //
 //  LoginViewModel.swift
-//  SBPPersonalBanking
+//  DemoAppleWallet
 //
 
 import Foundation
 import Combine
 import SBPCorePersonalBanking
+import SBPShared
 
 final class LoginViewModel {
 

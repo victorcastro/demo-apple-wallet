@@ -1,6 +1,6 @@
 //
 //  CoreRequestManagerTests.swift
-//  SBPPersonalBankingTests
+//  DemoAppleWalletTests
 //
 //  Verifica CoreRequestManager + los requests (URLSession) usando un
 //  `URLProtocol` de prueba que intercepta las peticiones. Ejercita el camino

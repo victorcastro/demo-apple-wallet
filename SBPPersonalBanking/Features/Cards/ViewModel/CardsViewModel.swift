@@ -1,6 +1,6 @@
 //
 //  CardsViewModel.swift
-//  SBPPersonalBanking
+//  DemoAppleWallet
 //
 //  ViewModel (MVVM). Es quien llama a los servicios vía CoreRequestManager
 //  (del framework SBPCorePersonalBanking), mapea las respuestas al modelo y
@@ -10,17 +10,18 @@
 import Foundation
 import Combine
 import SBPCorePersonalBanking
+import SBPShared
 
 final class CardsViewModel {
 
     // Estado observable por la vista (Combine).
-    @Published private(set) var cards: [BankCard] = []
+    @Published private(set) var cards: [WalletCard] = []
     @Published private(set) var isLoading = false
     @Published private(set) var errorMessage: String?
 
-    private let repository: CardRepository
+    private let repository: WalletCardRepository
 
-    init(repository: CardRepository = .shared) {
+    init(repository: WalletCardRepository = .shared) {
         self.repository = repository
         cards = repository.allCards()
     }
@@ -43,7 +44,7 @@ final class CardsViewModel {
                 self.isLoading = false
                 switch result {
                 case .success(let dtos):
-                    self.repository.save(dtos.map { $0.toBankCard() })
+                    self.repository.save(dtos.map { $0.toWalletCard() })
                     self.cards = self.repository.allCards()
                 case .failure(let error):
                     self.errorMessage = error.localizedDescription

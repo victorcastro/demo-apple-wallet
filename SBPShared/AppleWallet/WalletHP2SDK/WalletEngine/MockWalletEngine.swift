@@ -1,6 +1,6 @@
 //
 //  MockWalletEngine.swift
-//  SBPPersonalBanking (Shared)
+//  DemoAppleWallet (Shared)
 //
 //  Backend MOCK: simula el comportamiento del SDK de HST para que el flujo sea
 //  plenamente funcional en simulador (donde el SDK real, el keychain y Apple Pay
@@ -15,7 +15,7 @@
 import UIKit
 import PassKit
 
-final class MockWalletEngine: WalletEngine {
+final class MockWalletEngine: WalletEngineProtocol {
 
     private let defaults: UserDefaults
     private let storeKey = "mock.cards"
@@ -26,16 +26,16 @@ final class MockWalletEngine: WalletEngine {
 
     // MARK: Store
 
-    func cards() -> [BankCard] {
+    func cards() -> [WalletCard] {
         guard let data = defaults.data(forKey: storeKey),
-              let cards = try? JSONDecoder().decode([BankCard].self, from: data) else {
+              let cards = try? JSONDecoder().decode([WalletCard].self, from: data) else {
             return []
         }
         return cards.sorted { $0.cardHolderName < $1.cardHolderName }
     }
 
     @discardableResult
-    func saveCards(_ cards: [BankCard]) -> Bool {
+    func saveCards(_ cards: [WalletCard]) -> Bool {
         // Upsert por cardID, preservando el `isProvisioned` ya almacenado.
         var current = Dictionary(uniqueKeysWithValues: self.cards().map { ($0.cardID, $0) })
         for var card in cards {
@@ -45,7 +45,7 @@ final class MockWalletEngine: WalletEngine {
         return persist(Array(current.values))
     }
 
-    func card(withID id: String) -> BankCard? {
+    func card(withID id: String) -> WalletCard? {
         cards().first { $0.cardID == id }
     }
 
@@ -91,7 +91,7 @@ final class MockWalletEngine: WalletEngine {
 
     // MARK: Alta in-app (simulada)
 
-    func startInAppProvisioning(card: BankCard,
+    func startInAppProvisioning(card: WalletCard,
                                 from presenter: UIViewController,
                                 completion: @escaping (ProvisioningOutcome) -> Void) {
         let alert = UIAlertController(
@@ -111,13 +111,13 @@ final class MockWalletEngine: WalletEngine {
 
     // MARK: - Auxiliares
 
-    private func provisionable() -> [BankCard] {
+    private func provisionable() -> [WalletCard] {
         cards().filter { !$0.isProvisioned }
     }
 
-    private func makePassEntry(for card: BankCard) -> PKIssuerProvisioningExtensionPaymentPassEntry? {
+    private func makePassEntry(for card: WalletCard) -> PKIssuerProvisioningExtensionPaymentPassEntry? {
         guard let configuration = PKAddPaymentPassRequestConfiguration(encryptionScheme: .ECC_V2),
-              let art = CardArtRenderer.cgImage(for: card) else {
+              let art = WalletCardUtils.cgImage(for: card) else {
             return nil
         }
         configuration.cardholderName = card.cardHolderName
@@ -143,7 +143,7 @@ final class MockWalletEngine: WalletEngine {
     }
 
     @discardableResult
-    private func persist(_ cards: [BankCard]) -> Bool {
+    private func persist(_ cards: [WalletCard]) -> Bool {
         guard let data = try? JSONEncoder().encode(cards) else { return false }
         defaults.set(data, forKey: storeKey)
         return true

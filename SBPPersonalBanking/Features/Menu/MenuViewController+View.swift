@@ -1,6 +1,6 @@
 //
 //  MenuViewController+View.swift
-//  SBPPersonalBanking
+//  DemoAppleWallet
 //
 
 import UIKit

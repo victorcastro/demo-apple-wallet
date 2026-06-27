@@ -8,56 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		037D89F722BF1DA6CC3641F7 /* SBPProvisioningUIExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AAC92803B043A4BB692CC648 /* SBPProvisioningUIExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		0CB9D2C6B92C45A533D51C61 /* WalletSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20804FC741F3813DA93204D /* WalletSDK.swift */; };
 		0F26EB1A9B2EFFD72E6D6E25 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78983A626C09D8E4D377B3F /* AppGroup.swift */; };
-		12C032069D049270F20F7286 /* BankCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F10CCF674499AC078E94ADC /* BankCard.swift */; };
 		180FE755C57141C59DBD42AE /* AuthorizationViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77998E8C15654F77A88F4FCE /* AuthorizationViewController+View.swift */; };
-		19BB6D183975B12C760D86EF /* CardArtRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE423811575D57AE528C73A2 /* CardArtRenderer.swift */; };
-		23EC0F9417DD67B0E361455A /* CardArtRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE423811575D57AE528C73A2 /* CardArtRenderer.swift */; };
-		240F35D686EC8BCB4064AF88 /* HP2AppleSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */; };
-		2DC3EAD5F84AF0DB53A298AB /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFE2B394E563C2ED2D9B169 /* CardRepository.swift */; };
-		30827A44DBC97AFFBC815C5F /* HSTWalletEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD966D6A9AE4B4367332D38 /* HSTWalletEngine.swift */; };
-		34CFE4ED9D1C4B3009F639C2 /* CoreRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7F5721646E7E4B0628BC04 /* CoreRequestManager.swift */; };
-		3DFDFE71FDE56B799C97CA0D /* WalletSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20804FC741F3813DA93204D /* WalletSDK.swift */; };
-		43C2B17802ED200A97CEF4ED /* HttpClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7782FEF04F400142503 /* HttpClient.xcframework */; };
 		44D5F5858C4B665F41966B17 /* ProvisioningHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9591EA4D1BED244836EA36 /* ProvisioningHandler.swift */; };
-		4C5D9E6D48022FB3C4D4C44C /* WalletEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F5A86B0F960A514070C64F /* WalletEngine.swift */; };
-		60DFA88360322AAA41137463 /* WalletEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F5A86B0F960A514070C64F /* WalletEngine.swift */; };
+		5EED00000000000000000040 /* HP2AppleSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */; };
+		5EED00000000000000000041 /* HttpClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7782FEF04F400142503 /* HttpClient.xcframework */; };
+		5EED00000000000000000050 /* SBPShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EED00000000000000000002 /* SBPShared.framework */; };
+		5EED00000000000000000051 /* SBPShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EED00000000000000000002 /* SBPShared.framework */; };
+		5EED00000000000000000053 /* SBPShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5EED00000000000000000002 /* SBPShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		66135208675345344AFF16C7 /* SBPCorePersonalBanking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */; };
-		69C217B97112FE13E0A5BA58 /* BankCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F10CCF674499AC078E94ADC /* BankCard.swift */; };
-		6B1832ED59C023B12C498292 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78983A626C09D8E4D377B3F /* AppGroup.swift */; };
-		6F13A06A83DB073DD139599C /* MockWalletEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB26E50E1E09EFD8E060ABDF /* MockWalletEngine.swift */; };
-		701B987C43390C93A8052CAD /* BankCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F10CCF674499AC078E94ADC /* BankCard.swift */; };
-		7417FF37EDD167192CBB55F4 /* MockWalletEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB26E50E1E09EFD8E060ABDF /* MockWalletEngine.swift */; };
-		748AA8A159D20BB4E54250B9 /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFE2B394E563C2ED2D9B169 /* CardRepository.swift */; };
 		7685E1AE2F74F41D3F04F82B /* SBPCorePersonalBanking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */; };
-		7B4643A82BDFC90104DB3720 /* CardArtRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE423811575D57AE528C73A2 /* CardArtRenderer.swift */; };
-		82E3DB50066E3EFE37312281 /* WalletSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20804FC741F3813DA93204D /* WalletSDK.swift */; };
-		853A21C0F3F18F5F2764E852 /* HP2AppleSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */; };
 		99694487C689FA58733D2B0C /* SBPProvisioningExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 429A931F6546B6E978A7A289 /* SBPProvisioningExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A63DC439486813653744573B /* WalletCardsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96E61643CDEB22CC0A5530F /* WalletCardsRequest.swift */; };
 		A76A028F8E3A8FF541FC71B2 /* SBPCorePersonalBanking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */; };
-		A9977F52AA298AC636BC47B2 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78983A626C09D8E4D377B3F /* AppGroup.swift */; };
-		AB9D700273D34E4203D999F1 /* HSTWalletEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD966D6A9AE4B4367332D38 /* HSTWalletEngine.swift */; };
-		AC4996D29C303BED7F618822 /* MockWalletEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB26E50E1E09EFD8E060ABDF /* MockWalletEngine.swift */; };
 		AF92AADDF551F6909B7C665B /* CoreRequestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F06A24CEA81EE4A4D8352 /* CoreRequestManagerTests.swift */; };
 		B92B05F9E870A0AB1D9C09DD /* AuthorizationViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77998E8C15654F77A88F4FCE /* AuthorizationViewController+View.swift */; };
-		C2205409E9D02146743E48C8 /* HSTWalletEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD966D6A9AE4B4367332D38 /* HSTWalletEngine.swift */; };
-		CB7668BE5509A1A01242F3A3 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C987734722626575BB0F08EF /* NetworkRequest.swift */; };
-		CCDA75022FEE7F53004D8154 /* CoreRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDA75012FEE7F52004D8154 /* CoreRequestError.swift */; };
-		CCDA75E82FEEB2D2004D8154 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDA75E72FEEB2D2004D8154 /* LoginRequest.swift */; };
-		CCF8F77E2FEF052400142503 /* HttpClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7782FEF04F400142503 /* HttpClient.xcframework */; };
 		CCF8F77F2FEF052400142503 /* HttpClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7782FEF04F400142503 /* HttpClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CCF8F7802FEF052400142503 /* HP2AppleSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */; };
 		CCF8F7812FEF052400142503 /* HP2AppleSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9C95C1101B2190F9436583E /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC2218A33AE4E46B9D5829E /* AuthorizationViewController.swift */; };
-		DE10C987887BECDD96C5DBCA /* HttpClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8F7782FEF04F400142503 /* HttpClient.xcframework */; };
-		DE1F26BECFD5A57C6BE196AD /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFE2B394E563C2ED2D9B169 /* CardRepository.swift */; };
-		E9687DEA6913C6F8DC30BB79 /* WalletEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F5A86B0F960A514070C64F /* WalletEngine.swift */; };
-		F080B8C0D1E6A8410EC0F382 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78983A626C09D8E4D377B3F /* AppGroup.swift */; };
-		F47774FCB6CC8834F1602671 /* BankCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F10CCF674499AC078E94ADC /* BankCard.swift */; };
 		F61B2C791AB529120102AB21 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC2218A33AE4E46B9D5829E /* AuthorizationViewController.swift */; };
-		FCF72F1D1C130756C3388B8F /* CardArtRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE423811575D57AE528C73A2 /* CardArtRenderer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +35,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = BFC46ADA5B5948E5EA3C4D77;
 			remoteInfo = SBPProvisioningExtension;
+		};
+		5EED00000000000000000060 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC75EE4D2FEDAE52000791E3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5EED00000000000000000001;
+			remoteInfo = SBPShared;
+		};
+		5EED00000000000000000061 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC75EE4D2FEDAE52000791E3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5EED00000000000000000001;
+			remoteInfo = SBPShared;
 		};
 		8FAA0CC0FDB973EE1C45064B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -106,6 +88,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				CCF8F7812FEF052400142503 /* HP2AppleSDK.xcframework in Embed Frameworks */,
+				5EED00000000000000000053 /* SBPShared.framework in Embed Frameworks */,
 				CCF8F77F2FEF052400142503 /* HttpClient.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -128,32 +111,21 @@
 /* Begin PBXFileReference section */
 		1AC2218A33AE4E46B9D5829E /* AuthorizationViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		1D9591EA4D1BED244836EA36 /* ProvisioningHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProvisioningHandler.swift; sourceTree = "<group>"; };
-		25F5A86B0F960A514070C64F /* WalletEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WalletEngine.swift; sourceTree = "<group>"; };
-		2BFE2B394E563C2ED2D9B169 /* CardRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CardRepository.swift; sourceTree = "<group>"; };
 		342F34E594B1890AB78FC8D6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SBPCorePersonalBanking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3805C5071C01BC09CBA89399 /* SBPProvisioningUIExtension.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = SBPProvisioningUIExtension.entitlements; sourceTree = "<group>"; };
-		3F10CCF674499AC078E94ADC /* BankCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BankCard.swift; sourceTree = "<group>"; };
 		429A931F6546B6E978A7A289 /* SBPProvisioningExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SBPProvisioningExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3F06A24CEA81EE4A4D8352 /* CoreRequestManagerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoreRequestManagerTests.swift; sourceTree = "<group>"; };
-		5BD966D6A9AE4B4367332D38 /* HSTWalletEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HSTWalletEngine.swift; sourceTree = "<group>"; };
+		5EED00000000000000000002 /* SBPShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SBPShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BF13EE6FCD9420C96611227 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77998E8C15654F77A88F4FCE /* AuthorizationViewController+View.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "AuthorizationViewController+View.swift"; sourceTree = "<group>"; };
 		A140F0C80D0E6EFF6789E346 /* SBPPersonalBankingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SBPPersonalBankingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAC92803B043A4BB692CC648 /* SBPProvisioningUIExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SBPProvisioningUIExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		AED217FF014D166E93297884 /* SBPProvisioningExtension.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = SBPProvisioningExtension.entitlements; sourceTree = "<group>"; };
-		B20804FC741F3813DA93204D /* WalletSDK.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WalletSDK.swift; sourceTree = "<group>"; };
-		C987734722626575BB0F08EF /* NetworkRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		CC75EE552FEDAE52000791E3 /* SBPPersonalBanking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SBPPersonalBanking.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CCDA75012FEE7F52004D8154 /* CoreRequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreRequestError.swift; sourceTree = "<group>"; };
-		CCDA75E72FEEB2D2004D8154 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		CCF8F7772FEF04F400142503 /* HP2AppleSDK.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:535X9NBFHG:HST Card Technology - Desenvolvimento de Sistemas Ltda"; lastKnownFileType = wrapper.xcframework; name = HP2AppleSDK.xcframework; path = Frameworks/HP2AppleSDK.xcframework; sourceTree = "<group>"; };
 		CCF8F7782FEF04F400142503 /* HttpClient.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:535X9NBFHG:HST Card Technology - Desenvolvimento de Sistemas Ltda"; lastKnownFileType = wrapper.xcframework; name = HttpClient.xcframework; path = Frameworks/HttpClient.xcframework; sourceTree = "<group>"; };
-		CE423811575D57AE528C73A2 /* CardArtRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CardArtRenderer.swift; sourceTree = "<group>"; };
-		D96E61643CDEB22CC0A5530F /* WalletCardsRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WalletCardsRequest.swift; sourceTree = "<group>"; };
 		E78983A626C09D8E4D377B3F /* AppGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
-		ED7F5721646E7E4B0628BC04 /* CoreRequestManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoreRequestManager.swift; sourceTree = "<group>"; };
-		FB26E50E1E09EFD8E060ABDF /* MockWalletEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MockWalletEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -175,9 +147,28 @@
 			path = SBPPersonalBanking;
 			sourceTree = "<group>";
 		};
+		CCF84A202FF00095003314C0 /* AppleWallet */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = AppleWallet;
+			sourceTree = "<group>";
+		};
+		CCF84A7F2FF0053D003314C0 /* SBPCorePersonalBanking */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SBPCorePersonalBanking;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5EED00000000000000000012 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5EED00000000000000000040 /* HP2AppleSDK.xcframework in Frameworks */,
+				5EED00000000000000000041 /* HttpClient.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6DE0EE5542295A209D65800A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -191,8 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7685E1AE2F74F41D3F04F82B /* SBPCorePersonalBanking.framework in Frameworks */,
-				240F35D686EC8BCB4064AF88 /* HP2AppleSDK.xcframework in Frameworks */,
-				43C2B17802ED200A97CEF4ED /* HttpClient.xcframework in Frameworks */,
+				5EED00000000000000000051 /* SBPShared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,8 +197,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				853A21C0F3F18F5F2764E852 /* HP2AppleSDK.xcframework in Frameworks */,
-				DE10C987887BECDD96C5DBCA /* HttpClient.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,9 +204,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCF8F77E2FEF052400142503 /* HttpClient.xcframework in Frameworks */,
 				A76A028F8E3A8FF541FC71B2 /* SBPCorePersonalBanking.framework in Frameworks */,
-				CCF8F7802FEF052400142503 /* HP2AppleSDK.xcframework in Frameworks */,
+				5EED00000000000000000050 /* SBPShared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,28 +223,6 @@
 			path = SBPProvisioningUIExtension;
 			sourceTree = "<group>";
 		};
-		2DB7712DF13E390C06F68E0A /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				CCDA75012FEE7F52004D8154 /* CoreRequestError.swift */,
-				C987734722626575BB0F08EF /* NetworkRequest.swift */,
-				ED7F5721646E7E4B0628BC04 /* CoreRequestManager.swift */,
-			);
-			path = Networking;
-			sourceTree = "<group>";
-		};
-		49280502D6D1BA747AA243F4 /* Wallet */ = {
-			isa = PBXGroup;
-			children = (
-				B20804FC741F3813DA93204D /* WalletSDK.swift */,
-				25F5A86B0F960A514070C64F /* WalletEngine.swift */,
-				5BD966D6A9AE4B4367332D38 /* HSTWalletEngine.swift */,
-				FB26E50E1E09EFD8E060ABDF /* MockWalletEngine.swift */,
-			);
-			name = Wallet;
-			path = Wallet;
-			sourceTree = "<group>";
-		};
 		8EB5974532592058F1E666AC /* SBPPersonalBankingTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,32 +231,13 @@
 			path = SBPPersonalBankingTests;
 			sourceTree = "<group>";
 		};
-		9FA8FC1ABADA4B88863DB4A9 /* SBPCorePersonalBanking */ = {
-			isa = PBXGroup;
-			children = (
-				2DB7712DF13E390C06F68E0A /* Networking */,
-				B0BB44FB70DB9C25E58BB564 /* Services */,
-			);
-			path = SBPCorePersonalBanking;
-			sourceTree = "<group>";
-		};
-		A741C9FB73C8B28C2C50DA30 /* Shared */ = {
+		A741C9FB73C8B28C2C50DA30 /* SBPShared */ = {
 			isa = PBXGroup;
 			children = (
 				E78983A626C09D8E4D377B3F /* AppGroup.swift */,
-				49280502D6D1BA747AA243F4 /* Wallet */,
-				D42A5DA7AF6AD176B204D887 /* Cards */,
+				CCF84A202FF00095003314C0 /* AppleWallet */,
 			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		B0BB44FB70DB9C25E58BB564 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				D96E61643CDEB22CC0A5530F /* WalletCardsRequest.swift */,
-				CCDA75E72FEEB2D2004D8154 /* LoginRequest.swift */,
-			);
-			path = Services;
+			path = SBPShared;
 			sourceTree = "<group>";
 		};
 		B939A833EFAB2798A26E302B /* Frameworks */ = {
@@ -307,8 +253,8 @@
 			isa = PBXGroup;
 			children = (
 				CC75EE572FEDAE52000791E3 /* SBPPersonalBanking */,
-				9FA8FC1ABADA4B88863DB4A9 /* SBPCorePersonalBanking */,
-				A741C9FB73C8B28C2C50DA30 /* Shared */,
+				CCF84A7F2FF0053D003314C0 /* SBPCorePersonalBanking */,
+				A741C9FB73C8B28C2C50DA30 /* SBPShared */,
 				ECA4209D04539F94CAB2753C /* SBPProvisioningExtension */,
 				0ED0D32F755FE99667AFEBB3 /* SBPProvisioningUIExtension */,
 				8EB5974532592058F1E666AC /* SBPPersonalBankingTests */,
@@ -325,19 +271,9 @@
 				AAC92803B043A4BB692CC648 /* SBPProvisioningUIExtension.appex */,
 				A140F0C80D0E6EFF6789E346 /* SBPPersonalBankingTests.xctest */,
 				3726196463CAA3218DDB1DAD /* SBPCorePersonalBanking.framework */,
+				5EED00000000000000000002 /* SBPShared.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		D42A5DA7AF6AD176B204D887 /* Cards */ = {
-			isa = PBXGroup;
-			children = (
-				3F10CCF674499AC078E94ADC /* BankCard.swift */,
-				2BFE2B394E563C2ED2D9B169 /* CardRepository.swift */,
-				CE423811575D57AE528C73A2 /* CardArtRenderer.swift */,
-			);
-			name = Cards;
-			path = Cards;
 			sourceTree = "<group>";
 		};
 		ECA4209D04539F94CAB2753C /* SBPProvisioningExtension */ = {
@@ -360,9 +296,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5EED00000000000000000010 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		5EED00000000000000000001 /* SBPShared */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5EED00000000000000000020 /* Build configuration list for PBXNativeTarget "SBPShared" */;
+			buildPhases = (
+				5EED00000000000000000010 /* Headers */,
+				5EED00000000000000000011 /* Sources */,
+				5EED00000000000000000012 /* Frameworks */,
+				5EED00000000000000000013 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CCF84A202FF00095003314C0 /* AppleWallet */,
+			);
+			name = SBPShared;
+			productName = SBPShared;
+			productReference = 5EED00000000000000000002 /* SBPShared.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		730D66072FB9046B0AECC1A4 /* SBPCorePersonalBanking */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 650C0B9136CD91EB43101BD1 /* Build configuration list for PBXNativeTarget "SBPCorePersonalBanking" */;
@@ -375,6 +339,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CCF84A7F2FF0053D003314C0 /* SBPCorePersonalBanking */,
 			);
 			name = SBPCorePersonalBanking;
 			productName = SBPCorePersonalBanking;
@@ -428,6 +395,7 @@
 			);
 			dependencies = (
 				40784CBD4EB7DE477EC481C0 /* PBXTargetDependency */,
+				5EED00000000000000000071 /* PBXTargetDependency */,
 			);
 			name = SBPProvisioningExtension;
 			productName = SBPProvisioningExtension;
@@ -450,6 +418,7 @@
 				2B082EAC292E79C499619461 /* PBXTargetDependency */,
 				91CD1B4B044D336084CAF0A2 /* PBXTargetDependency */,
 				B3CCE10B0BD65339E2ADB8CD /* PBXTargetDependency */,
+				5EED00000000000000000070 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				CC75EE572FEDAE52000791E3 /* SBPPersonalBanking */,
@@ -474,7 +443,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CC75EE502FEDAE52000791E3 /* Build configuration list for PBXProject "SBPPersonalBanking" */;
+			buildConfigurationList = CC75EE502FEDAE52000791E3 /* Build configuration list for PBXProject "DemoAppleWallet" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -490,6 +459,7 @@
 			targets = (
 				CC75EE542FEDAE52000791E3 /* SBPPersonalBanking */,
 				730D66072FB9046B0AECC1A4 /* SBPCorePersonalBanking */,
+				5EED00000000000000000001 /* SBPShared */,
 				BFC46ADA5B5948E5EA3C4D77 /* SBPProvisioningExtension */,
 				77B1D117D915BF8FDEF39029 /* SBPProvisioningUIExtension */,
 				AEB668790F58BD402598998A /* SBPPersonalBankingTests */,
@@ -506,6 +476,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		35E3519E7721743450E0185D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5EED00000000000000000013 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -542,14 +519,6 @@
 			files = (
 				D9C95C1101B2190F9436583E /* AuthorizationViewController.swift in Sources */,
 				180FE755C57141C59DBD42AE /* AuthorizationViewController+View.swift in Sources */,
-				A9977F52AA298AC636BC47B2 /* AppGroup.swift in Sources */,
-				69C217B97112FE13E0A5BA58 /* BankCard.swift in Sources */,
-				DE1F26BECFD5A57C6BE196AD /* CardRepository.swift in Sources */,
-				FCF72F1D1C130756C3388B8F /* CardArtRenderer.swift in Sources */,
-				0CB9D2C6B92C45A533D51C61 /* WalletSDK.swift in Sources */,
-				60DFA88360322AAA41137463 /* WalletEngine.swift in Sources */,
-				C2205409E9D02146743E48C8 /* HSTWalletEngine.swift in Sources */,
-				AC4996D29C303BED7F618822 /* MockWalletEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,11 +526,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCDA75022FEE7F53004D8154 /* CoreRequestError.swift in Sources */,
-				CB7668BE5509A1A01242F3A3 /* NetworkRequest.swift in Sources */,
-				34CFE4ED9D1C4B3009F639C2 /* CoreRequestManager.swift in Sources */,
-				CCDA75E82FEEB2D2004D8154 /* LoginRequest.swift in Sources */,
-				A63DC439486813653744573B /* WalletCardsRequest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5EED00000000000000000011 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F26EB1A9B2EFFD72E6D6E25 /* AppGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,14 +542,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				44D5F5858C4B665F41966B17 /* ProvisioningHandler.swift in Sources */,
-				6B1832ED59C023B12C498292 /* AppGroup.swift in Sources */,
-				12C032069D049270F20F7286 /* BankCard.swift in Sources */,
-				748AA8A159D20BB4E54250B9 /* CardRepository.swift in Sources */,
-				23EC0F9417DD67B0E361455A /* CardArtRenderer.swift in Sources */,
-				82E3DB50066E3EFE37312281 /* WalletSDK.swift in Sources */,
-				4C5D9E6D48022FB3C4D4C44C /* WalletEngine.swift in Sources */,
-				30827A44DBC97AFFBC815C5F /* HSTWalletEngine.swift in Sources */,
-				7417FF37EDD167192CBB55F4 /* MockWalletEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,16 +549,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F26EB1A9B2EFFD72E6D6E25 /* AppGroup.swift in Sources */,
-				701B987C43390C93A8052CAD /* BankCard.swift in Sources */,
-				2DC3EAD5F84AF0DB53A298AB /* CardRepository.swift in Sources */,
-				19BB6D183975B12C760D86EF /* CardArtRenderer.swift in Sources */,
-				3DFDFE71FDE56B799C97CA0D /* WalletSDK.swift in Sources */,
 				F61B2C791AB529120102AB21 /* AuthorizationViewController.swift in Sources */,
 				B92B05F9E870A0AB1D9C09DD /* AuthorizationViewController+View.swift in Sources */,
-				E9687DEA6913C6F8DC30BB79 /* WalletEngine.swift in Sources */,
-				AB9D700273D34E4203D999F1 /* HSTWalletEngine.swift in Sources */,
-				6F13A06A83DB073DD139599C /* MockWalletEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,9 +558,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F080B8C0D1E6A8410EC0F382 /* AppGroup.swift in Sources */,
-				F47774FCB6CC8834F1602671 /* BankCard.swift in Sources */,
-				7B4643A82BDFC90104DB3720 /* CardArtRenderer.swift in Sources */,
 				AF92AADDF551F6909B7C665B /* CoreRequestManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -623,6 +576,18 @@
 			name = SBPCorePersonalBanking;
 			target = 730D66072FB9046B0AECC1A4 /* SBPCorePersonalBanking */;
 			targetProxy = 8FAA0CC0FDB973EE1C45064B /* PBXContainerItemProxy */;
+		};
+		5EED00000000000000000070 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SBPShared;
+			target = 5EED00000000000000000001 /* SBPShared */;
+			targetProxy = 5EED00000000000000000060 /* PBXContainerItemProxy */;
+		};
+		5EED00000000000000000071 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SBPShared;
+			target = 5EED00000000000000000001 /* SBPShared */;
+			targetProxy = 5EED00000000000000000061 /* PBXContainerItemProxy */;
 		};
 		91CD1B4B044D336084CAF0A2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -703,6 +668,81 @@
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
+		};
+		5EED00000000000000000021 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPShared;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		5EED00000000000000000022 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4G9UQ8D789;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.victorcastro.SBPShared;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		949A8C12CBD542F6B859B9B9 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1070,6 +1110,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5EED00000000000000000020 /* Build configuration list for PBXNativeTarget "SBPShared" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5EED00000000000000000022 /* Release */,
+				5EED00000000000000000021 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		650C0B9136CD91EB43101BD1 /* Build configuration list for PBXNativeTarget "SBPCorePersonalBanking" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1097,7 +1146,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CC75EE502FEDAE52000791E3 /* Build configuration list for PBXProject "SBPPersonalBanking" */ = {
+		CC75EE502FEDAE52000791E3 /* Build configuration list for PBXProject "DemoAppleWallet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CC75EE6B2FEDAE54000791E3 /* Debug */,

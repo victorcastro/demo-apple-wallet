@@ -1,12 +1,12 @@
 //
-//  SandboxViewController+View.swift
-//  SBPPersonalBanking
+//  AppleWalletSandboxViewController+View.swift
+//  DemoAppleWallet
 //
 
 import UIKit
 import Combine
 
-extension SandboxViewController {
+extension AppleWalletSandboxViewController {
 
     final class MyView: UIView {
 
@@ -19,11 +19,37 @@ extension SandboxViewController {
             case clearLogTapped
         }
 
+        /// Severidad de una línea de log. La indica quien llama a `appendLog`
+        /// y determina el color con el que se pinta para mejorar la lectura.
+        enum LogLevel {
+            case success
+            case error
+            case info
+
+            var color: UIColor {
+                switch self {
+                case .success: return .systemGreen
+                case .error:   return .systemRed
+                case .info:    return .label
+                }
+            }
+
+            var weight: UIFont.Weight {
+                self == .info ? .regular : .medium
+            }
+        }
+
         let actions = PassthroughSubject<Action, Never>()
 
         private let logContainerView = UIView()
-        private let logHeaderView = UIView()
         private let logView = UITextView()
+
+        private static let timeFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .none
+            formatter.timeStyle = .medium
+            return formatter
+        }()
 
         var logText: String {
             logView.text
@@ -39,14 +65,48 @@ extension SandboxViewController {
             fatalError("init(coder:) has not been implemented")
         }
 
-        func appendLog(_ message: String) {
-            logView.text += message
-            logView.scrollRangeToVisible(NSRange(location: (logView.text as NSString).length, length: 0))
+        // MARK: - Log API
+
+        /// Añade una línea al log con su hora y color según severidad.
+        func appendLog(_ message: String, level: LogLevel) {
+            let entry = NSMutableAttributedString(attributedString: logView.attributedText)
+            if entry.length > 0 {
+                entry.append(NSAttributedString(string: "\n"))
+            }
+            entry.append(makeEntry(for: message, level: level))
+            logView.attributedText = entry
+            logView.scrollRangeToVisible(NSRange(location: entry.length, length: 0))
         }
 
         func clearLog() {
-            logView.text = ""
+            logView.attributedText = NSAttributedString(string: "")
         }
+
+        private func makeEntry(for message: String, level: LogLevel) -> NSAttributedString {
+            let paragraph = NSMutableParagraphStyle()
+            paragraph.lineSpacing = 2
+            paragraph.paragraphSpacing = 10
+
+            let line = NSMutableAttributedString(
+                string: "\(Self.timeFormatter.string(from: Date()))  ",
+                attributes: [
+                    .font: UIFont.monospacedSystemFont(ofSize: 11, weight: .regular),
+                    .foregroundColor: UIColor.secondaryLabel,
+                    .paragraphStyle: paragraph
+                ]
+            )
+            line.append(NSAttributedString(
+                string: message,
+                attributes: [
+                    .font: UIFont.monospacedSystemFont(ofSize: 12, weight: level.weight),
+                    .foregroundColor: level.color,
+                    .paragraphStyle: paragraph
+                ]
+            ))
+            return line
+        }
+
+        // MARK: - Layout
 
         private func configureUI() {
             backgroundColor = .systemBackground
@@ -77,26 +137,51 @@ extension SandboxViewController {
             actionsStack.spacing = 12
             actionsStack.translatesAutoresizingMaskIntoConstraints = false
 
+            // Contenedor del log estilo "consola": forzamos modo oscuro solo en este
+            // subárbol para que los colores adaptativos (texto, fondo, separador) se
+            // resuelvan en dark y el verde/rojo resalten, sin afectar al resto de la UI.
+            logContainerView.overrideUserInterfaceStyle = .dark
             logContainerView.backgroundColor = .secondarySystemBackground
-            logContainerView.layer.cornerRadius = 8
+            logContainerView.layer.cornerRadius = 14
             logContainerView.translatesAutoresizingMaskIntoConstraints = false
 
-            logHeaderView.translatesAutoresizingMaskIntoConstraints = false
+            // Header: título a la izquierda, acciones (copy / clear) juntas a la derecha.
+            let titleLabel = UILabel()
+            titleLabel.text = "Console"
+            titleLabel.font = .systemFont(ofSize: 13, weight: .semibold)
+            titleLabel.textColor = .secondaryLabel
+            titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+
+            let copyButton = makeIconButton(systemName: "doc.on.doc",
+                                             action: #selector(didTapCopyLog),
+                                             tint: .secondaryLabel)
+            let clearButton = makeIconButton(systemName: "trash",
+                                             action: #selector(didTapClearLog),
+                                             tint: .secondaryLabel)
+
+            let buttonsStack = UIStackView(arrangedSubviews: [copyButton, clearButton])
+            buttonsStack.axis = .horizontal
+            buttonsStack.spacing = 4
+
+            let headerStack = UIStackView(arrangedSubviews: [titleLabel, buttonsStack])
+            headerStack.axis = .horizontal
+            headerStack.alignment = .center
+            headerStack.translatesAutoresizingMaskIntoConstraints = false
+
+            let separator = UIView()
+            separator.backgroundColor = .separator
+            separator.translatesAutoresizingMaskIntoConstraints = false
 
             logView.isEditable = false
-            logView.font = .monospacedSystemFont(ofSize: 12, weight: .regular)
             logView.backgroundColor = .clear
+            logView.textContainerInset = UIEdgeInsets(top: 8, left: 2, bottom: 8, right: 2)
             logView.translatesAutoresizingMaskIntoConstraints = false
-
-            let clearLogsButton = makeClearLogsButton(#selector(didTapClearLog))
-            let copyLogButton = makeLogActionButton(#selector(didTapCopyLog))
 
             addSubview(actionsStack)
             addSubview(logContainerView)
-            logContainerView.addSubview(logHeaderView)
+            logContainerView.addSubview(headerStack)
+            logContainerView.addSubview(separator)
             logContainerView.addSubview(logView)
-            logHeaderView.addSubview(clearLogsButton)
-            logHeaderView.addSubview(copyLogButton)
 
             NSLayoutConstraint.activate([
                 actionsStack.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -108,22 +193,18 @@ extension SandboxViewController {
                 logContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
                 logContainerView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
 
-                logHeaderView.topAnchor.constraint(equalTo: logContainerView.topAnchor, constant: 8),
-                logHeaderView.leadingAnchor.constraint(equalTo: logContainerView.leadingAnchor, constant: 8),
-                logHeaderView.trailingAnchor.constraint(equalTo: logContainerView.trailingAnchor, constant: -8),
-                logHeaderView.heightAnchor.constraint(equalToConstant: 28),
+                headerStack.topAnchor.constraint(equalTo: logContainerView.topAnchor, constant: 10),
+                headerStack.leadingAnchor.constraint(equalTo: logContainerView.leadingAnchor, constant: 14),
+                headerStack.trailingAnchor.constraint(equalTo: logContainerView.trailingAnchor, constant: -8),
 
-                clearLogsButton.leadingAnchor.constraint(equalTo: logHeaderView.leadingAnchor),
-                clearLogsButton.centerYAnchor.constraint(equalTo: logHeaderView.centerYAnchor),
+                separator.topAnchor.constraint(equalTo: headerStack.bottomAnchor, constant: 8),
+                separator.leadingAnchor.constraint(equalTo: logContainerView.leadingAnchor),
+                separator.trailingAnchor.constraint(equalTo: logContainerView.trailingAnchor),
+                separator.heightAnchor.constraint(equalToConstant: 0.5),
 
-                copyLogButton.trailingAnchor.constraint(equalTo: logHeaderView.trailingAnchor),
-                copyLogButton.centerYAnchor.constraint(equalTo: logHeaderView.centerYAnchor),
-                copyLogButton.widthAnchor.constraint(equalToConstant: 28),
-                copyLogButton.heightAnchor.constraint(equalToConstant: 28),
-
-                logView.topAnchor.constraint(equalTo: logHeaderView.bottomAnchor, constant: 4),
-                logView.leadingAnchor.constraint(equalTo: logContainerView.leadingAnchor, constant: 8),
-                logView.trailingAnchor.constraint(equalTo: logContainerView.trailingAnchor, constant: -8),
+                logView.topAnchor.constraint(equalTo: separator.bottomAnchor),
+                logView.leadingAnchor.constraint(equalTo: logContainerView.leadingAnchor, constant: 12),
+                logView.trailingAnchor.constraint(equalTo: logContainerView.trailingAnchor, constant: -12),
                 logView.bottomAnchor.constraint(equalTo: logContainerView.bottomAnchor, constant: -8)
             ])
         }
@@ -172,22 +253,12 @@ extension SandboxViewController {
             return container
         }
 
-        private func makeLogActionButton(_ action: Selector) -> UIButton {
+        private func makeIconButton(systemName: String, action: Selector, tint: UIColor) -> UIButton {
             var cfg = UIButton.Configuration.plain()
-            cfg.image = UIImage(systemName: "doc.on.doc")
-            cfg.contentInsets = .zero
-            cfg.baseForegroundColor = .secondaryLabel
-            let button = UIButton(configuration: cfg)
-            button.addTarget(self, action: action, for: .touchUpInside)
-            button.translatesAutoresizingMaskIntoConstraints = false
-            return button
-        }
-
-        private func makeClearLogsButton(_ action: Selector) -> UIButton {
-            var cfg = UIButton.Configuration.plain()
-            cfg.title = "Clear"
-            cfg.contentInsets = .zero
-            cfg.baseForegroundColor = .systemBlue
+            cfg.image = UIImage(systemName: systemName,
+                                withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium))
+            cfg.baseForegroundColor = tint
+            cfg.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6)
             let button = UIButton(configuration: cfg)
             button.addTarget(self, action: action, for: .touchUpInside)
             button.translatesAutoresizingMaskIntoConstraints = false

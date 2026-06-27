@@ -1,10 +1,10 @@
 //
 //  HSTWalletEngine.swift
-//  SBPPersonalBanking (Shared)
+//  DemoAppleWallet (Shared)
 //
-//  Backend REAL: delega todo en el SDK de HST (`WalletSDK.shared` = HP2). Es el
+//  Backend REAL: delega todo en el SDK de HST (`WalletHP2SDK.shared` = HP2). Es el
 //  camino de producción (device + entitlement). Centraliza las llamadas al SDK
-//  que antes vivían dispersas en CardRepository / ProvisioningHandler /
+//  que antes vivían dispersas en WalletCardRepository / ProvisioningHandler /
 //  WalletProvisioningManager.
 //
 
@@ -12,31 +12,31 @@ import UIKit
 import PassKit
 import HP2AppleSDK
 
-final class HSTWalletEngine: WalletEngine {
+final class HSTWalletEngine: WalletEngineProtocol {
 
     private let hp2: HP2
     // Retén de los eventos mientras dura un alta (el SDK los referencia débil).
     private var events: WalletCommEvents?
 
-    init(sdk: HP2 = WalletSDK.shared) {
+    init(sdk: HP2 = WalletHP2SDK.shared) {
         self.hp2 = sdk
     }
 
     // MARK: Store
 
-    func cards() -> [BankCard] {
+    func cards() -> [WalletCard] {
         hp2.getCardsFromCoreData()
-            .map { BankCard(model: $0, isProvisioned: isProvisioned(cardID: $0.cardID ?? "")) }
+            .map { WalletCard(model: $0, isProvisioned: isProvisioned(cardID: $0.cardID ?? "")) }
     }
 
     @discardableResult
-    func saveCards(_ cards: [BankCard]) -> Bool {
+    func saveCards(_ cards: [WalletCard]) -> Bool {
         hp2.updateDataBase(cardDataList: cards.map(\.asCardDataModel)) == DataBaseErrors.SUCCESS.rawValue
     }
 
-    func card(withID id: String) -> BankCard? {
+    func card(withID id: String) -> WalletCard? {
         guard let model = hp2.getCardDataModel(cardID: id) else { return nil }
-        return BankCard(model: model, isProvisioned: isProvisioned(cardID: id))
+        return WalletCard(model: model, isProvisioned: isProvisioned(cardID: id))
     }
 
     func resetCards() {
@@ -78,7 +78,7 @@ final class HSTWalletEngine: WalletEngine {
 
     // MARK: Alta in-app
 
-    func startInAppProvisioning(card: BankCard,
+    func startInAppProvisioning(card: WalletCard,
                                 from presenter: UIViewController,
                                 completion: @escaping (ProvisioningOutcome) -> Void) {
         guard PKAddPaymentPassViewController.canAddPaymentPass() else {

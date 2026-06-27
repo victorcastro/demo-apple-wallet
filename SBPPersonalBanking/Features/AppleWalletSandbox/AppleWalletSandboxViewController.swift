@@ -1,6 +1,6 @@
 //
-//  SandboxViewController.swift
-//  SBPPersonalBanking
+//  AppleWalletSandboxViewController.swift
+//  DemoAppleWallet
 //
 //  "Wallet falso": dispara el mismo código que invocaría Wallet, llamando
 //  DIRECTO al SDK (igual que lo haría la extensión Non-UI), para verlo funcionar
@@ -8,18 +8,29 @@
 //  el resultado en el log.
 //
 //  No instancia `ProvisioningHandler` (que es código de la extensión): habla con
-//  `WalletSDK.shared`, que es justo lo que el handler delega.
+//  `WalletHP2SDK.shared`, que es justo lo que el handler delega.
 //
 
 import UIKit
 import PassKit
 import Combine
+import SBPShared
 
-final class SandboxViewController: UIViewController {
+final class AppleWalletSandboxViewController: UIViewController {
 
     private let engine = WalletEngineProvider.current
     private let contentView = MyView()
     private var cancellables = Set<AnyCancellable>()
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        hidesBottomBarWhenPushed = true   // oculta el TabBar mientras este VC está en el stack
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        hidesBottomBarWhenPushed = true
+    }
 
     override func loadView() {
         view = contentView
@@ -38,15 +49,16 @@ final class SandboxViewController: UIViewController {
         let status = engine.provisioningStatus()
         log("status(): passEntriesAvailable=\(status.passEntriesAvailable), "
             + "remotePassEntriesAvailable=\(status.remotePassEntriesAvailable), "
-            + "requiresAuthentication=\(status.requiresAuthentication)")
+            + "requiresAuthentication=\(status.requiresAuthentication)",
+            level: .success)
     }
 
     /// Recupera las tarjetas provisionables que la extensión expondría a Wallet
     /// para mostrarlas como opciones de agregado.
     @objc private func runPassEntries() {
         let entries = engine.passEntries()
-        let ids = CardRepository.shared.provisionableCards().map(\.cardID).joined(separator: ", ")
-        log("passEntries(): \(entries.count) entradas para Wallet [\(ids)]")
+        let ids = WalletCardRepository.shared.provisionableCards().map(\.cardID).joined(separator: ", ")
+        log("passEntries(): \(entries.count) entradas para Wallet [\(ids)]", level: entries.isEmpty ? .error : .success)
     }
 
     /// Presenta la pantalla de autorización para simular el paso de login o biometría
@@ -63,11 +75,11 @@ final class SandboxViewController: UIViewController {
             DispatchQueue.main.async {
                 let text: String
                 if result == .authorized {
-                    text = "authorized ✅ (\(Self.authorizationMethodText(authorizationMethod)))"
+                    text = "Authorized [\(Self.authorizationMethodText(authorizationMethod))]"
                 } else {
-                    text = "canceled ❌"
+                    text = "Canceled ❌"
                 }
-                self?.log("autorización: \(text)")
+                self?.log("Autorize login/biometric: \(text)", level: result == .authorized ? .success : .error)
                 self?.dismiss(animated: true)
             }
         }
@@ -78,15 +90,15 @@ final class SandboxViewController: UIViewController {
     /// Genera el `PKAddPaymentPassRequest` final usando una tarjeta de prueba para
     /// simular el payload que Wallet necesita al momento de provisionar.
     @objc private func runGenerate() {
-        guard let card = CardRepository.shared.provisionableCards().first else {
-            log("no hay tarjetas provisionables")
+        guard let card = WalletCardRepository.shared.provisionableCards().first else {
+            log("no hay tarjetas provisionables", level: .error)
             return
         }
 
         log("generate… cardID=\(card.cardID) (el engine arma el PKAddPaymentPassRequest)")
         engine.addPaymentPassRequest(
             cardID: card.cardID,
-            certificates: [Data()],   // certs/nonce falsos: el mock no los usa
+            certificates: [Data()],
             nonce: Data(),
             nonceSignature: Data()
         ) { [weak self] request in
@@ -95,16 +107,17 @@ final class SandboxViewController: UIViewController {
                     self?.log("✅ PKAddPaymentPassRequest: "
                               + "encryptedPassData=\(request.encryptedPassData?.count ?? 0)B, "
                               + "activationData=\(request.activationData?.count ?? 0)B, "
-                              + "ephemeralPublicKey=\(request.ephemeralPublicKey?.count ?? 0)B")
+                              + "ephemeralPublicKey=\(request.ephemeralPublicKey?.count ?? 0)B",
+                              level: .success)
                 } else {
-                    self?.log("✖️ request = nil (no se pudo construir)")
+                    self?.log("✖️ request = nil (no se pudo construir)", level: .error)
                 }
             }
         }
     }
 }
 
-private extension SandboxViewController {
+private extension AppleWalletSandboxViewController {
     func bindViewActions() {
         contentView.actions
             .sink { [weak self] action in
@@ -152,8 +165,7 @@ private extension SandboxViewController {
 
     // MARK: - Log
 
-    func log(_ message: String) {
-        let time = DateFormatter.localizedString(from: Date(), dateStyle: .none, timeStyle: .medium)
-        contentView.appendLog("[\(time)] \(message)\n\n")
+    func log(_ message: String, level: MyView.LogLevel = .info) {
+        contentView.appendLog(message, level: level)
     }
 }

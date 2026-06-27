@@ -1,6 +1,6 @@
 //
-//  WalletEngine.swift
-//  SBPPersonalBanking (Shared)
+//  WalletEngineProtocol.swift
+//  DemoAppleWallet (Shared)
 //
 //  Abstracción sobre TODAS las operaciones de provisioning que hoy haría el SDK
 //  de HST. Tiene dos implementaciones intercambiables:
@@ -16,19 +16,19 @@ import UIKit
 import PassKit
 
 /// Resultado del alta in-app de una tarjeta en Wallet.
-enum ProvisioningOutcome {
+public enum ProvisioningOutcome {
     case added
     case cancelled
     case failed(Error)
     case unsupported
 }
 
-protocol WalletEngine {
+public protocol WalletEngineProtocol {
 
     // MARK: Store de tarjetas
-    func cards() -> [BankCard]
-    @discardableResult func saveCards(_ cards: [BankCard]) -> Bool
-    func card(withID id: String) -> BankCard?
+    func cards() -> [WalletCard]
+    @discardableResult func saveCards(_ cards: [WalletCard]) -> Bool
+    func card(withID id: String) -> WalletCard?
     func resetCards()
     /// `true` cuando la tarjeta ya está en Wallet (ya NO es provisionable).
     func isProvisioned(cardID: String) -> Bool
@@ -44,18 +44,18 @@ protocol WalletEngine {
                                completion: @escaping (PKAddPaymentPassRequest?) -> Void)
 
     // MARK: Alta in-app (presenta el sheet de Apple Pay o lo simula)
-    func startInAppProvisioning(card: BankCard,
+    func startInAppProvisioning(card: WalletCard,
                                 from presenter: UIViewController,
                                 completion: @escaping (ProvisioningOutcome) -> Void)
 }
 
 /// Punto único de selección del backend. El switch es en compilación para que
 /// app y extensión usen el mismo motor de forma consistente (sin estado runtime).
-enum WalletEngineProvider {
+public enum WalletEngineProvider {
 
     #if USE_MOCK_WALLET || targetEnvironment(simulator)
-    static let current: WalletEngine = MockWalletEngine()
+    public static let current: WalletEngineProtocol = MockWalletEngine()
     #else
-    static let current: WalletEngine = HSTWalletEngine()
+    public static let current: WalletEngineProtocol = HSTWalletEngine()
     #endif
 }

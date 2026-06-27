@@ -14,10 +14,11 @@
 
 import PassKit
 import os
+import SBPShared
 
 final class ProvisioningHandler: PKIssuerProvisioningExtensionHandler {
 
-    private let engine = WalletEngineProvider.current
+    private let walletEngine = WalletEngineProvider.current
 
     private let log = Logger(subsystem: "dev.victorcastro.SBPPersonalBanking.ProvisioningExtension",
                              category: "provisioning")
@@ -25,7 +26,7 @@ final class ProvisioningHandler: PKIssuerProvisioningExtensionHandler {
     // MARK: - Disponibilidad
 
     override func status(completion: @escaping (PKIssuerProvisioningExtensionStatus) -> Void) {
-        let status = engine.provisioningStatus()
+        let status = walletEngine.provisioningStatus()
         log.info("status(): passEntriesAvailable=\(status.passEntriesAvailable, privacy: .public)")
         completion(status)
     }
@@ -33,13 +34,13 @@ final class ProvisioningHandler: PKIssuerProvisioningExtensionHandler {
     // MARK: - Lista de tarjetas (pass entries)
 
     override func passEntries(completion: @escaping ([PKIssuerProvisioningExtensionPassEntry]) -> Void) {
-        let entries = engine.passEntries()
+        let entries = walletEngine.passEntries()
         log.info("passEntries(): \(entries.count, privacy: .public) tarjetas")
         completion(entries)
     }
 
     override func remotePassEntries(completion: @escaping ([PKIssuerProvisioningExtensionPassEntry]) -> Void) {
-        let entries = engine.remotePassEntries()
+        let entries = walletEngine.remotePassEntries()
         log.info("remotePassEntries(): \(entries.count, privacy: .public) tarjetas (Watch)")
         completion(entries)
     }
@@ -55,10 +56,10 @@ final class ProvisioningHandler: PKIssuerProvisioningExtensionHandler {
         completionHandler completion: @escaping (PKAddPaymentPassRequest?) -> Void
     ) {
         log.info("generateAddPaymentPassRequest: cardID=\(identifier, privacy: .public)")
-        engine.addPaymentPassRequest(cardID: identifier,
-                                     certificates: certificates,
-                                     nonce: nonce,
-                                     nonceSignature: nonceSignature) { [weak self] request in
+        walletEngine.addPaymentPassRequest(cardID: identifier,
+                                           certificates: certificates,
+                                           nonce: nonce,
+                                           nonceSignature: nonceSignature) { [weak self] request in
             self?.log.info("Solicitud de alta para \(identifier, privacy: .public): \(request == nil ? "nil" : "ok", privacy: .public)")
             completion(request)
         }

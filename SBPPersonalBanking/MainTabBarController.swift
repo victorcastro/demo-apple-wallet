@@ -1,6 +1,6 @@
 //
 //  MainTabBarController.swift
-//  SBPPersonalBanking
+//  DemoAppleWallet
 //
 
 import UIKit

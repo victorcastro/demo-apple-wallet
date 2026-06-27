@@ -1,6 +1,6 @@
 //
-//  CardRepository.swift
-//  SBPPersonalBanking
+//  WalletCardRepository.swift
+//  DemoAppleWallet
 //
 //  Fachada de tarjetas para la UI. Delega el almacenamiento al `WalletEngine`
 //  activo (mock en simulador, SDK real de HST en device), de modo que la UI no
@@ -9,39 +9,39 @@
 
 import Foundation
 
-final class CardRepository {
+public final class WalletCardRepository {
 
-    static let shared = CardRepository()
+    public static let shared = WalletCardRepository()
 
-    private let engine: WalletEngine
+    private let engine: WalletEngineProtocol
 
-    init(engine: WalletEngine = WalletEngineProvider.current) {
+    init(engine: WalletEngineProtocol = WalletEngineProvider.current) {
         self.engine = engine
     }
 
     // MARK: - Lecturas
 
-    func allCards() -> [BankCard] {
+    public func allCards() -> [WalletCard] {
         engine.cards()
     }
 
     /// Tarjetas que aún pueden ofrecerse a Wallet (no provisionadas).
-    func provisionableCards() -> [BankCard] {
+    public func provisionableCards() -> [WalletCard] {
         engine.cards().filter { !$0.isProvisioned }
     }
 
-    func card(withID id: String) -> BankCard? {
+    public func card(withID id: String) -> WalletCard? {
         engine.card(withID: id)
     }
 
     // MARK: - Escrituras
 
     @discardableResult
-    func save(_ cards: [BankCard]) -> Bool {
+    public func save(_ cards: [WalletCard]) -> Bool {
         engine.saveCards(cards)
     }
 
-    func resetAllData() {
+    public func resetAllData() {
         engine.resetCards()
     }
 }
