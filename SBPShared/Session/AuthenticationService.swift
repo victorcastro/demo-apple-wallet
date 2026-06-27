@@ -30,12 +30,10 @@ public protocol AuthenticationServicing {
 public final class AuthenticationService: AuthenticationServicing {
 
     private let requestManager: CoreRequestManager
-    private let session: SessionStore
+    private let session = SessionStore()
 
-    public init(requestManager: CoreRequestManager = .shared,
-                session: SessionStore = SessionStore()) {
+    public init(requestManager: CoreRequestManager = .shared) {
         self.requestManager = requestManager
-        self.session = session
     }
 
     public var hasActiveSession: Bool {

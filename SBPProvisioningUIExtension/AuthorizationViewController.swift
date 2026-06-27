@@ -27,13 +27,9 @@ final class AuthorizationViewController: UIViewController, PKIssuerProvisioningE
     private let contentView = MyView()
     private var cancellables = Set<AnyCancellable>()
 
-    // Default inline: Wallet instancia la clase principal vía Objective-C
-    // (`[[AuthorizationViewController alloc] init]`). Al no declarar un
-    // designated initializer propio, la clase HEREDA `init`/`init(nibName:bundle:)`
-    // de UIViewController y este campo queda poblado sin pasar por Swift.
     private var authService: AuthenticationServicing = AuthenticationService()
 
-    /// Inyección de dependencias para el sandbox y los tests. NO la usa Wallet.
+    /// Constructor opcional para UnitTest y dataMock, AppleWallet no lo usa
     convenience init(authService: AuthenticationServicing) {
         self.init(nibName: nil, bundle: nil)
         self.authService = authService
