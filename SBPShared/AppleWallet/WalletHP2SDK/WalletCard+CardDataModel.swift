@@ -29,7 +29,7 @@ extension WalletCard {
     }
 
     /// Convierte la tarjeta al modelo que consume `HP2.updateDataBase`.
-    var asCardDataModel: CardDataModel {
+    var toModel: CardDataModel {
         CardDataModel(
             cardHolderName: cardHolderName,
             cardID: cardID,

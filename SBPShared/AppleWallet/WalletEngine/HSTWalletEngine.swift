@@ -31,7 +31,7 @@ final class HSTWalletEngine: WalletEngineProtocol {
 
     @discardableResult
     func saveCards(_ cards: [WalletCard]) -> Bool {
-        hp2.updateDataBase(cardDataList: cards.map(\.asCardDataModel)) == DataBaseErrors.SUCCESS.rawValue
+        hp2.updateDataBase(cardDataList: cards.map(\.toModel)) == DataBaseErrors.SUCCESS.rawValue
     }
 
     func card(withID id: String) -> WalletCard? {
@@ -114,8 +114,7 @@ final class HSTWalletEngine: WalletEngineProtocol {
 
 // MARK: - Eventos del SDK
 
-/// Traduce el resultado del SDK a `ProvisioningOutcome`. Debe ser `nonisolated`
-/// porque sobreescribe métodos `nonisolated` de la clase `CommEvents` del SDK.
+/// Recibe los callbacks del SDK durante el alta y mapea su resultado a `ProvisioningOutcome`.
 nonisolated final class WalletCommEvents: CommEvents {
 
     private let onResult: (ProvisioningOutcome) -> Void
