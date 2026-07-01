@@ -41,7 +41,6 @@ final class MockWalletEngine: WalletEngineProtocol {
 
     @discardableResult
     func saveCards(_ cards: [WalletCard]) -> Bool {
-        // Upsert por cardID, preservando el `isProvisioned` ya almacenado.
         var current = Dictionary(uniqueKeysWithValues: self.cards().map { ($0.cardID, $0) })
         for var card in cards {
             card.isProvisioned = current[card.cardID]?.isProvisioned ?? card.isProvisioned
@@ -87,7 +86,6 @@ final class MockWalletEngine: WalletEngineProtocol {
                                nonceSignature: Data,
                                completion: @escaping (PKAddPaymentPassRequest?) -> Void) {
         let request = PKAddPaymentPassRequest()
-        // Datos de relleno: en simulador no pasan por Apple, solo demuestran el flujo.
         request.encryptedPassData = Data("ENC-\(cardID)".utf8)
         request.activationData = Data("ACT-\(cardID)".utf8)
         request.ephemeralPublicKey = Data("EPK-\(cardID)".utf8)

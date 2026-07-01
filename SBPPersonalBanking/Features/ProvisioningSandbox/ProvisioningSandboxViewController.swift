@@ -93,12 +93,20 @@ private extension ProvisioningSandboxViewController {
 
 private extension ProvisioningSandboxViewController {
 
+    /// Comprueba la elegibilidad del dispositivo para In-app Provisioning.
+    /// Combina `engine.isAvailable()` —que valida NFC, integración con el SDK de
+    /// HST y los entitlements de Apple Pay— con `canAddPaymentPass` (el flag de
+    /// `PKAddPaymentPassViewController`). Solo lee estado; no presenta UI.
     func runCheckAvailability() {
         let deviceSupport = engine.isAvailable()
         let canAddPass = WalletProvisioningManager.canAddPayments
         log("hp2.isAvailable = \(deviceSupport)\ncanAddPaymentPass = \(canAddPass)")
     }
 
+    /// Consulta si la tarjeta seleccionada ya está digitalizada en Wallet.
+    /// Delega en `engine.isProvisioned(cardID:)`, que resuelve contra los pases
+    /// existentes en el dispositivo. Un `true` implica que la tarjeta ya tiene un
+    /// pase activo y no puede volver a añadirse. Requiere una tarjeta seleccionada.
     func runCheckProvisioned() {
         guard let card = selectedCard else {
             log("Selecciona una tarjeta primero.", level: .error)
@@ -109,6 +117,12 @@ private extension ProvisioningSandboxViewController {
             level: provisioned ? .error : .success)
     }
 
+    /// Lanza el alta In-app real de la tarjeta seleccionada.
+    /// Invoca `walletManager.startProvisioning(for:from:)`, que presenta el sheet
+    /// nativo de Apple Pay (`PKAddPaymentPassViewController`) y conduce el
+    /// handshake criptográfico con el backend/HST. El resultado llega de forma
+    /// asíncrona como `ProvisioningOutcome` (added/cancelled/failed/unsupported)
+    /// y se refresca el estado de las tarjetas. Requiere tarjeta seleccionada.
     func runAddInApp() {
         guard let card = selectedCard else {
             log("Selecciona una tarjeta primero.", level: .error)
@@ -142,6 +156,11 @@ private extension ProvisioningSandboxViewController {
 
 private extension ProvisioningSandboxViewController {
 
+    /// Emula lo que la extensión issuer-provisioning responde a Wallet en
+    /// `status()`. Devuelve un `PKIssuerProvisioningExtensionStatus` con los
+    /// flags de disponibilidad (`passEntriesAvailable`,
+    /// `remotePassEntriesAvailable`) y si Wallet debe pedir autenticación
+    /// (`requiresAuthentication`). Solo lectura, sin efectos secundarios.
     func runStatus() {
         let status = engine.provisioningStatus()
         log("status(): passEntriesAvailable=\(status.passEntriesAvailable), "
@@ -150,6 +169,11 @@ private extension ProvisioningSandboxViewController {
             level: .success)
     }
 
+    /// Ejerce `passEntries()` de la extensión: el catálogo de tarjetas que se
+    /// ofrecerían a Wallet como `PKIssuerProvisioningExtensionPaymentPassEntry`
+    /// (metadatos ligeros —id, red, arte—, sin datos cifrados). Contrasta el
+    /// número de entradas del engine con las `provisionableCards()` del
+    /// repositorio. Es el paso previo a `generate…`.
     func runPassEntries() {
         let entries = engine.passEntries()
         let ids = WalletCardRepository.shared.provisionableCards().map(\.cardID).joined(separator: ", ")
@@ -157,6 +181,11 @@ private extension ProvisioningSandboxViewController {
             level: entries.isEmpty ? .error : .success)
     }
 
+    /// Presenta la UI de autorización que Wallet usaría para validar al usuario
+    /// antes de generar el pase. Muestra `AuthorizationViewController` de forma
+    /// modal; `authorizationMethodHandler` captura el método elegido
+    /// (password/biometría) y `completionHandler` recibe el resultado
+    /// (`.authorized` / cancelado) y cierra el modal.
     func runAuthorize() {
         let auth = AuthorizationViewController()
         var authorizationMethod: AuthorizationViewController.AuthorizationMethod?
@@ -179,6 +208,13 @@ private extension ProvisioningSandboxViewController {
         present(auth, animated: true)
     }
 
+    /// Construye el payload final de provisioning de UNA tarjeta, aislado del
+    /// flujo real de Wallet. Llama a:
+    /// `engine.addPaymentPassRequest(cardID: certificates:nonce:nonceSignature:)` —aquí con material criptográfico
+    /// vacío (`Data()`), ya que solo se valida la plomería— y espera de vuelta un
+    /// `PKAddPaymentPassRequest` con sus campos cifrados
+    /// (`encryptedPassData`, `activationData`, `ephemeralPublicKey`), o `nil` si no se pudo construir.
+    /// Usa la primera `provisionableCards()`.
     func runGenerate() {
         guard let card = WalletCardRepository.shared.provisionableCards().first else {
             log("No hay tarjetas provisionables.", level: .error)
