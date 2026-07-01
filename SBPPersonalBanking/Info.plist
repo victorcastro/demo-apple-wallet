@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- Face ID para el Sandbox de debug (presenta la pantalla de autorización). -->
-	<key>NSFaceIDUsageDescription</key>
-	<string>SBP usa Face ID para confirmar tu identidad antes de agregar una tarjeta a Apple Wallet.</string>
-	<!-- Permite HTTP en claro hacia la red local (Mockoon en localhost). Solo dev. -->
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsLocalNetworking</key>

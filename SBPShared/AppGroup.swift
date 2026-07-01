@@ -13,5 +13,5 @@ import Foundation
 public enum AppGroup {
     /// Debe coincidir con el App Group declarado en los entitlements de cada
     /// target y registrado en el portal de Apple Developer.
-    public static let identifier = "group.dev.victorcastro.SBPPersonalBanking"
+    public static let identifier = "group.dev.victorcastro.DemoWallet"
 }

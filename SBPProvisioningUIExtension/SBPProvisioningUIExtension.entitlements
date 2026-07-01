@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.dev.victorcastro.SBPPersonalBanking</string>
+		<string>group.dev.victorcastro.DemoWallet</string>
 	</array>
 </dict>
 </plist>

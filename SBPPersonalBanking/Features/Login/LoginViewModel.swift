@@ -9,33 +9,25 @@ import SBPCorePersonalBanking
 
 final class LoginViewModel {
 
-    private enum SessionStorage {
-        static let cookieJoyKey = "cookieJoy"
-        static let faceIDEnabledKey = "faceIDEnabled"
-    }
-
     @Published private(set) var isLoading = false
     @Published private(set) var errorMessage: String?
     @Published private(set) var loginSucceeded = false
     @Published private(set) var hasLocalUser = false
     @Published private(set) var isFaceIDAvailableForLogin = false
 
-    private let userDefaults: UserDefaults
-
     private var cookieJoy: String? {
-        userDefaults.string(forKey: SessionStorage.cookieJoyKey)
+        SBPSecureStore.string(forKey: .cookieJoy)
     }
 
     private var isFaceIDEnabled: Bool {
-        hasActiveSession && userDefaults.bool(forKey: SessionStorage.faceIDEnabledKey)
+        hasActiveSession && SBPLocalStore.bool(forKey: .faceIDEnabled)
     }
 
     var hasActiveSession: Bool {
         cookieJoy?.isEmpty == false
     }
 
-    init(userDefaults: UserDefaults = .standard) {
-        self.userDefaults = userDefaults
+    init() {
         hasLocalUser = hasActiveSession
         isFaceIDAvailableForLogin = isFaceIDEnabled
     }
@@ -135,11 +127,11 @@ private extension LoginViewModel {
     }
 
     func saveCookieJoy(_ cookieJoy: String) {
-        userDefaults.set(cookieJoy, forKey: SessionStorage.cookieJoyKey)
+        SBPSecureStore.set(cookieJoy, forKey: .cookieJoy)
     }
 
     func clearSession() {
-        userDefaults.removeObject(forKey: SessionStorage.cookieJoyKey)
-        userDefaults.removeObject(forKey: SessionStorage.faceIDEnabledKey)
+        SBPSecureStore.remove(.cookieJoy)
+        SBPLocalStore.remove(.faceIDEnabled)
     }
 }

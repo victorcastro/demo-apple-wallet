@@ -2,11 +2,12 @@
 //  SessionStore.swift
 //  DemoAppleWallet (Shared)
 //
-//  Estado de sesión: guarda la `cookieJoy` (token que devuelve el login) y la
-//  preferencia de biometría en el App Group. Detalle INTERNO de SBPShared: solo
-//  lo usa `AuthenticationService`; los consumidores externos pasan por él.
+//  Estado de sesión que LEE la extensión desde los contenedores compartidos:
+//   - `cookieJoy` (token) → Keychain del access group compartido (`SharedKeychain`).
+//   - `faceIDEnabled` (flag) → UserDefaults del App Group.
+//  La app espeja ambos ahí (ver `SBPSecureStore`/`SBPLocalStore` + `SessionMirror`).
 //
-//  No hace red: solo lee/escribe el estado.
+//  Detalle INTERNO de SBPShared: solo lo usa `AuthenticationService`.
 //
 
 import Foundation
@@ -18,23 +19,18 @@ final class SessionStore {
         static let faceIDEnabled = "faceIDEnabled"
     }
 
-    private let shared: UserDefaults
-    private let standard: UserDefaults
+    /// UserDefaults del App Group (para el flag de biometría).
+    private let group: UserDefaults
 
-    init(
-        shared: UserDefaults = UserDefaults(suiteName: AppGroup.identifier) ?? .standard,
-        standard: UserDefaults = .standard
-    ) {
-        self.shared = shared
-        self.standard = standard
+    init(group: UserDefaults = UserDefaults(suiteName: AppGroup.identifier) ?? .standard) {
+        self.group = group
     }
 
     // MARK: - Consultas
 
-    /// Token de sesión. Se busca primero en el App Group y, por compatibilidad,
-    /// en `standard`.
+    /// Token de sesión, leído del Keychain compartido (lo espeja la app).
     var cookieJoy: String? {
-        shared.string(forKey: Keys.cookieJoy) ?? standard.string(forKey: Keys.cookieJoy)
+        SharedKeychain.string(account: Keys.cookieJoy)
     }
 
     /// Hay un usuario con sesión guardada (la extensión solo pide contraseña).
@@ -44,7 +40,7 @@ final class SessionStore {
 
     /// El usuario activó Face ID/Touch ID para esta sesión.
     var isFaceIDEnabled: Bool {
-        hasActiveSession && shared.bool(forKey: Keys.faceIDEnabled)
+        hasActiveSession && group.bool(forKey: Keys.faceIDEnabled)
     }
 
     /// DNI embebido en la `cookieJoy` (formato `...-DNI`). Permite re-loguear
@@ -60,24 +56,19 @@ final class SessionStore {
     // MARK: - Mutaciones
 
     func save(cookieJoy: String) {
-        shared.set(cookieJoy, forKey: Keys.cookieJoy)
-        standard.removeObject(forKey: Keys.cookieJoy)
+        SharedKeychain.set(cookieJoy, account: Keys.cookieJoy)
     }
 
     func setFaceIDEnabled(_ enabled: Bool) {
         guard hasActiveSession else {
-            shared.removeObject(forKey: Keys.faceIDEnabled)
-            standard.removeObject(forKey: Keys.faceIDEnabled)
+            group.removeObject(forKey: Keys.faceIDEnabled)
             return
         }
-        shared.set(enabled, forKey: Keys.faceIDEnabled)
-        standard.removeObject(forKey: Keys.faceIDEnabled)
+        group.set(enabled, forKey: Keys.faceIDEnabled)
     }
 
     func clear() {
-        for defaults in [shared, standard] {
-            defaults.removeObject(forKey: Keys.cookieJoy)
-            defaults.removeObject(forKey: Keys.faceIDEnabled)
-        }
+        SharedKeychain.delete(account: Keys.cookieJoy)
+        group.removeObject(forKey: Keys.faceIDEnabled)
     }
 }
