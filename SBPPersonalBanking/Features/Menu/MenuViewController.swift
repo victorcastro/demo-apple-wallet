@@ -24,19 +24,6 @@ final class MenuViewController: UIViewController {
         refreshFaceIDUI()
     }
 
-    @objc private func logoutTapped() {
-        let alert = UIAlertController(
-            title: "Cerrar sesión",
-            message: "Volverás al login. El usuario local seguirá guardado.",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Cerrar sesión", style: .destructive) { [weak self] _ in
-            self?.logout()
-        })
-        present(alert, animated: true)
-    }
-
     private func logout() {
         guard let window = view.window else { return }
         let loginNavigationController = UINavigationController(rootViewController: LoginViewController())
@@ -56,10 +43,25 @@ final class MenuViewController: UIViewController {
     private func handle(_ action: MyView.Action) {
         switch action {
         case .logoutTapped:
-            logoutTapped()
+            logout()
         case .faceIDToggled:
             faceIDSwitchChanged()
+        case .resetCardsTapped:
+            resetCardsTapped()
         }
+    }
+
+    private func resetCardsTapped() {
+        let alert = UIAlertController(
+            title: "Eliminar tarjetas",
+            message: "Esto borrará todas las tarjetas guardadas localmente. Podrás recuperarlas sincronizando otra vez desde Mockoon.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Eliminar", style: .destructive) { [weak self] _ in
+            self?.viewModel.resetCards()
+        })
+        present(alert, animated: true)
     }
 
     @objc private func faceIDSwitchChanged() {

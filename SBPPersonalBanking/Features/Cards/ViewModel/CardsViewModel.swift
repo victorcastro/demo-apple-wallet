@@ -53,8 +53,4 @@ final class CardsViewModel {
         }
     }
 
-    func reset() {
-        repository.resetAllData()
-        cards = repository.allCards()
-    }
 }

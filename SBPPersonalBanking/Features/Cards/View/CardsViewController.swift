@@ -15,7 +15,6 @@ import SBPShared
 final class CardsViewController: UIViewController {
 
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    private let walletManager = WalletProvisioningManager()
     private let viewModel = CardsViewModel()
     private var cancellables = Set<AnyCancellable>()
     private var cards: [WalletCard] = []
@@ -76,22 +75,14 @@ final class CardsViewController: UIViewController {
         navigationItem.title = "Cards"
 
         navigationItem.leftBarButtonItem = syncButton
-        let resetItem = UIBarButtonItem(
-            image: UIImage(systemName: "trash"),
-            style: .plain,
-            target: self,
-            action: #selector(resetTapped)
-        )
         #if DEBUG
         let sandboxItem = UIBarButtonItem(
-            image: UIImage(systemName: "wallet.bifold.fill"),
+            image: UIImage(systemName: "testtube.2"),
             style: .plain,
             target: self,
             action: #selector(sandboxTapped)
         )
-        navigationItem.rightBarButtonItems = [resetItem, sandboxItem]
-        #else
-        navigationItem.rightBarButtonItem = resetItem
+        navigationItem.rightBarButtonItem = sandboxItem
         #endif
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +90,7 @@ final class CardsViewController: UIViewController {
         tableView.delegate = self
         tableView.register(CardCell.self, forCellReuseIdentifier: CardCell.reuseID)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 220
+        tableView.estimatedRowHeight = 150
         view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
@@ -156,26 +147,12 @@ final class CardsViewController: UIViewController {
 
     // MARK: - Actions
 
-    @objc private func resetTapped() {
-        let alert = UIAlertController(
-            title: "Eliminar tarjetas",
-            message: "Esto borrará todas las tarjetas guardadas localmente. Podrás recuperarlas sincronizando otra vez desde Mockoon.",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Eliminar", style: .destructive) { [weak self] _ in
-            self?.viewModel.reset()
-        })
-        present(alert, animated: true)
-    }
-
     #if DEBUG
     @objc private func sandboxTapped() {
-        navigationController?.pushViewController(AppleWalletSandboxViewController(), animated: true)
+        navigationController?.pushViewController(ProvisioningSandboxViewController(), animated: true)
     }
     #endif
 
-    /// Pide al ViewModel sincronizar (él llama a CoreRequestManager).
     @objc private func syncTapped() {
         viewModel.sync()
     }
@@ -187,25 +164,6 @@ final class CardsViewController: UIViewController {
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: spinner)
         } else {
             navigationItem.leftBarButtonItem = syncButton
-        }
-    }
-
-    private func addToWallet(_ card: WalletCard) {
-        walletManager.startProvisioning(for: card, from: self) { [weak self] outcome in
-            guard let self else { return }
-            switch outcome {
-            case .added:
-                self.viewModel.reload()
-            case .cancelled:
-                break
-            case .failed(let error):
-                self.presentAlert("Could not add card", error.localizedDescription)
-            case .unsupported:
-                self.presentAlert(
-                    "Apple Pay unavailable",
-                    "Adding a card to Wallet requires a real device with Apple Pay and the issuer provisioning entitlement. On Simulator this flow can't be completed, but the card data and extensions are fully wired."
-                )
-            }
         }
     }
 
@@ -240,9 +198,6 @@ extension CardsViewController: UITableViewDataSource, UITableViewDelegate {
         cell.configure(
             with: card,
             isExpanded: expandedCardIDs.contains(card.cardID),
-            onAdd: { [weak self] in
-                self?.addToWallet(card)
-            },
             onToggleDetails: { [weak self, weak tableView] in
                 guard let self else { return }
                 if self.expandedCardIDs.contains(card.cardID) {

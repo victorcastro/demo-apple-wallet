@@ -2,12 +2,11 @@
 //  CardCell.swift
 //  DemoAppleWallet
 //
-//  Table cell that renders a card's art plus an "Add to Apple Wallet" button
-//  (or an "Added to Wallet" badge when already provisioned).
+//  Table cell that renders a card's art, an "Added to Wallet" badge when the
+//  card is already provisioned, and the expandable CoreData detail block.
 //
 
 import UIKit
-import PassKit
 import SBPShared
 
 final class CardCell: UITableViewCell {
@@ -16,12 +15,10 @@ final class CardCell: UITableViewCell {
 
     private let artView = UIImageView()
     private let statusLabel = UILabel()
-    private let addButton = PKAddPassButton(addPassButtonStyle: .black)
     private let coreDataDetailsContainer = UIStackView()
     private let detailsHeader = UIStackView()
     private let chevronView = UIImageView(image: UIImage(systemName: "chevron.right"))
     private let detailsBody = UIStackView()
-    private var onAdd: (() -> Void)?
     private var onToggleDetails: (() -> Void)?
     private var isDetailsExpanded = false
 
@@ -41,12 +38,9 @@ final class CardCell: UITableViewCell {
         artView.contentMode = .scaleAspectFit
         artView.translatesAutoresizingMaskIntoConstraints = false
 
-        statusLabel.font = .systemFont(ofSize: 14, weight: .semibold)
+        statusLabel.font = .systemFont(ofSize: 13, weight: .semibold)
         statusLabel.textColor = .systemGreen
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
 
         coreDataDetailsContainer.axis = .vertical
         coreDataDetailsContainer.spacing = 10
@@ -86,54 +80,42 @@ final class CardCell: UITableViewCell {
         coreDataDetailsContainer.addArrangedSubview(detailsBody)
 
         contentView.addSubview(artView)
-        contentView.addSubview(addButton)
         contentView.addSubview(statusLabel)
         contentView.addSubview(coreDataDetailsContainer)
 
         NSLayoutConstraint.activate([
-            artView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            artView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            artView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            artView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            artView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            artView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.62),
             artView.heightAnchor.constraint(equalTo: artView.widthAnchor, multiplier: 0.6),
 
-            addButton.topAnchor.constraint(equalTo: artView.bottomAnchor, constant: 12),
-            addButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            addButton.heightAnchor.constraint(equalToConstant: 44),
-
-            statusLabel.centerYAnchor.constraint(equalTo: addButton.centerYAnchor),
+            statusLabel.topAnchor.constraint(equalTo: artView.bottomAnchor, constant: 8),
             statusLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
 
-            coreDataDetailsContainer.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 12),
+            coreDataDetailsContainer.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 8),
             coreDataDetailsContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             coreDataDetailsContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            coreDataDetailsContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12)
+            coreDataDetailsContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
 
     func configure(with card: WalletCard,
                    isExpanded: Bool,
-                   onAdd: @escaping () -> Void,
                    onToggleDetails: @escaping () -> Void) {
-        self.onAdd = onAdd
         self.onToggleDetails = onToggleDetails
         artView.image = WalletCardUtils.image(for: card)
 
         if card.isProvisioned {
-            addButton.isHidden = true
             statusLabel.isHidden = false
             statusLabel.text = "✓ Added to Apple Wallet"
         } else {
-            addButton.isHidden = false
             statusLabel.isHidden = true
+            statusLabel.text = nil
         }
 
         configureCoreDataDetails(for: card)
         isDetailsExpanded = isExpanded
         setDetails(expanded: isExpanded)
-    }
-
-    @objc private func addTapped() {
-        onAdd?()
     }
 
     @objc private func toggleDetailsTapped() {

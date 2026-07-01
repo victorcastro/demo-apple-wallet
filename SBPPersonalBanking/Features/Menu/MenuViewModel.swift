@@ -4,11 +4,18 @@
 //
 
 import Foundation
+import SBPShared
 
 final class MenuViewModel {
 
     var hasLocalUser: Bool {
         cookieJoy?.isEmpty == false
+    }
+
+    /// Vacía el store local de tarjetas (CoreData del SDK en device, mock en
+    /// simulador). Se repuebla al volver a sincronizar desde Mockoon.
+    func resetCards() {
+        WalletCardRepository.shared.resetAllData()
     }
 
     var isFaceIDEnabled: Bool {

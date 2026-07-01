@@ -13,6 +13,7 @@ extension MenuViewController {
         enum Action {
             case logoutTapped
             case faceIDToggled
+            case resetCardsTapped
         }
 
         let actions = PassthroughSubject<Action, Never>()
@@ -22,6 +23,10 @@ extension MenuViewController {
         private let faceIDTitleLabel = UILabel()
         private let faceIDSubtitleLabel = UILabel()
         private let faceIDSwitch = UISwitch()
+        private let resetContainerView = UIView()
+        private let resetTitleLabel = UILabel()
+        private let resetSubtitleLabel = UILabel()
+        private let resetButton = UIButton(type: .system)
         private let logoutButton = UIButton(type: .system)
         private let appInfoLabel = UILabel()
 
@@ -83,13 +88,58 @@ extension MenuViewController {
                 faceIDRow.bottomAnchor.constraint(equalTo: faceIDContainerView.bottomAnchor, constant: -16)
             ])
 
+            resetTitleLabel.text = "Eliminar tarjetas"
+            resetTitleLabel.font = .systemFont(ofSize: 17, weight: .semibold)
+
+            resetSubtitleLabel.text = "Borra las tarjetas guardadas localmente (CoreData). Podrás recuperarlas sincronizando otra vez."
+            resetSubtitleLabel.font = .systemFont(ofSize: 14, weight: .regular)
+            resetSubtitleLabel.textColor = .secondaryLabel
+            resetSubtitleLabel.numberOfLines = 0
+
+            var resetConfiguration = UIButton.Configuration.tinted()
+            resetConfiguration.title = "Eliminar"
+            resetConfiguration.image = UIImage(systemName: "trash")
+            resetConfiguration.imagePadding = 6
+            resetConfiguration.baseForegroundColor = .systemRed
+            resetConfiguration.baseBackgroundColor = .systemRed
+            resetConfiguration.cornerStyle = .large
+            resetButton.configuration = resetConfiguration
+            resetButton.setContentHuggingPriority(.required, for: .horizontal)
+            resetButton.addTarget(self, action: #selector(didTapResetCards), for: .touchUpInside)
+
+            let resetTextStack = UIStackView(arrangedSubviews: [resetTitleLabel, resetSubtitleLabel])
+            resetTextStack.axis = .vertical
+            resetTextStack.spacing = 4
+
+            let resetRow = UIStackView(arrangedSubviews: [resetTextStack, resetButton])
+            resetRow.axis = .horizontal
+            resetRow.alignment = .center
+            resetRow.spacing = 16
+            resetRow.translatesAutoresizingMaskIntoConstraints = false
+
+            resetContainerView.backgroundColor = .secondarySystemGroupedBackground
+            resetContainerView.layer.cornerRadius = 16
+            resetContainerView.translatesAutoresizingMaskIntoConstraints = false
+            resetContainerView.addSubview(resetRow)
+
+            NSLayoutConstraint.activate([
+                resetRow.topAnchor.constraint(equalTo: resetContainerView.topAnchor, constant: 16),
+                resetRow.leadingAnchor.constraint(equalTo: resetContainerView.leadingAnchor, constant: 16),
+                resetRow.trailingAnchor.constraint(equalTo: resetContainerView.trailingAnchor, constant: -16),
+                resetRow.bottomAnchor.constraint(equalTo: resetContainerView.bottomAnchor, constant: -16)
+            ])
+
             var logoutConfiguration = UIButton.Configuration.filled()
             logoutConfiguration.title = "Cerrar sesión"
+            logoutConfiguration.image = UIImage(systemName: "rectangle.portrait.and.arrow.right")
+            logoutConfiguration.imagePadding = 8
             logoutConfiguration.baseBackgroundColor = .systemRed
             logoutConfiguration.baseForegroundColor = .white
             logoutConfiguration.cornerStyle = .large
             logoutButton.configuration = logoutConfiguration
             logoutButton.addTarget(self, action: #selector(didTapLogout), for: .touchUpInside)
+            logoutButton.translatesAutoresizingMaskIntoConstraints = false
+            logoutButton.heightAnchor.constraint(equalToConstant: 52).isActive = true
 
             appInfoLabel.font = .systemFont(ofSize: 13, weight: .regular)
             appInfoLabel.textColor = .secondaryLabel
@@ -101,6 +151,7 @@ extension MenuViewController {
             stackView.spacing = 16
             stackView.translatesAutoresizingMaskIntoConstraints = false
             stackView.addArrangedSubview(faceIDContainerView)
+            stackView.addArrangedSubview(resetContainerView)
             stackView.addArrangedSubview(logoutButton)
             stackView.addArrangedSubview(appInfoLabel)
 
@@ -120,6 +171,10 @@ extension MenuViewController {
 
         @objc private func didTapLogout() {
             actions.send(.logoutTapped)
+        }
+
+        @objc private func didTapResetCards() {
+            actions.send(.resetCardsTapped)
         }
 
         @objc private func didToggleFaceID() {
