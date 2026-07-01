@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SBPShared
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Siembra la sesión existente hacia los contenedores compartidos para
         // cubrir a los usuarios ya logueados (no pasan por login onboarding).
         SessionMirror.seedSharedGroupIfNeeded()
+        // Inicializa el WalletEngine (y con él el SDK HP2 + su Core Data) al
+        // arrancar, para que esté listo antes de la primera interacción con Wallet
+        // y para retener la instancia durante toda la vida del proceso.
+        _ = WalletEngineProvider.current
         return true
     }
 

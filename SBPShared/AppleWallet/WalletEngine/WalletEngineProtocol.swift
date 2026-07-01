@@ -25,6 +25,11 @@ public enum ProvisioningOutcome {
 
 public protocol WalletEngineProtocol {
 
+    // MARK: Disponibilidad
+    /// El dispositivo soporta digitalización de tarjetas (Card Selection Step del
+    /// SDK). Es la señal previa a mostrar la feature de Wallet.
+    func isAvailable() -> Bool
+
     // MARK: Store de tarjetas
     func cards() -> [WalletCard]
     @discardableResult func saveCards(_ cards: [WalletCard]) -> Bool

@@ -24,6 +24,11 @@ final class MockWalletEngine: WalletEngineProtocol {
         self.defaults = UserDefaults(suiteName: AppGroup.identifier) ?? .standard
     }
 
+    // MARK: Disponibilidad
+
+    // En simulador siempre disponible: el flujo se demuestra con el mock.
+    func isAvailable() -> Bool { true }
+
     // MARK: Store
 
     func cards() -> [WalletCard] {

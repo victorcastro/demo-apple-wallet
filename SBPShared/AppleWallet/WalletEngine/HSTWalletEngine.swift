@@ -22,6 +22,12 @@ final class HSTWalletEngine: WalletEngineProtocol {
         self.hp2 = sdk
     }
 
+    // MARK: Disponibilidad
+
+    func isAvailable() -> Bool {
+        hp2.isAvailable()
+    }
+
     // MARK: Store
 
     func cards() -> [WalletCard] {
